@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:08:26 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 14:41:27 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/28 18:19:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ typedef union u_FVec4
 	};
 	float	raw[4];
 }	t_FVec4;
-
-// RGBA Color
-typedef t_IVec4 t_RGBA;
 
 //= Functions =//
 
