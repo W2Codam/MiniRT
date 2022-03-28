@@ -6,13 +6,14 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:08:26 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 12:38:59 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/28 14:41:27 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 # include <math.h>
+# include <stdint.h>
 
 //= Int =//
 
@@ -21,10 +22,10 @@ typedef union u_IVec2
 {
 	struct
 	{
-		int	x;
-		int	y;
+		int32_t	x;
+		int32_t	y;
 	};
-	int	raw[2];
+	int32_t	raw[2];
 }	t_IVec2;
 
 // A 3 integer component.
@@ -32,11 +33,11 @@ typedef union u_IVec3
 {
 	struct
 	{
-		int	x;
-		int	y;
-		int	z;
+		int32_t	x;
+		int32_t	y;
+		int32_t	z;
 	};
-	int	raw[3];
+	int32_t	raw[3];
 }	t_IVec3;
 
 // A 4 integer component.
@@ -44,12 +45,12 @@ typedef union u_IVec4
 {
 	struct
 	{
-		int	x;
-		int	y;
-		int	z;
-		int	w;
+		int32_t	x;
+		int32_t	y;
+		int32_t	z;
+		int32_t	w;
 	};
-	int	raw[4];
+	int32_t	raw[4];
 }	t_IVec4;
 
 //= Float =//
@@ -89,6 +90,9 @@ typedef union u_FVec4
 	};
 	float	raw[4];
 }	t_FVec4;
+
+// RGBA Color
+typedef t_IVec4 t_RGBA;
 
 //= Functions =//
 

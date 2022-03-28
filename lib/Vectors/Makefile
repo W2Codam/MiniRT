@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/28 12:47:24 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/03/28 14:36:24 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 clean:
-	@echo "$(RED)Cleaning$(RESET)"
+	@echo "$(RED)Cleaning $(NAME)$(RESET)"
 	@rm -f $(OBJS) $(SHDR)
 
 fclean: clean
