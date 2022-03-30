@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:08:26 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 21:54:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/30 16:07:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIB3D_H
 # include <math.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 //= Int =//
 
@@ -110,5 +111,12 @@ float	get_length_squared_fvec3(t_FVec3 vec);
 void	normalize_fvec3(t_FVec3 *vec);
 float	dot_fvec3(t_FVec3 a, t_FVec3 b);
 t_FVec3	cross_fvec3(t_FVec3 a, t_FVec3 b);
+
+t_FVec3	add_fvec3(t_FVec3 a, t_FVec3 b);
+t_FVec3	sub_fvec3(t_FVec3 a, t_FVec3 b);
+t_FVec3	mul_fvec3(t_FVec3 a, t_FVec3 b);
+t_FVec3	div_fvec3(t_FVec3 a, t_FVec3 b);
+
+bool	intersect_sphere(t_FVec3 center, float radius, t_Ray *ray);
 
 #endif
