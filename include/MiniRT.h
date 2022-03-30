@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 18:51:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/28 19:38:46 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,13 @@ Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
 # include <stddef.h>
 # include <errno.h>
 # include "libft.h"
-# include "Vector.h" /* math.h, vec2, ... */
+# include "lib3d.h"
 # include "MLX42/MLX42.h"
 # define STD_WIDTH	1080
 # define STD_HEIGHT	720
 # define MAX_OBJS	100
 
-/**
- * Struct that contains the application state.
- * 
- * @param mlx MLX42 instance handle.
- * @param render_thread The thread that does the pixel updating.
- */
-typedef struct s_rt
-{
-	mlx_t			*mlx;
-	mlx_image_t		*window_img;
-	pthread_t		render_thread;
-	struct s_Scene	scene;
-}	t_rt;
+//= Types =//
 
 // Types of entities that exist.
 typedef enum e_EntityType
@@ -62,6 +50,7 @@ typedef enum e_EntityType
 	SPHERE,
 	CYLINDER,
 	PLANE,
+	TRIANGLE,
 	COUNT
 }	t_EntityType;
 
@@ -125,6 +114,12 @@ typedef struct s_PlaneModel
 	t_Entity	base;
 }	t_PlaneModel;
 
+typedef struct s_TriangleModel
+{
+	t_Entity	base;
+	t_FVec3		vertices[3];
+}	t_TriangleModel;
+
 typedef struct s_CylinderModel
 {
 	t_Entity	base;
@@ -149,14 +144,31 @@ typedef struct s_EntityObject
 		t_SphereModel	entity_sphere;
 		t_PlaneModel	entity_plane;
 		t_CylinderModel	entity_cylinder;
+		t_TriangleModel	entity_triangle;
 	};
 }	t_EntityObject;
 
-typedef struct s_Scene
+/**
+ * Struct that contains the application state. Including the current level.
+ * 
+ * @param mlx MLX42 instance handle.
+ * @param render_thread The thread that does the pixel updating.
+ */
+typedef struct s_rt
 {
-	t_Camera		*cameras[9];
-	t_EntityObject	objects[MAX_OBJS];
-	size_t			objects_size;
-}	t_Scene;
+	mlx_t			*mlx;
+	mlx_image_t		*window_img;
+	pthread_t		render_thread;
+
+	struct
+	{
+		t_Camera		cameras[9];
+		t_EntityObject	objects[MAX_OBJS];
+		size_t			objects_size;
+	};
+
+}	t_rt;
+
+//= Functions =//
 
 #endif // MINIRT_H

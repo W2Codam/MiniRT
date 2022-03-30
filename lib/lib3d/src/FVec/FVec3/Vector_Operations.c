@@ -6,11 +6,11 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:31:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 11:49:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/28 19:38:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Vector.h"
+#include "lib3d.h"
 
 float	get_length_fvec3(t_FVec3 vec)
 {

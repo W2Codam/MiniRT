@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Vector.h                                           :+:    :+:            */
+/*   lib3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:08:26 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 18:19:48 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/28 21:54:19 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-# define VECTOR_H
+#ifndef LIB3D_H
+# define LIB3D_H
 # include <math.h>
 # include <stdint.h>
 
@@ -90,6 +90,12 @@ typedef union u_FVec4
 	};
 	float	raw[4];
 }	t_FVec4;
+
+typedef struct s_Ray
+{
+	t_FVec3	origin;
+	t_FVec3	direction;
+}	t_Ray;
 
 //= Functions =//
 

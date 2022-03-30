@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Vector_Arithmetic.c                                :+:    :+:            */
+/*   Vector_NewF.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/28 11:09:06 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 11:29:04 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/03/28 11:17:01 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/03/28 19:38:26 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Vector.h"
+#include "lib3d.h"
 
-t_FVec3	add_fvec3(t_FVec3 a, t_FVec3 b)
+t_FVec2	new_fvec2(float x, float y)
 {
-	return (new_fvec3(a.x + b.x, a.y + b.y, a.z + b.z));
+	return ((t_FVec2){{x, y}});
 }
 
-t_FVec3	sub_fvec3(t_FVec3 a, t_FVec3 b)
+t_FVec3	new_fvec3(float x, float y, float z)
 {
-	return (new_fvec3(a.x - b.x, a.y - b.y, a.z - b.z));
+	return ((t_FVec3){{x, y, z}});
 }
 
-t_FVec3	mul_fvec3(t_FVec3 a, t_FVec3 b)
+t_FVec4	new_fvec4(float x, float y, float z, float w)
 {
-	return (new_fvec3(a.x * b.x, a.y * b.y, a.z * b.z));
-}
-
-t_FVec3	div_fvec3(t_FVec3 a, t_FVec3 b)
-{
-	return (new_fvec3(a.x / b.x, a.y / b.y, a.z / b.z));
+	return ((t_FVec4){{x, y, z, w}});
 }

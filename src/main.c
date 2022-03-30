@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 15:26:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/28 19:29:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int32_t	main(int32_t argc, char	*argv[])
 	t_rt	rt;
 
 	(void) argv;
+	ft_bzero(&rt, sizeof(t_rt));
 	if (argc - 1 != 1)
 	{
 		ft_putendl_fd("MegaRT: Invalid args: ./MegaRT <file>", STDERR_FILENO);

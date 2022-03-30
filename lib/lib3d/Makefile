@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/28 14:36:24 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/03/28 19:36:57 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ WHITE	= \033[37;1m
 RESET	= \033[0m
 
 #//= Params =//#
-NAME	=	libvec42.a
+NAME	=	lib3D.a
 HEADERS	=	-I include
 CFLAGS	=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
 SRCS	=	$(shell find ./src -iname "*.c")
