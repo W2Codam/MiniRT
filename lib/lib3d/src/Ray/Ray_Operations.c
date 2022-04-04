@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/30 15:50:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 10:07:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 14:25:41 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //Reference: Page 177
 bool	intersect_sphere(t_FVec3 center, float radius, t_Ray *ray)
 {
-	const t_FVec3	oc = sub_fvec3(ray->origin, center);
+	const t_FVec3	oc = sub_vec3(ray->origin, center);
 	const float		a = dot_fvec3(ray->direction, ray->direction);
 	const float		b = 2.0f * dot_fvec3(oc, ray->direction);
 	const float		c = dot_fvec3(oc, oc) - radius * radius;

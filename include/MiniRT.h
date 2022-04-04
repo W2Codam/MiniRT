@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 10:42:23 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 14:41:11 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 Balls to the walls cross-platform, multi-threaded stud Raytracer on the CPU!
 Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
+
+Coordinate System: UE5
 */
 
 #ifndef MINIRT_H
@@ -31,6 +33,7 @@ Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
 # include <limits.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <assert.h>
 # include <errno.h>
 # include "libft.h"
 # include "lib3d.h"
@@ -39,6 +42,7 @@ Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
 # define STD_HEIGHT		720
 # define MAX_OBJS		100
 # define MAX_CAMERAS	10
+# define WIN_WIDTH		1920
 
 //= Types =//
 
@@ -46,8 +50,6 @@ Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
 typedef enum e_EntityType
 {
 	CAMERA,
-	LIGHT,
-	AMBIENTLIGHT,
 	SPHERE,
 	CYLINDER,
 	PLANE,
@@ -62,9 +64,20 @@ typedef enum e_MaterialType
 	TRANSLUCENT,
 }	t_MaterialType;
 
+// Types of entities that exist.
+typedef enum e_LightType
+{
+	LIGHT,
+	AMBIENTLIGHT,
+}	t_LightType;
+
 /**
  * A transform that encompasses both rotation and
  * scale.
+ * 
+ * X: Forward
+ * Y: Right
+ * Z: Up
  */
 typedef struct s_Transform
 {
@@ -95,7 +108,10 @@ typedef struct s_Entity
 typedef struct s_Camera
 {
 	t_Transform	transform;
-	int32_t		fov;
+	float		fov;
+	t_FVec3		top_left;
+	t_FVec3		viewport_width;
+	t_FVec3		viewport_height;
 }	t_Camera;
 
 /**
@@ -107,7 +123,8 @@ typedef struct s_Camera
  */
 typedef struct s_Light
 {
-	t_Entity	base;
+	t_LightType	type;
+	t_FVec3		pos_angle;
 	float		intensity;
 }	t_Light;
 
@@ -140,12 +157,15 @@ typedef struct s_CylinderModel
  * rendered.
  * 
  * @param type The type of entity.
+ * @param material The type of material.
+ * @param texture The texture to draw onto the object.
  * @param union The different available types of entities.
  */
 typedef struct s_EntityObject
 {
 	t_EntityType	type;
 	t_MaterialType	material;
+	mlx_texture_t	*texture;
 
 	union
 	{
@@ -168,15 +188,27 @@ typedef struct s_rt
 	mlx_t			*mlx;
 	mlx_image_t		*window_img;
 	pthread_t		render_thread;
+	pthread_mutex_t	lock;
 
 	int32_t			active_camera;
 	t_Camera		cameras[MAX_CAMERAS];
+	size_t			cameras_size;
+
+	t_Light			lights[MAX_OBJS];
+	size_t			lights_size;
 
 	t_EntityObject	objects[MAX_OBJS];
 	size_t			objects_size;
 
+	bool			update;
+
+
 }	t_rt;
 
 //= Functions =//
+
+void		ft_set_active_camera_pos(t_rt *rt, t_FVec3 pos);
+t_Camera	*ft_get_active_camera(t_rt *rt);
+void		ft_draw(t_rt *rt);
 
 #endif // MINIRT_H

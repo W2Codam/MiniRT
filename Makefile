@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/28 19:39:21 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/04 12:43:32 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,12 @@ LIB3D	:=	lib/lib3d
 LIBFT	:=	lib/libft
 ARCHIVE	:=	-lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIB3D)/lib3D.a $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
 HEADERS	:=	-I include -I $(LIB3D)/include -I $(LIBMLX)/include -I $(LIBFT)
-CFLAGS	:=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
+ifdef DEBUG
+	CFLAGS += -g
+else
+	CFLAGS	+= -Ofast -D NDEBUG
+endif
 SRCS	:=	$(shell find ./src -iname "*.c")
 OBJS 	:=	${SRCS:.c=.o}
 
@@ -44,7 +49,7 @@ dep:
 	@printf "$(GREEN)$(BOLD)\nCompiling libft\n$(RESET)"
 	@$(MAKE) -C $(LIBFT)
 
-$(NAME): $(OBJS)
+$(NAME): include/MiniRT.h $(OBJS)
 	@gcc $(OBJS) $(ARCHIVE) -o $(NAME)
 	@printf "$(GREEN)$(BOLD)Done\n$(RESET)"
 
