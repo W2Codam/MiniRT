@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 19:29:55 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 11:38:07 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	*ft_render(void *param)
  * @param rt The game state to initialize.
  * @return True or false if Initialion succeeded.
  */
-static bool	ft_init_rt(t_rt *rt)
+static bool	ft_init_rt(t_rt *rt, char *input)
 {
 	rt->mlx = mlx_init(STD_WIDTH, STD_HEIGHT, "👾 MegaRT 👾", true);
 	if (mlx_errno)
@@ -48,6 +48,8 @@ static bool	ft_init_rt(t_rt *rt)
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, &rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);
+	if (init_entities(rt, input))
+		return (false);
 	return (true);
 }
 
@@ -98,7 +100,7 @@ int32_t	main(int32_t argc, char	*argv[])
 		return (EXIT_FAILURE);
 	}
 
-	if (!ft_init_rt(&rt))
+	if (!ft_init_rt(&rt, argv[1]))
 		return (EXIT_FAILURE);
 
 	mlx_loop_hook(rt.mlx, &ft_hook, &rt);

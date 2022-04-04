@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:    :+:            */
+/*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 10:01:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 14:43:47 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct s_rt
 	pthread_t		render_thread;
 	t_Camera		cameras[MAX_CAMERAS];
 	t_EntityObject	objects[MAX_OBJS];
+	size_t			cameras_size;
 	size_t			objects_size;
 }	t_rt;
 

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                      +:+                     #
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/28 19:39:21 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/04 11:14:51 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ ARCHIVE	:=	-lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIB3D)/lib3D.a $(LIBML
 HEADERS	:=	-I include -I $(LIB3D)/include -I $(LIBMLX)/include -I $(LIBFT)
 CFLAGS	:=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
 SRCS	:=	$(shell find ./src -iname "*.c")
-OBJS 	:=	${SRCS:.c=.o}
+OBJ_DIR	:=	obj
+OBJS 	:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+TESTER	:=	tester
 
 #//= Recipes =//#
 all: dep $(NAME)
@@ -44,12 +46,18 @@ dep:
 	@printf "$(GREEN)$(BOLD)\nCompiling libft\n$(RESET)"
 	@$(MAKE) -C $(LIBFT)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS)
 	@gcc $(OBJS) $(ARCHIVE) -o $(NAME)
 	@printf "$(GREEN)$(BOLD)Done\n$(RESET)"
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
+
+$(OBJ_DIR):
+	mkdir -p $@
+
+test: dep $(OBJ_DIR) $(OBJS)
+	$(MAKE) -C $(TESTER)
 
 clean:
 	@echo "$(RED)Cleaning $(NAME)$(RESET)"
