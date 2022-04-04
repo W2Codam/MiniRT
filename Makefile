@@ -6,7 +6,11 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
+<<<<<<< HEAD
 #    Updated: 2022/04/04 11:14:51 by dvan-der         ###   ########.fr        #
+=======
+#    Updated: 2022/04/04 12:43:32 by lde-la-h      ########   odam.nl          #
+>>>>>>> 1614de3a0c828e4425e2df090fc03a18763ee065
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +33,12 @@ LIB3D	:=	lib/lib3d
 LIBFT	:=	lib/libft
 ARCHIVE	:=	-lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIB3D)/lib3D.a $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
 HEADERS	:=	-I include -I $(LIB3D)/include -I $(LIBMLX)/include -I $(LIBFT)
-CFLAGS	:=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
+ifdef DEBUG
+	CFLAGS += -g
+else
+	CFLAGS	+= -Ofast -D NDEBUG
+endif
 SRCS	:=	$(shell find ./src -iname "*.c")
 OBJ_DIR	:=	obj
 OBJS 	:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
