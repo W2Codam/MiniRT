@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 10:01:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 10:42:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef enum e_EntityType
 	CYLINDER,
 	PLANE,
 	TRIANGLE,
-	COUNT
 }	t_EntityType;
 
 // Types of entities that exist.
@@ -61,7 +60,6 @@ typedef enum e_MaterialType
 	DIFFUSE,
 	METAL,
 	TRANSLUCENT,
-	COUNT
 }	t_MaterialType;
 
 /**
@@ -170,9 +168,13 @@ typedef struct s_rt
 	mlx_t			*mlx;
 	mlx_image_t		*window_img;
 	pthread_t		render_thread;
+
+	int32_t			active_camera;
 	t_Camera		cameras[MAX_CAMERAS];
+
 	t_EntityObject	objects[MAX_OBJS];
 	size_t			objects_size;
+
 }	t_rt;
 
 //= Functions =//

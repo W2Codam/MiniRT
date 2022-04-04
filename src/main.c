@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 19:29:55 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 10:42:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,23 @@ static void	ft_hook(void *param)
 
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(rt->mlx);
+
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_W))
+	{
+
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_A))
+	{
+		
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_S))
+	{
+		
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_D))
+	{
+		
+	}
 }
 
 /**
