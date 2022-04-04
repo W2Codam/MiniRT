@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/04 17:24:03 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/04 17:57:13 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ else
 	CFLAGS	+= -Ofast -D NDEBUG
 endif
 SRCS	:=	$(shell find ./src -iname "*.c")
-OBJS 	:=	${SRCS:.c=.o}
+OBJ_DIR	:=	obj
+OBJS 	:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+TESTER	:=	tester
 
 #//= Recipes =//#
 all: dep $(NAME)
@@ -55,6 +57,12 @@ $(NAME): include/MiniRT.h $(OBJS)
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
+
+$(OBJ_DIR):
+	mkdir -p $@
+
+test: dep $(OBJ_DIR) $(OBJS)
+	$(MAKE) -C $(TESTER)
 
 clean:
 	@echo "$(RED)Cleaning $(NAME)$(RESET)"

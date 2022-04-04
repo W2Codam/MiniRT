@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 15:31:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 17:58:18 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	*ft_render(void *param)
  * @param rt The game state to initialize.
  * @return True or false if Initialion succeeded.
  */
-static bool	ft_init_rt(t_rt *rt)
+static bool	ft_init_rt(t_rt *rt, char *input)
 {
 	const float		aspect_ratio = 16.0 / 9.0;
 	const int32_t	image_width = WIN_WIDTH;
@@ -61,7 +61,12 @@ static bool	ft_init_rt(t_rt *rt)
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);
+<<<<<<< HEAD
 	ft_new_camera(rt, &rt->cameras[0]);
+=======
+	if (init_entities(rt, input))
+		return (false);
+>>>>>>> 8d4189241e657a6fc7a8a650c8604cd709bc74f1
 	return (true);
 }
 
@@ -113,7 +118,7 @@ int32_t	main(int32_t argc, char	*argv[])
 		ft_putendl_fd("MegaRT: Invalid args: ./MegaRT <file>", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (!ft_init_rt(&rt))
+	if (!ft_init_rt(&rt, argv[1]))
 		return (EXIT_FAILURE);
 	mlx_loop_hook(rt.mlx, &ft_hook, &rt);
 	mlx_close_hook(rt.mlx, &ft_close_hook, &rt);
