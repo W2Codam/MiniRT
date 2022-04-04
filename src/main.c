@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 13:13:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 15:31:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static bool	ft_init_rt(t_rt *rt)
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);
+	ft_new_camera(rt, &rt->cameras[0]);
 	return (true);
 }
 

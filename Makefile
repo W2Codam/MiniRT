@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/04 12:43:32 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/04 17:24:03 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ dep:
 	@$(MAKE) -C $(LIBFT)
 
 $(NAME): include/MiniRT.h $(OBJS)
-	@gcc $(OBJS) $(ARCHIVE) -o $(NAME)
+	@gcc $(OBJS) $(ARCHIVE) -o $(NAME) -fsanitize=address
 	@printf "$(GREEN)$(BOLD)Done\n$(RESET)"
 
 %.o : %.c

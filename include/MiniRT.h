@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 14:41:11 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 16:34:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ Coordinate System: UE5
 # include "libft.h"
 # include "lib3d.h"
 # include "MLX42/MLX42.h"
-# define STD_WIDTH		1080
-# define STD_HEIGHT		720
 # define MAX_OBJS		100
 # define MAX_CAMERAS	10
-# define WIN_WIDTH		1920
+# define WIN_WIDTH		400
 
 //= Types =//
 
@@ -110,8 +108,8 @@ typedef struct s_Camera
 	t_Transform	transform;
 	float		fov;
 	t_FVec3		top_left;
-	t_FVec3		viewport_width;
-	t_FVec3		viewport_height;
+	t_FVec3		horizontal;
+	t_FVec3		vertical;
 }	t_Camera;
 
 /**
@@ -210,5 +208,6 @@ typedef struct s_rt
 void		ft_set_active_camera_pos(t_rt *rt, t_FVec3 pos);
 t_Camera	*ft_get_active_camera(t_rt *rt);
 void		ft_draw(t_rt *rt);
+void		ft_new_camera(t_rt *rt, t_Camera *out);
 
 #endif // MINIRT_H

@@ -6,40 +6,55 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 19:30:49 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 14:45:05 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 17:29:00 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MiniRT.h"
 
-static int32_t	create_rgba(int32_t r, int32_t g, int32_t b, int32_t a)
+static uint32_t	ft_to_color(t_FVec3 ray)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	const int32_t	red = (int32_t)(ray.x * 255.0f);
+	const int32_t	green = (int32_t)(ray.y * 255.0f);
+	const int32_t	blue = (int32_t)(ray.z * 255.0f);
+
+	return (red << 24 | green << 16 | blue << 8 | 255);
 }
 
-static t_FVec3	ft_ray_color(t_Ray ray) 
+static uint32_t	ft_ray_color(t_Ray ray) 
 {
-	normalize_fvec3(&ray.direction);
-    const float t = 0.5 * (ray.direction.y + 1.0);
+	float	t;
+	t_FVec3	a;
+	t_FVec3	b;
 
-    //return (1.0f - t) * new_fvec3(1.0f, 1.0f, 1.0f) + t * new_fvec3(0.5, 0.7, 1.0);
+	normalize_fvec3(&ray.direction);
+    t = 0.5 * (ray.direction.y + 1.0);
+	a = mul_fvec3(new_fvec3(1.0f, 1.0f, 1.0f), 1.0f - t);
+	b = mul_fvec3(new_fvec3(0.0f, 0.0f, 1.0f), t);
+	return (ft_to_color(mul_fvec3(add_vec3(a, b), 0.5f)));
+}
+
+t_Ray	make_ray(t_FVec3 i_horizontal, t_FVec3 i_vertical, t_FVec3 llc, t_FVec3 origin)
+{
+	t_FVec3	help1;
+	t_FVec3	help2;
+
+	help1 = add_vec3(llc, i_horizontal);
+	help2 = sub_vec3(i_vertical, origin);
 	
+	return ((t_Ray){origin, add_vec3(help1, help2)});
 }
 
 static t_Ray	ft_make_ray(t_rt *rt, uint32_t x, uint32_t y)
 {
 	// Translate screen space to world space.
+	const t_Camera	*cam = ft_get_active_camera(rt);
 	const float		u = (float)x / (rt->window_img->width - 1);
 	const float 	v = (float)y / (rt->window_img->height - 1);
-	const float		a = u * rt->window_img->width;
-	const float		b = v * rt->window_img->height;
-	const t_Camera	*cam = ft_get_active_camera(rt);
+	const t_FVec3	a = mul_fvec3(cam->horizontal, u);
+	const t_FVec3	b = mul_fvec3(cam->vertical, v);
 
-	// Make the ray. cam->top_left + a + b - origin
-	return ((t_Ray) {
-	cam->transform.pos,
-	sub_vec3(add_fvec3(add_fvec3(cam->top_left, a), b), cam->transform.pos)
-	});
+	return (make_ray(a, b, cam->top_left, cam->transform.pos));
 }
 
 /**
@@ -63,28 +78,9 @@ void	ft_draw(t_rt *rt)
 		{
 			// Shoot one ray from origin to topleft and move downwards.
 			ray = ft_make_ray(rt, x, y);
-			//printf("Ray: POS: %f %f %f | DIR: %f %f %f\n", \
-			//ray.origin.x, ray.origin.y, ray.origin.z, \
-			//ray.direction.x, ray.direction.y, ray.direction.z);
-			const int32_t color = create_rgba(rand() % 255, rand() % 255, rand() % 255, 255);
-			mlx_put_pixel(rt->window_img, x, y, color);
+			mlx_put_pixel(rt->window_img, x, rt->window_img->height - y, ft_ray_color(ray));
 			x++;
 		}
 		y++;
 	}
-	/*
-    auto horizontal = vec3(rt->window_img., 0, 0);
-    auto vertical = vec3(0, viewport_height, 0);
-    auto lower_left_corner = origin - (horizontal / 2 - vertical / 2) - vec3(0, 0, );
-
-	*/
 }
-
-/*
-	for (size_t y = 0; y < rt->window_img->height; y++)
-		for (size_t x = 0; x < rt->window_img->width; x++)
-		{
-			const int32_t color = create_rgba(rand() % 255, rand() % 255, rand() % 255, 255);
-			mlx_put_pixel(rt->window_img, x, y, color);
-		}
-*/
