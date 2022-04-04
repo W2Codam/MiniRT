@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/30 15:50:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 09:51:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 10:07:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,15 @@ bool	intersect_plane(t_FVec3 center, float radius, t_Ray *ray)
 
 bool	intersect_cyllinder(t_FVec3 center, float radius, t_Ray *ray)
 {
+	(void) center;
+	(void) radius;
+	(void) ray;
+	return (true);
+}
+
+bool	intersect_triangle(t_FVec3 vertices[3], t_Ray *ray)
+{
+	(void) vertices;
+	(void) ray;
 	return (true);
 }
