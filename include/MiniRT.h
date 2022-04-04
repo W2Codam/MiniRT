@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 19:38:46 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 09:51:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
 
 #ifndef MINIRT_H
 # define MINIRT_H
-# include <stdlib.h>
 # include <stdio.h>
+# include <stddef.h>
+# include <stdlib.h>
 # include <memory.h>
 # include <limits.h>
 # include <unistd.h>
 # include <pthread.h>
-# include <stddef.h>
 # include <errno.h>
 # include "libft.h"
 # include "lib3d.h"
 # include "MLX42/MLX42.h"
-# define STD_WIDTH	1080
-# define STD_HEIGHT	720
-# define MAX_OBJS	100
+# define STD_WIDTH		1080
+# define STD_HEIGHT		720
+# define MAX_OBJS		100
+# define MAX_CAMERAS	100
 
 //= Types =//
 
@@ -159,14 +160,9 @@ typedef struct s_rt
 	mlx_t			*mlx;
 	mlx_image_t		*window_img;
 	pthread_t		render_thread;
-
-	struct
-	{
-		t_Camera		cameras[9];
-		t_EntityObject	objects[MAX_OBJS];
-		size_t			objects_size;
-	};
-
+	t_Camera		cameras[MAX_CAMERAS];
+	t_EntityObject	objects[MAX_OBJS];
+	size_t			objects_size;
 }	t_rt;
 
 //= Functions =//
