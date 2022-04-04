@@ -72,13 +72,6 @@ typedef enum e_MaterialType
 	TRANSLUCENT,
 }	t_MaterialType;
 
-// Types of entities that exist.
-typedef enum e_LightType
-{
-	LIGHT,
-	AMBIENTLIGHT,
-}	t_LightType;
-
 /**
  * A transform that encompasses both rotation and
  * scale.
@@ -123,6 +116,18 @@ typedef struct s_Camera
 }	t_Camera;
 
 /**
+ * Ambient light.
+ * 
+ * @param intensity Scalar value defining intensity of light.
+ * @param color Light color.
+ */
+typedef struct	s_Ambient
+{
+	float	intensity;
+	t_FVec3	color;
+}	t_Ambient;
+
+/**
  * A light source.
  * 
  * @param transform The angle of the light source.
@@ -131,7 +136,6 @@ typedef struct s_Camera
  */
 typedef struct s_Light
 {
-	t_LightType	type;
 	t_FVec3		pos_angle;
 	float		intensity;
 }	t_Light;
