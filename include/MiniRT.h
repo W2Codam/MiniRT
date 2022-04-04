@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 09:51:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 10:01:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
 # define STD_WIDTH		1080
 # define STD_HEIGHT		720
 # define MAX_OBJS		100
-# define MAX_CAMERAS	100
+# define MAX_CAMERAS	10
 
 //= Types =//
 
@@ -54,6 +54,15 @@ typedef enum e_EntityType
 	TRIANGLE,
 	COUNT
 }	t_EntityType;
+
+// Types of entities that exist.
+typedef enum e_MaterialType
+{
+	DIFFUSE,
+	METAL,
+	TRANSLUCENT,
+	COUNT
+}	t_MaterialType;
 
 /**
  * A transform that encompasses both rotation and
@@ -138,6 +147,7 @@ typedef struct s_CylinderModel
 typedef struct s_EntityObject
 {
 	t_EntityType	type;
+	t_MaterialType	material;
 
 	union
 	{
