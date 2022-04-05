@@ -1,24 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:      :+:    :+:   */
+/*   MiniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/04/04 16:34:24 by lde-la-h      ########   odam.nl         */
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2022/04/04 14:43:47 by dvan-der         ###   ########.fr       */
-=======
-/*   Updated: 2022/04/04 10:42:23 by lde-la-h      ########   odam.nl         */
->>>>>>> b88448d3112d9f10a53fd381d478512c64ca7c01
-=======
-/*   Updated: 2022/04/04 14:41:11 by lde-la-h      ########   odam.nl         */
->>>>>>> 1614de3a0c828e4425e2df090fc03a18763ee065
->>>>>>> 8d4189241e657a6fc7a8a650c8604cd709bc74f1
+/*   Updated: 2022/04/05 10:49:00 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +106,11 @@ typedef struct s_Entity
 typedef struct s_Camera
 {
 	t_Transform	transform;
-	float		fov;
+	t_FVec2		viewport;
 	t_FVec3		top_left;
 	t_FVec3		horizontal;
 	t_FVec3		vertical;
+	float		fov;
 }	t_Camera;
 
 /**
@@ -208,19 +197,15 @@ typedef struct s_rt
 	size_t			lights_size;
 
 	t_EntityObject	objects[MAX_OBJS];
-	size_t			cameras_size;
 	size_t			objects_size;
 
 	bool			update;
-
-
 }	t_rt;
 
 //= Functions =//
 
-void		ft_set_active_camera_pos(t_rt *rt, t_FVec3 pos);
 t_Camera	*ft_get_active_camera(t_rt *rt);
 void		ft_draw(t_rt *rt);
-void		ft_new_camera(t_rt *rt, t_Camera *out);
+void		ft_new_camera(t_Camera *Camera, float FOV, t_FVec3 pos);
 
 #endif // MINIRT_H

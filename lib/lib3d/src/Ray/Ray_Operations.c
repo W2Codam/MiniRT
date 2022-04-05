@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/30 15:50:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 17:14:38 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 19:50:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ bool	intersect_sphere(t_FVec3 center, float radius, t_Ray *ray)
 	const float		a = dot_fvec3(ray->direction, ray->direction);
 	const float		b = 2.0f * dot_fvec3(oc, ray->direction);
 	const float		c = dot_fvec3(oc, oc) - radius * radius;
+	const float		discriminant = b * b - 4 * a * c;
 
-	return ((b * b) - (4 * a * c) > 0);
+	return (discriminant > 0);
 }
 
 //Source: Real-Time Collision Detection by Christer Ericson

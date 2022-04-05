@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 17:58:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/04 20:23:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	*ft_render(void *param)
  * @param rt The game state to initialize.
  * @return True or false if Initialion succeeded.
  */
-static bool	ft_init_rt(t_rt *rt, char *input)
+static bool	ft_init_rt(t_rt *rt)
 {
 	const float		aspect_ratio = 16.0 / 9.0;
 	const int32_t	image_width = WIN_WIDTH;
@@ -56,17 +56,10 @@ static bool	ft_init_rt(t_rt *rt, char *input)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	if (mlx_image_to_window(rt->mlx, rt->window_img, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
-	// if (pthread_mutex_init(&rt->lock, NULL) != 0)
-	// 	return (ft_putendl_fd("RT: Mutex Failure!", STDERR_FILENO), false);
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);
-<<<<<<< HEAD
-	ft_new_camera(rt, &rt->cameras[0]);
-=======
-	if (init_entities(rt, input))
-		return (false);
->>>>>>> 8d4189241e657a6fc7a8a650c8604cd709bc74f1
+	ft_new_camera(ft_get_active_camera(rt), 90, new_fvec3(0, 0, 0));
 	return (true);
 }
 
@@ -93,8 +86,36 @@ static void	ft_hook(void *param)
 
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(rt->mlx);
-	if (mlx_is_key_down(rt->mlx, MLX_KEY_U))
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_W))
+	{
+		ft_get_active_camera(rt)->transform.pos.z += 0.1f;
 		rt->update = true;
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_S))
+	{
+		ft_get_active_camera(rt)->transform.pos.z -= 0.1f;
+		rt->update = true;
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_D))
+	{
+		ft_get_active_camera(rt)->transform.pos.x += 0.01f;
+		rt->update = true;
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_A))
+	{
+		ft_get_active_camera(rt)->transform.pos.x -= 0.01;
+		rt->update = true;
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_E))
+	{
+		ft_get_active_camera(rt)->transform.pos.y += 0.01f;
+		rt->update = true;
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_Q))
+	{
+		ft_get_active_camera(rt)->transform.pos.y -= 0.01;
+		rt->update = true;
+	}
 }
 
 /**
@@ -118,7 +139,7 @@ int32_t	main(int32_t argc, char	*argv[])
 		ft_putendl_fd("MegaRT: Invalid args: ./MegaRT <file>", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (!ft_init_rt(&rt, argv[1]))
+	if (!ft_init_rt(&rt))
 		return (EXIT_FAILURE);
 	mlx_loop_hook(rt.mlx, &ft_hook, &rt);
 	mlx_close_hook(rt.mlx, &ft_close_hook, &rt);

@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/04 17:57:13 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/04 19:39:28 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,7 @@ else
 	CFLAGS	+= -Ofast -D NDEBUG
 endif
 SRCS	:=	$(shell find ./src -iname "*.c")
-OBJ_DIR	:=	obj
-OBJS 	:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+OBJS	=	${SRCS:.c=.o}
 TESTER	:=	tester
 
 #//= Recipes =//#
