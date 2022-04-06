@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/05 10:49:00 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/05 17:26:05 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ Coordinate System: UE5
 # include "MLX42/MLX42.h"
 # define MAX_OBJS		100
 # define MAX_CAMERAS	10
-# define WIN_WIDTH		400
+# define WIN_WIDTH		800
 
 //= Types =//
 
@@ -93,7 +93,7 @@ typedef struct s_Transform
 typedef struct s_Entity
 {
 	t_Transform	transform;
-	t_FVec4		color;
+	t_FVec3		color;
 }	t_Entity;
 
 /**
@@ -165,6 +165,8 @@ typedef struct s_EntityObject
 	t_EntityType	type;
 	t_MaterialType	material;
 	mlx_texture_t	*texture;
+
+	bool (*intersect)(t_Ray *ray);
 
 	union
 	{

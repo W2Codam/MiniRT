@@ -6,25 +6,47 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 19:30:49 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/05 10:48:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/06 11:20:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MiniRT.h"
 
-static t_FVec3	ft_ray_color(t_Ray ray)
+// Check if ray interesected any of the objects.
+// TODO: Let Union objects have function pointer that checks if ray hit them instead.
+static bool	ft_intersect(t_rt *rt, t_Ray ray, t_FVec3 *out)
+{
+	t_FVec3		normal;
+	const float	hit = intersect_sphere(new_fvec3(0, 0, -1), 0.5f, &ray);
+
+	(void) rt; // Unused for now, use later for oop designed hit detection.
+	if (hit > 0.0f)
+	{
+		normal = sub_vec3(ray_at(&ray, hit), new_fvec3(0, 0, -1));
+		normalize_fvec3(&normal);
+		*out = new_fvec3((normal.x + 1) * 0.5, (normal.y + 1) * 0.5, (normal.z + 1) * 0.5);
+		return (true);
+	}
+	return (false);
+}
+
+static t_FVec3	ft_ray_color(t_rt *rt, t_Ray ray)
 {
 	float	t;
 	t_FVec3	a;
 	t_FVec3	b;
+	t_FVec3	out;
 
-	if (intersect_sphere(new_fvec3(0, 0, -10), 0.1f, &ray))
-		return (new_fvec3(1.0f, 0.0f, 0.0f));
+	// Draw object
+	if (ft_intersect(rt, ray, &out))
+		return (out);
+	// Draw background
 	normalize_fvec3(&ray.direction);
-	t = 0.5 * (ray.direction.y + 1.0);
+	t = 0.5f * (ray.direction.y + 1.0f);
 	a = mul_fvec3(new_fvec3(1.0f, 1.0f, 1.0f), 1.0f - t);
 	b = mul_fvec3(new_fvec3(0.5f, 0.7f, 1.0f), t);
-	return (add_vec3(a, b));
+	out = add_vec3(a, b);
+	return (out);
 }
 
 static uint32_t	ft_linear_to_rgb(t_FVec3 linear)
@@ -70,7 +92,7 @@ void	ft_draw(t_rt *rt)
 		{
 			ray = ft_make_ray(rt, x, y);
 			mlx_put_pixel(rt->window_img, x, y, \
-			ft_linear_to_rgb(ft_ray_color(ray)));
+			ft_linear_to_rgb(ft_ray_color(rt, ray)));
 			x++;
 		}
 		y++;
