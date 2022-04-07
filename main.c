@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/06 10:50:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/07 16:12:57 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
  * @param rt The game state to initialize.
  * @return True or false if Initialion succeeded.
  */
-static bool	ft_init_rt(t_rt *rt)
+static bool	ft_init_rt(t_rt *rt, char *input)
 {
 	const float		aspect_ratio = 16.0 / 9.0;
 	const int32_t	image_width = WIN_WIDTH;
@@ -60,7 +60,9 @@ static bool	ft_init_rt(t_rt *rt)
 	// 	return (ft_putendl_fd("RT: Mutex Failure!", STDERR_FILENO), false);
 	//if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 	//	return (false);
-	pthread_detach(rt->render_thread);
+	//pthread_detach(rt->render_thread);
+	if (init_entities(rt, input))
+		return (false);
 	ft_new_camera(ft_get_active_camera(rt), 90, new_fvec3(0, 0, 0));
 	return (true);
 }
