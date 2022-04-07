@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:08:26 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 14:12:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/06 11:06:46 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ t_FVec3	sub_fvec3(t_FVec3 a, float b);
 t_FVec3	mul_fvec3(t_FVec3 a, float b);
 t_FVec3	div_fvec3(t_FVec3 a, float b);
 
-bool	intersect_sphere(t_FVec3 center, float radius, t_Ray *ray);
+t_FVec3	ray_at(t_Ray *ray, float t);
+
+float	intersect_sphere(t_FVec3 center, float radius, t_Ray *ray);
 
 #endif

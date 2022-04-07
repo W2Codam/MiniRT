@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   MiniRT.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/05 17:26:05 by lde-la-h      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*
   __  __                      ____  _____ 
  |  \/  |  ___   __ _   __ _ |  _ \|_   _|
@@ -26,11 +38,9 @@ Coordinate System: UE5
 # include "libft.h"
 # include "lib3d.h"
 # include "MLX42/MLX42.h"
-# define STD_WIDTH		1080
-# define STD_HEIGHT		720
 # define MAX_OBJS		100
 # define MAX_CAMERAS	10
-# define WIN_WIDTH		1920
+# define WIN_WIDTH		800
 
 //= Types =//
 
@@ -89,10 +99,11 @@ typedef struct s_Entity
 typedef struct s_Camera
 {
 	t_Transform	transform;
-	float		fov;
+	t_FVec2		viewport;
 	t_FVec3		top_left;
-	t_FVec3		viewport_width;
-	t_FVec3		viewport_height;
+	t_FVec3		horizontal;
+	t_FVec3		vertical;
+	float		fov;
 }	t_Camera;
 
 /**
@@ -161,6 +172,8 @@ typedef struct s_EntityObject
 	t_MaterialType	material;
 	mlx_texture_t	*texture;
 
+	bool (*intersect)(t_Ray *ray);
+
 	union
 	{
 		t_SphereModel	entity_sphere;
@@ -196,15 +209,13 @@ typedef struct s_rt
 	size_t			objects_size;
 
 	bool			update;
-
-
 }	t_rt;
 
 //= Functions =//
 
-void		ft_set_active_camera_pos(t_rt *rt, t_FVec3 pos);
 t_Camera	*ft_get_active_camera(t_rt *rt);
 void		ft_draw(t_rt *rt);
+void		ft_new_camera(t_Camera *Camera, float FOV, t_FVec3 pos);
 
 int			init_entities(t_rt *rt, char *input);
 void		init_camera(t_rt *rt, char *line, int row);
