@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 14:00:33 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 17:47:36 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/06 09:02:00 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -607,6 +607,4 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
  */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-int		ft_nbrlen(long long nbr);
-float	ft_atof(const char *str, size_t *i);
 #endif

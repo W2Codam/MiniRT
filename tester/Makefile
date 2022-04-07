@@ -6,7 +6,7 @@
 #    By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 10:53:45 by dvan-der          #+#    #+#              #
-#    Updated: 2022/04/04 11:11:01 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/07 13:11:51 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,34 +23,43 @@ WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
 #//= Params =//#
-NAME		:= tester
+NAME		:= 	tester
+MAP			:=	../maps/default.rt
 LIB3D		:=	../lib/lib3d
 LIBFT		:=	../lib/libft
-HEADERS		:=	-I include -I $(LIB3D)/include -I$(LIBFT)/include
-CFLAGS		:=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
-OBJS		:=	$(OBJ_DIR)/%.o
+MLX42		:=	../lib/MLX42/include
+ARCHIVE		:=	../lib/lib3d/lib3D.a ../lib/libft/libft.a
+HEADERS		:=	-I ../include -I $(LIB3D)/include -I $(LIBFT) -I $(MLX42) -I ./
+CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
+ifdef DEBUG
+	CFLAGS	+=	-fsanitize=address -g3
+else
+	CFLAGS	+=	-Ofast -D NDEBUG
+endif
+
+T_SRCS		:=	parser_test.c
 OBJ_DIR		:=	../obj
-T_SRCS		:=	$(shell find ./t_src -iname "*.c")
-T_OBJS_DIR	:=	t_obj
-T_OBJS		:=	$(addprefix $(T_OBJ_DIR)/, $(notdir $(T_SRCS:.c=.o)))
+T_OBJ_DIR	:=	obj
+OBJS		:=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+T_OBJS		:=	$(addprefix $(T_OBJ_DIR)/, $(T_SRCS:.c=.o))
 
 #//- Recipes =//#
-all: $(NAME) runtest
+all: $(NAME)
 
 $(NAME): $(T_OBJ_DIR) $(T_OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(T_OBJS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(T_OBJS) $(ARCHIVE) -o $@
 
-$(T_OBJS_DIR)/%.o: %.c 
+$(T_OBJ_DIR)/%.o: %.c 
 	$(CC) -c $(CFLAGS) $< $(HEADERS) -o $@
 
-$(T_OBJS_DIR):
-	mkdir -p $@
+run:
+	./$(NAME) $(MAP)
 
-runtest:
-	./$(NAME)
+$(T_OBJ_DIR):
+	mkdir -p $@
 
 fclean:
 	rm -f $(NAME)
-	rm -rf $(T_OBJS_DIR)
+	rm -rf $(T_OBJ_DIR)
 
 .PHONY: all runtest fclean

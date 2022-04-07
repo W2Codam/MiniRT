@@ -6,7 +6,7 @@
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/10/08 11:13:32 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/04/04 17:24:08 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/07 13:08:47 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,11 @@ RESET	= \033[0m
 #//= Params =//#
 NAME	=	libft.a
 HEADERS	=	-I .
-#CFLAGS	=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
-# Config
-ifdef debug
-	FLAGS	:=	-Wall -Wextra -g3 -fsanitize=address
-	COMPILE	:=	clang -c
-	LINK	:=	clang
+CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
+ifdef DEBUG
+	CFLAGS	+=	-fsanitize=address -g3
 else
-	FLAGS	:=	-Wall -Wextra -Werror -g3
-	COMPILE	:=	gcc -c
-	LINK	:=	gcc
+	CFLAGS	+=	-Ofast -D NDEBUG
 endif
 SRCS	=	$(shell find ./src -iname "*.c")
 OBJS	=	${SRCS:.c=.o}

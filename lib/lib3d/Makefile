@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                      +:+                     #
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/28 19:36:57 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/07 13:09:30 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,13 @@ RESET	= \033[0m
 #//= Params =//#
 NAME	=	lib3D.a
 HEADERS	=	-I include
-CFLAGS	=	-Werror -Wextra -Wall -Wunreachable-code -Ofast
+CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
+ifdef DEBUG
+	CFLAGS	+=	-fsanitize=address -g3
+else
+	CFLAGS	+=	-Ofast -D NDEBUG
+endif
+
 SRCS	=	$(shell find ./src -iname "*.c")
 OBJS	=	${SRCS:.c=.o}
 

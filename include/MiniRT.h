@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:      :+:    :+:   */
-/*                                                     +:+                    */
-/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2022/04/04 14:43:47 by dvan-der         ###   ########.fr       */
-=======
-/*   Updated: 2022/04/04 10:42:23 by lde-la-h      ########   odam.nl         */
->>>>>>> b88448d3112d9f10a53fd381d478512c64ca7c01
-=======
-/*   Updated: 2022/04/04 14:41:11 by lde-la-h      ########   odam.nl         */
->>>>>>> 1614de3a0c828e4425e2df090fc03a18763ee065
-/*                                                                            */
-/* ************************************************************************** */
-
 /*
   __  __                      ____  _____ 
  |  \/  |  ___   __ _   __ _ |  _ \|_   _|
@@ -96,7 +76,7 @@ typedef struct s_Transform
 typedef struct s_Entity
 {
 	t_Transform	transform;
-	t_FVec4		color;
+	t_FVec3		color;
 }	t_Entity;
 
 /**
@@ -125,6 +105,7 @@ typedef struct	s_Ambient
 {
 	float	intensity;
 	t_FVec3	color;
+	bool	active;
 }	t_Ambient;
 
 /**
@@ -136,14 +117,15 @@ typedef struct	s_Ambient
  */
 typedef struct s_Light
 {
-	t_FVec3		pos_angle;
+	t_Transform	transform;
 	float		intensity;
+	t_FVec3		color;
 }	t_Light;
 
 typedef struct s_SphereModel
 {
 	t_Entity	base;
-	float		radius;
+	float		diameter;
 }	t_SphereModel;
 
 typedef struct s_PlaneModel
@@ -153,8 +135,8 @@ typedef struct s_PlaneModel
 
 typedef struct s_TriangleModel
 {
-	t_Entity	base;
 	t_FVec3		vertices[3];
+	t_FVec3		color;
 }	t_TriangleModel;
 
 typedef struct s_CylinderModel
@@ -181,7 +163,6 @@ typedef struct s_EntityObject
 
 	union
 	{
-		t_Light			entity_light;
 		t_SphereModel	entity_sphere;
 		t_PlaneModel	entity_plane;
 		t_CylinderModel	entity_cylinder;
@@ -202,6 +183,8 @@ typedef struct s_rt
 	pthread_t		render_thread;
 	pthread_mutex_t	lock;
 
+	t_Ambient		ambient;
+
 	int32_t			active_camera;
 	t_Camera		cameras[MAX_CAMERAS];
 	size_t			cameras_size;
@@ -210,7 +193,6 @@ typedef struct s_rt
 	size_t			lights_size;
 
 	t_EntityObject	objects[MAX_OBJS];
-	size_t			cameras_size;
 	size_t			objects_size;
 
 	bool			update;
@@ -223,5 +205,21 @@ typedef struct s_rt
 void		ft_set_active_camera_pos(t_rt *rt, t_FVec3 pos);
 t_Camera	*ft_get_active_camera(t_rt *rt);
 void		ft_draw(t_rt *rt);
+
+int			init_entities(t_rt *rt, char *input);
+void		init_camera(t_rt *rt, char *line, int row);
+void		init_ambient(t_rt *rt, char *line, int row);
+void		init_light(t_rt *rt, char *line, int row);
+void		init_sphere(t_rt *rt, char *line, int row);
+void		init_plane(t_rt *rt, char *line, int row);
+void		init_cylinder(t_rt *rt, char *line, int row);
+void		init_triangle(t_rt *rt, char *line, int row);
+int			check_range(t_FVec3 vec, float min, float max);
+float		init_number(char *line, int row, size_t *i, int atof);
+t_FVec3		init_coordinates(char *line, int row, size_t *i, int check);
+t_FVec3		init_color(char *line, int row, size_t *i);
+void		exit_parser(char *error_line, int row, size_t collumn, char *func);
+float		minirt_atof(const char *str, int row, size_t *i);
+int			minirt_atoi(const char *str, int row, size_t *i);
 
 #endif // MINIRT_H

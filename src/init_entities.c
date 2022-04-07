@@ -1,68 +1,64 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_entities.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 11:20:34 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/04/04 17:58:55 by dvan-der         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "MiniRT.h"
+#include <fcntl.h>
 
-#include "MiniRT"
-
-
-init_ambient(t_rt *rt, char *line)
+void	exit_parser(char *error_line, int row, size_t collumn, char *func)
 {
-	size_t	i;
+	printf("Error: %s in %s\nRow: %i, collumn; %zu\n", error_line, func, row, collumn);
+	printf("----------------------------------------------------------\n");
+	printf("Required format:\n......");
+	exit (1);
+}
+
+static void	init_line(t_rt *rt, char *line, int	row)
+{
+	int	i;
 
 	i = 0;
-	rt->Ambient->intensity = ft_atof(line, &i);
-	if (!ft_isspace(line[i++]))
-		return (EXIT_FAILURE);
-
-}
-
-init_line(t_rt *rt, char *line)
-{
-	int	result;
-	
-	result = EXIT_FAILURE;
-	if (line[0] == 'A' && ft_isspace(line[1]))
-		result = init_ambient(rt, &line[1]);
+	while (ft_isspace(line[i]))
+		i++;
+	if (line[i] == '\n')
+		return ;
+	else if (line[0] == 'A' && ft_isspace(line[1]))
+		init_ambient(rt, &line[1], row);
 	else if (line[0] == 'C' && ft_isspace(line[1]))
-		result = init_camera(rt, line);
+		init_camera(rt, &line[1], row);
 	else if (line[0] == 'L' && ft_isspace(line[1]))
-		result = init_light(rt, line);
+		init_light(rt, &line[1], row);
 	else if (line[0] == 's' && line[1] == 'p' && ft_isspace(line[2]))
-		result = init_sphere(rt, line);
+		init_sphere(rt, &line[2], row);
 	else if (line[0] == 'p' && line[1] == 'l' && ft_isspace(line[2]))
-		result = init_plane(rt, line);
+		init_plane(rt, &line[2], row);
 	else if (line[0] == 'c' && line[1] == 'y' && ft_isspace(line[2]))
-		result = init_cylinder(rt, line);
+		init_cylinder(rt, &line[2], row);
 	else if (line[0] == 't' && line[1] == 'r' && ft_isspace(line[2]))
-		result = init_triangle(rt, line);
-	return (result);
+		init_triangle(rt, &line[2], row);
+	else
+		exit_parser("Incorrect format", row, i, "init_line");
+	return ;
 }
 
-init_entities(t_rt *rt, char *input)
+int	init_entities(t_rt *rt, char *input)
 {
 	int		rt_file;
 	char	*line;
+	int		row;
 
-	rt_file = open(input, O_RONLY);
+	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0 | rt_file > 1024)
 		return (EXIT_FAILURE);
+	rt->ambient.active = false;
 	rt->cameras_size = 0;
 	rt->lights_size = 0;
 	rt->objects_size = 0;
+	row = 0;
 	while (true)
 	{
-		line = get_next_line(rt_file);
+		line = ft_get_next_line(rt_file);
 		if (!line)
 			break ;
-		init_line(rt, line);
-		
+		row++;
+		init_line(rt, line, row);
+	}
+	return (EXIT_SUCCESS);
 }
 

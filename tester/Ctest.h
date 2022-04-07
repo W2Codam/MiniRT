@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:11:33 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/04/04 12:25:52 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:41:29 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <memory.h>
 
 // Error message buffer for when a test fails.
@@ -31,7 +32,7 @@ char	ErrMsg[128];
 	if (Condition)												\
 	{															\
 		sprintf(ErrMsg, "Fail Reason: \"%s\"\n", #Condition);	\
-		return (0);												\
+		return ;												\
 	}															\
 	
 /** 
@@ -53,7 +54,7 @@ char	ErrMsg[128];
 ////////////////////////////////////////////////////////////////////////////////////
 
 // Internal test function, use TEST_RUN macro to invoke this!
-void Internal_Test(const char const* Name, int32_t(*T)(void), int32_t ExitAtFail)
+void Internal_Test(const char *Name, int32_t(*T)(void), int32_t ExitAtFail)
 {	
 	int32_t Result = T();
 
