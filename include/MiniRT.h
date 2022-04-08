@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/05 17:26:05 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/08 16:02:46 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ typedef struct s_EntityObject
 	t_MaterialType	material;
 	mlx_texture_t	*texture;
 
-	bool (*intersect)(t_Ray *ray);
+	bool (*intersect)(t_EntityObject object, t_Ray *ray, t_Hit *hit);
 
 	union
 	{

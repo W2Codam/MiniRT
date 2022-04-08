@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                      +:+                     #
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/07 13:08:00 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/08 15:21:20 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,11 @@ endif
 SRC_DIR		:=	src
 VPATH		:=	$(subst $(space),:,$(shell find $(SRC_DIR) -type d))
 MAIN		:=	main.c
-export SRCS	:=	init_entities.c \
-				init_lights_cameras.c \
-				init_objects.c \
-				init_utils.c \
-				atof_atoi.c
+export SRCS	:=	ft_parser.c \
+				ft_parse_lights_cameras.c \
+				ft_parse_objects.c \
+				ft_parse_utils.c \
+				ft_atof_atoi.c
 ALL_SRCS	:=	$(MAIN) $(SRCS)
 OBJ_DIR		:=	obj
 OBJS		:=	$(addprefix $(OBJ_DIR)/, $(ALL_SRCS:.c=.o))

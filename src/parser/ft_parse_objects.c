@@ -15,6 +15,7 @@ void	init_sphere(t_rt *rt, char *line, int row)
 	sphere.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
+	sphere.intersect = intersect_sphere;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_sphere");
 	(rt->objects_size)++;
@@ -34,6 +35,7 @@ void	init_plane(t_rt *rt, char *line, int row)
 	plane.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
+	plane.intersect = intersect_plane;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_plane");
 	(rt->objects_size)++;
@@ -57,6 +59,7 @@ void	init_cylinder(t_rt *rt, char *line, int row)
 	cylinder.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
+	cylinder.intersect = intersect_cylinder;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_cylinder");
 	(rt->objects_size)++;
@@ -77,6 +80,7 @@ void	init_triangle(t_rt *rt, char *line, int row)
 	triangle.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
+	triangle.intersect = intersect_triangle;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_triangle");
 	(rt->objects_size)++;
