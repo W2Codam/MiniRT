@@ -1,12 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:      :+:    :+:   */
+/*   MiniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2022/04/08 16:02:46 by dvan-der         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/08 13:07:17 by lde-la-h      ########   odam.nl         */
+>>>>>>> ddb3bb78417ddcdb9aee6ad30dab43bd65e4a4a2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +39,7 @@ Coordinate System: UE5
 # include <pthread.h>
 # include <assert.h>
 # include <errno.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "lib3d.h"
 # include "MLX42/MLX42.h"
