@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/07 16:12:57 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:10:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@
  * @param param The game state, rt struct.
  * @return NULL
  */
-//static void	*ft_render(void *param)
-//{
-//	t_rt *const	rt = param;
-//
-//	while (true)
-//	{
-//		if (!rt->update)
-//		{
-//			// Saves on peformance, as we avoid calling the loop constantly times.
-//			usleep(4000);
-//			continue ;
-//		}
-//		ft_draw(rt);
-//		rt->update = false;
-//	}
-//	return (NULL);
-//}
+static void	*ft_render(void *param)
+{
+	t_rt *const	rt = param;
+
+	while (true)
+	{
+		if (!rt->update)
+		{
+			// Saves on peformance, as we avoid calling the loop constantly times.
+			usleep(4000);
+			continue ;
+		}
+		ft_draw(rt);
+		rt->update = false;
+	}
+	return (NULL);
+}
 
 /**
  * Initializes the game state.
@@ -48,6 +48,8 @@ static bool	ft_init_rt(t_rt *rt, char *input)
 	const int32_t	image_width = WIN_WIDTH;
 	const int32_t	image_height = (int32_t)(image_width / aspect_ratio);
 
+	if (init_entities(rt, input))
+		return (false);
 	rt->mlx = mlx_init(image_width, image_height, "👾 MegaRT 👾", false);
 	if (mlx_errno)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
@@ -56,13 +58,11 @@ static bool	ft_init_rt(t_rt *rt, char *input)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	if (mlx_image_to_window(rt->mlx, rt->window_img, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
-	// if (pthread_mutex_init(&rt->lock, NULL) != 0)
-	// 	return (ft_putendl_fd("RT: Mutex Failure!", STDERR_FILENO), false);
-	//if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
-	//	return (false);
-	//pthread_detach(rt->render_thread);
-	if (init_entities(rt, input))
+	if (pthread_mutex_init(&rt->lock, NULL) != 0)
+		return (ft_putendl_fd("RT: Mutex Failure!", STDERR_FILENO), false);
+	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
+	pthread_detach(rt->render_thread);
 	ft_new_camera(ft_get_active_camera(rt), 90, new_fvec3(0, 0, 0));
 	return (true);
 }

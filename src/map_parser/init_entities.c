@@ -1,5 +1,4 @@
 #include "MiniRT.h"
-#include <fcntl.h>
 
 void	exit_parser(char *error_line, int row, size_t collumn, char *func)
 {
@@ -9,6 +8,7 @@ void	exit_parser(char *error_line, int row, size_t collumn, char *func)
 	exit (1);
 }
 
+// TODO: Use jump table
 static void	init_line(t_rt *rt, char *line, int	row)
 {
 	int	i;
