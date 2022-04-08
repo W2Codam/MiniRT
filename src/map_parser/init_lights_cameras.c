@@ -16,7 +16,7 @@ void	init_light(t_rt *rt, char *line, int row)
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_light");
 	(rt->lights_size)++;
-	return ;	
+	return ;
 }
 
 void	init_ambient(t_rt *rt, char *line, int row)
@@ -42,7 +42,7 @@ void	init_camera(t_rt *rt, char *line, int row)
 {
 	size_t		i;
 	t_Camera	camera;
-	
+
 	i = 0;
 	camera = rt->cameras[rt->cameras_size];
 	camera.transform.pos = init_coordinates(line, row, &i, 0);

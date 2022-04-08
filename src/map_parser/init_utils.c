@@ -41,11 +41,8 @@ t_FVec3	init_coordinates(char *line, int row, size_t *i, int check)
 		exit_parser("Incorrect format", row, *i, "init_coordinates");
 	z = minirt_atof(line, row, i);
 	xyz = new_fvec3(x, y, z);
-	if (check)
-	{
-		if (check_range(xyz, -1, 1))
-			exit_parser("Surpassed range", row, *i, "init_coordinates");
-	}
+	if (check && check_range(xyz, -1, 1))
+		exit_parser("Surpassed range", row, *i, "init_coordinates");
 	return (xyz);
 }
 

@@ -1,5 +1,7 @@
 #include "MiniRT.h"
 
+// TODO: Use error codes to detect runtime errors instead of exit directly.
+
 void	init_sphere(t_rt *rt, char *line, int row)
 {
 	size_t			i;
@@ -7,7 +9,7 @@ void	init_sphere(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = SPHERE;
-	sphere = rt->objects[rt->objects_size].entity_sphere; 
+	sphere = rt->objects[rt->objects_size].entity_sphere;
 	sphere.base.transform.pos = init_coordinates(line, row, &i, 0);
 	sphere.diameter = init_number(line, row, &i, 1);
 	if (sphere.diameter <= 0)
@@ -28,7 +30,7 @@ void	init_plane(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = PLANE;
-	plane = rt->objects[rt->objects_size].entity_plane; 
+	plane = rt->objects[rt->objects_size].entity_plane;
 	plane.base.transform.pos = init_coordinates(line, row, &i, 0);
 	plane.base.transform.rot = init_coordinates(line, row, &i, 1);
 	plane.base.color = init_color(line, row, &i);
@@ -44,16 +46,16 @@ void	init_cylinder(t_rt *rt, char *line, int row)
 {
 	size_t			i;
 	t_CylinderModel	cylinder;
-	
+
 	i = 0;
 	rt->objects[rt->objects_size].type = SPHERE;
-	cylinder = rt->objects[rt->objects_size].entity_cylinder; 
+	cylinder = rt->objects[rt->objects_size].entity_cylinder;
 	cylinder.base.transform.pos = init_coordinates(line, row, &i, 0);
 	cylinder.base.transform.rot = init_coordinates(line, row, &i, 1);
 	cylinder.height = init_number(line, row, &i, 1);
 	cylinder.diameter = init_number(line, row, &i, 1);
 	if (cylinder.height <= 0 || cylinder.diameter <= 0)
-		exit_parser("Must be positive valur", row, i, "init_cylinder");
+		exit_parser("Must be positive value", row, i, "init_cylinder");
 	cylinder.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
@@ -70,7 +72,7 @@ void	init_triangle(t_rt *rt, char *line, int row)
 	
 	i = 0;
 	rt->objects[rt->objects_size].type = TRIANGLE;
-	triangle = rt->objects[rt->objects_size].entity_triangle; 
+	triangle = rt->objects[rt->objects_size].entity_triangle;
 	triangle.vertices[0] = init_coordinates(line, row, &i, 0);
 	triangle.vertices[1] = init_coordinates(line, row, &i, 0);
 	triangle.vertices[2] = init_coordinates(line, row, &i, 0);
