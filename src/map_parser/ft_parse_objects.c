@@ -9,6 +9,7 @@ void	init_sphere(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = SPHERE;
+	rt->objects[rt->objects_size].intersect = intersect_sphere;
 	sphere = rt->objects[rt->objects_size].entity_sphere;
 	sphere.base.transform.pos = init_coordinates(line, row, &i, 0);
 	sphere.diameter = init_number(line, row, &i, 1);
@@ -30,6 +31,7 @@ void	init_plane(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = PLANE;
+	rt->objects[rt->objects_size].intersect = intersect_plane;
 	plane = rt->objects[rt->objects_size].entity_plane;
 	plane.base.transform.pos = init_coordinates(line, row, &i, 0);
 	plane.base.transform.rot = init_coordinates(line, row, &i, 1);
@@ -49,6 +51,7 @@ void	init_cylinder(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = SPHERE;
+	rt->objects[rt->objects_size].intersect = intersect_cylinder;
 	cylinder = rt->objects[rt->objects_size].entity_cylinder;
 	cylinder.base.transform.pos = init_coordinates(line, row, &i, 0);
 	cylinder.base.transform.rot = init_coordinates(line, row, &i, 1);
@@ -72,6 +75,7 @@ void	init_triangle(t_rt *rt, char *line, int row)
 	
 	i = 0;
 	rt->objects[rt->objects_size].type = TRIANGLE;
+	rt->objects[rt->objects_size].intersect = intersect_triangle;
 	triangle = rt->objects[rt->objects_size].entity_triangle;
 	triangle.vertices[0] = init_coordinates(line, row, &i, 0);
 	triangle.vertices[1] = init_coordinates(line, row, &i, 0);

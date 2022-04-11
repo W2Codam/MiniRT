@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                      +:+                     #
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/07 13:08:00 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/11 12:01:11 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,10 @@ RESET		:= \033[0m
 #//= Params =//#
 NAME		:=	MegaRT
 LIBMLX		:=	lib/MLX42
-LIB3D		:=	lib/lib3d
 LIBFT		:=	lib/libft
-ARCHIVE		:=	-lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIB3D)/lib3D.a \
+ARCHIVE		:=	-lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ \
 				$(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
-HEADERS		:=	-I include -I $(LIB3D)/include -I $(LIBMLX)/include -I $(LIBFT)
+HEADERS		:=	-I include -I $(LIBMLX)/include -I $(LIBFT)
 
 CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
 ifdef DEBUG
@@ -41,11 +40,18 @@ endif
 SRC_DIR		:=	src
 VPATH		:=	$(subst $(space),:,$(shell find $(SRC_DIR) -type d))
 MAIN		:=	main.c
-export SRCS	:=	init_entities.c \
-				init_lights_cameras.c \
-				init_objects.c \
-				init_utils.c \
-				atof_atoi.c
+export SRCS	:=	ft_parser.c \
+				ft_parse_lights_cameras.c \
+				ft_parse_objects.c \
+				ft_parse_utils.c \
+				ft_atof_atoi.c \
+				rendering.c \
+				camera.c \
+				Ray_Operations.c \
+				Vector_NewF.c \
+				Vector_Arithmetic_Float.c \
+				Vector_Arithmetic_Vec3.c \
+				Vector_Operations.c
 ALL_SRCS	:=	$(MAIN) $(SRCS)
 OBJ_DIR		:=	obj
 OBJS		:=	$(addprefix $(OBJ_DIR)/, $(ALL_SRCS:.c=.o))
@@ -57,8 +63,6 @@ all: dep $(NAME)
 dep:
 	@printf "$(GREEN)$(BOLD)\nCompiling MLX42\n$(RESET)"
 	@$(MAKE) -C $(LIBMLX)
-	@printf "$(GREEN)$(BOLD)\nCompiling lib3D\n$(RESET)"
-	@$(MAKE) -C $(LIB3D)
 	@printf "$(GREEN)$(BOLD)\nCompiling libft\n$(RESET)"
 	@$(MAKE) -C $(LIBFT)
 

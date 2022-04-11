@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:    :+:            */
+/*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/08 13:07:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/11 12:46:58 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ Coordinate System: UE5
 # include <assert.h>
 # include <errno.h>
 # include <fcntl.h>
-# include "libft.h"
 # include "lib3d.h"
+# include "libft.h"
 # include "MLX42/MLX42.h"
 # define MAX_OBJS		100
 # define MAX_CAMERAS	10
@@ -167,13 +167,22 @@ typedef struct s_CylinderModel
  * @param texture The texture to draw onto the object.
  * @param union The different available types of entities.
  */
+
+typedef struct s_Hit
+{
+	float	t;
+	t_FVec3	point_at_t;
+	bool	front_face;
+	t_FVec3	normal;
+}	t_Hit;
+
 typedef struct s_EntityObject
 {
 	t_EntityType	type;
 	t_MaterialType	material;
 	mlx_texture_t	*texture;
-
-	bool (*intersect)(t_Ray *ray);
+	
+	bool (*intersect)(struct s_EntityObject object, t_Ray *ray, t_Hit *hit);
 
 	union
 	{
@@ -233,5 +242,12 @@ t_FVec3		init_color(char *line, int row, size_t *i);
 void		exit_parser(char *error_line, int row, size_t collumn, char *func);
 float		minirt_atof(const char *str, int row, size_t *i);
 int			minirt_atoi(const char *str, int row, size_t *i);
+
+//= Intersect =//
+
+bool	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit);
+bool	intersect_plane(t_EntityObject object, t_Ray *ray, t_Hit *hit);
+bool	intersect_cylinder(t_EntityObject object, t_Ray *ray, t_Hit *hit);
+bool	intersect_triangle(t_EntityObject object, t_Ray *ray, t_Hit *hit);
 
 #endif // MINIRT_H
