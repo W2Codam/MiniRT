@@ -20,6 +20,7 @@ void	init_sphere(t_rt *rt, char *line, int row)
 	//rt->objects[objects_size].texture;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_sphere");
+	rt->objects[rt->objects_size].entity_sphere = sphere;
 	(rt->objects_size)++;
 	return ;
 }
@@ -40,6 +41,7 @@ void	init_plane(t_rt *rt, char *line, int row)
 	//rt->objects[objects_size].texture;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_plane");
+	rt->objects[rt->objects_size].entity_plane = plane;
 	(rt->objects_size)++;
 	return ;
 }
@@ -64,6 +66,7 @@ void	init_cylinder(t_rt *rt, char *line, int row)
 	//rt->objects[objects_size].texture;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_cylinder");
+	rt->objects[rt->objects_size].entity_cylinder = cylinder;
 	(rt->objects_size)++;
 	return ;
 }
@@ -85,6 +88,7 @@ void	init_triangle(t_rt *rt, char *line, int row)
 	//rt->objects[objects_size].texture;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_triangle");
+	rt->objects[rt->objects_size].entity_triangle = triangle;
 	(rt->objects_size)++;
 	return ;
 }

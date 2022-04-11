@@ -15,6 +15,7 @@ void	init_light(t_rt *rt, char *line, int row)
 	light.color = init_color(line, row, &i);
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_light");
+	rt->lights[rt->lights_size] = light;
 	(rt->lights_size)++;
 	return ;
 }
@@ -35,6 +36,7 @@ void	init_ambient(t_rt *rt, char *line, int row)
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_ambient");
 	ambient.active = true;
+	rt->ambient = ambient;
 	return ;
 }
 
@@ -52,6 +54,7 @@ void	init_camera(t_rt *rt, char *line, int row)
 		exit_parser("Surpassed range", row, i, "init_camera");
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_camera");
+	rt->cameras[rt->cameras_size] = camera;
 	(rt->cameras_size)++;
 	return ;
 }

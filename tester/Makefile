@@ -6,7 +6,7 @@
 #    By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 10:53:45 by dvan-der          #+#    #+#              #
-#    Updated: 2022/04/07 13:11:51 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/11 15:42:19 by dvan-der         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,14 @@ RESET	:= \033[0m
 #//= Params =//#
 NAME		:= 	tester
 MAP			:=	../maps/default.rt
-LIB3D		:=	../lib/lib3d
 LIBFT		:=	../lib/libft
 MLX42		:=	../lib/MLX42/include
-ARCHIVE		:=	../lib/lib3d/lib3D.a ../lib/libft/libft.a
-HEADERS		:=	-I ../include -I $(LIB3D)/include -I $(LIBFT) -I $(MLX42) -I ./
+ARCHIVE		:=	../lib/libft/libft.a -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ \
+				../lib/MLX42/libmlx42.a 
+HEADERS		:=	-I ../include -I $(LIBFT) -I $(MLX42) -I ./
 CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
 ifdef DEBUG
-	CFLAGS	+=	-fsanitize=address -g3
+	CFLAGS	+=	-g3
 else
 	CFLAGS	+=	-Ofast -D NDEBUG
 endif
