@@ -9,6 +9,7 @@ void	init_sphere(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = SPHERE;
+	rt->objects[rt->objects_size].intersect = intersect_sphere;
 	sphere = rt->objects[rt->objects_size].entity_sphere;
 	sphere.base.transform.pos = init_coordinates(line, row, &i, 0);
 	sphere.diameter = init_number(line, row, &i, 1);
@@ -17,7 +18,6 @@ void	init_sphere(t_rt *rt, char *line, int row)
 	sphere.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
-	sphere.intersect = intersect_sphere;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_sphere");
 	(rt->objects_size)++;
@@ -31,13 +31,13 @@ void	init_plane(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = PLANE;
+	rt->objects[rt->objects_size].intersect = intersect_plane;
 	plane = rt->objects[rt->objects_size].entity_plane;
 	plane.base.transform.pos = init_coordinates(line, row, &i, 0);
 	plane.base.transform.rot = init_coordinates(line, row, &i, 1);
 	plane.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
-	plane.intersect = intersect_plane;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_plane");
 	(rt->objects_size)++;
@@ -51,6 +51,7 @@ void	init_cylinder(t_rt *rt, char *line, int row)
 
 	i = 0;
 	rt->objects[rt->objects_size].type = SPHERE;
+	rt->objects[rt->objects_size].intersect = intersect_cylinder;
 	cylinder = rt->objects[rt->objects_size].entity_cylinder;
 	cylinder.base.transform.pos = init_coordinates(line, row, &i, 0);
 	cylinder.base.transform.rot = init_coordinates(line, row, &i, 1);
@@ -61,7 +62,6 @@ void	init_cylinder(t_rt *rt, char *line, int row)
 	cylinder.base.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
-	cylinder.intersect = intersect_cylinder;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_cylinder");
 	(rt->objects_size)++;
@@ -75,6 +75,7 @@ void	init_triangle(t_rt *rt, char *line, int row)
 	
 	i = 0;
 	rt->objects[rt->objects_size].type = TRIANGLE;
+	rt->objects[rt->objects_size].intersect = intersect_triangle;
 	triangle = rt->objects[rt->objects_size].entity_triangle;
 	triangle.vertices[0] = init_coordinates(line, row, &i, 0);
 	triangle.vertices[1] = init_coordinates(line, row, &i, 0);
@@ -82,7 +83,6 @@ void	init_triangle(t_rt *rt, char *line, int row)
 	triangle.color = init_color(line, row, &i);
 	//rt->objects[objects_size].material;
 	//rt->objects[objects_size].texture;
-	triangle.intersect = intersect_triangle;
 	if (line[i] != '\n')
 		exit_parser("Missing immediate newline", row, i, "init_triangle");
 	(rt->objects_size)++;

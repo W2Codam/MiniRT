@@ -6,15 +6,16 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:08:26 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/08 16:50:59 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/11 12:31:15 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIB3D_H
 # define LIB3D_H
-# include <math.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <math.h>
+# include <float.h>
 
 //= Int =//
 
@@ -124,6 +125,5 @@ t_FVec3	div_fvec3(t_FVec3 a, float b);
 
 t_FVec3	ray_at(t_Ray *ray, float t);
 
-float	intersect_sphere(t_FVec3 center, float radius, t_Ray *ray);
 
 #endif
