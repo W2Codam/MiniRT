@@ -6,16 +6,13 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 19:30:49 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/04 19:39:54 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/11 12:49:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MiniRT.h"
 
-t_Camera	*ft_get_active_camera(t_rt *rt)
-{
-	return (&rt->cameras[rt->active_camera]);
-}
+//= Private =//
 
 static void	ft_make_tlc(t_Camera *camera)
 {
@@ -27,6 +24,13 @@ static void	ft_make_tlc(t_Camera *camera)
 	a = sub_vec3(camera->transform.pos, div_fvec3(camera->horizontal, 2));
 	b = sub_vec3(a, div_fvec3(camera->vertical, 2));
 	camera->top_left = sub_vec3(b, c);
+}
+
+//= Public =//
+
+t_Camera	*ft_get_active_camera(t_rt *rt)
+{
+	return (&rt->cameras[rt->active_camera]);
 }
 
 // TODO: Add rotation

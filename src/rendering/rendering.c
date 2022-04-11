@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   rendering.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 19:30:49 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/06 11:20:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/11 12:24:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 // Check if ray interesected any of the objects.
 // TODO: Let Union objects have function pointer that checks if ray hit them instead.
+/*
 static bool	ft_intersect(t_rt *rt, t_Ray ray, t_FVec3 *out)
 {
+
+	// 1. For each object, check its collision.
+	// 2. recursively bounce around.
+
 	t_FVec3		normal;
 	const float	hit = intersect_sphere(new_fvec3(0, 0, -1), 0.5f, &ray);
 
@@ -29,24 +34,51 @@ static bool	ft_intersect(t_rt *rt, t_Ray ray, t_FVec3 *out)
 	}
 	return (false);
 }
+*/
 
-static t_FVec3	ft_ray_color(t_rt *rt, t_Ray ray)
+static t_Ray	ft_new_ray(t_FVec3 pos, t_FVec3 dir)
+{
+	return ((t_Ray){pos, dir});
+}
+
+// Test every fucking object
+static bool ft_intersect(t_rt *rt, t_Ray ray, t_hit* outhit)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < rt->objects_size)
+		if (rt->objects[i].intersect(&ray, outhit))
+			return (true);
+	return (false);
+}
+
+static t_FVec3	ft_ray_color(t_rt *rt, t_Ray ray, int32_t depth)
 {
 	float	t;
 	t_FVec3	a;
 	t_FVec3	b;
-	t_FVec3	out;
+	t_FVec3	target;
+	t_hit	outhit;
+
+	if (depth == 0)
+		return (new_fvec3(0,0,0));	
 
 	// Draw object
-	if (ft_intersect(rt, ray, &out))
-		return (out);
+	if (ft_intersect(rt, ray, &outhit))
+	{
+		target = add_vec3(outhit.hit_location, outhit.normal);
+		return (mul_fvec3(ft_ray_color(rt, \
+		ft_new_ray(outhit.hit_location, sub_vec3(target, outhit.hit_location)), \
+		depth--), 0.5f));
+	}
+
 	// Draw background
 	normalize_fvec3(&ray.direction);
 	t = 0.5f * (ray.direction.y + 1.0f);
 	a = mul_fvec3(new_fvec3(1.0f, 1.0f, 1.0f), 1.0f - t);
 	b = mul_fvec3(new_fvec3(0.5f, 0.7f, 1.0f), t);
-	out = add_vec3(a, b);
-	return (out);
+	return (add_vec3(a, b));
 }
 
 static uint32_t	ft_linear_to_rgb(t_FVec3 linear)
@@ -58,7 +90,7 @@ static uint32_t	ft_linear_to_rgb(t_FVec3 linear)
 	return (red << 24 | green << 16 | blue << 8 | 255);
 }
 
-static t_Ray	ft_make_ray(t_rt *rt, uint32_t x, uint32_t y)
+static t_Ray	ft_fire_ray(t_rt *rt, uint32_t x, uint32_t y)
 {
 	t_Camera *const	camera = ft_get_active_camera(rt);
 	const float		u = (double)x / (rt->window_img->width - 1);
@@ -74,8 +106,6 @@ static t_Ray	ft_make_ray(t_rt *rt, uint32_t x, uint32_t y)
 /**
  * Draws the frame by raytracing each pixel.
  * 
- * TODO: // Do with iterations that is, every xth pixel then the rest.
- * 
  * @param rt 
  */
 void	ft_draw(t_rt *rt)
@@ -90,9 +120,9 @@ void	ft_draw(t_rt *rt)
 		x = 0;
 		while (x < rt->window_img->width)
 		{
-			ray = ft_make_ray(rt, x, y);
+			ray = ft_fire_ray(rt, x, y);
 			mlx_put_pixel(rt->window_img, x, y, \
-			ft_linear_to_rgb(ft_ray_color(rt, ray)));
+			ft_linear_to_rgb(ft_ray_color(rt, ray, MAX_DEPTH)));
 			x++;
 		}
 		y++;
