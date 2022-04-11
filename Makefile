@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/11 14:08:25 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/04/11 16:35:17 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 $(OBJ_DIR):
-	mkdir -p $@
+	@mkdir -p $@
 
 test: dep $(OBJ_DIR) $(OBJS)
 	@$(MAKE) -C $(TESTER)

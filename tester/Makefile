@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/04 10:53:45 by dvan-der          #+#    #+#              #
-#    Updated: 2022/04/11 15:42:19 by dvan-der         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: dvan-der <marvin@42.fr>                      +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/04/04 10:53:45 by dvan-der      #+#    #+#                  #
+#    Updated: 2022/04/11 16:35:27 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,19 +47,19 @@ T_OBJS		:=	$(addprefix $(T_OBJ_DIR)/, $(T_SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(T_OBJ_DIR) $(T_OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(T_OBJS) $(ARCHIVE) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(T_OBJS) $(ARCHIVE) -o $@
 
 $(T_OBJ_DIR)/%.o: %.c 
-	$(CC) -c $(CFLAGS) $< $(HEADERS) -o $@
+	@$(CC) -c $(CFLAGS) $< $(HEADERS) -o $@
 
 run:
-	./$(NAME) $(MAP)
+	@./$(NAME) $(MAP)
 
 $(T_OBJ_DIR):
-	mkdir -p $@
+	@mkdir -p $@
 
 fclean:
-	rm -f $(NAME)
-	rm -rf $(T_OBJ_DIR)
+	@rm -f $(NAME)
+	@rm -rf $(T_OBJ_DIR)
 
 .PHONY: all runtest fclean
