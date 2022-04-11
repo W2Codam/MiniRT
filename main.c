@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/11 12:49:10 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:12:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	*ft_render(void *param)
 			usleep(4000);
 			continue ;
 		}
-		//ft_draw(rt);
+		ft_draw(rt);
 		rt->update = false;
 	}
 	return (NULL);
@@ -58,8 +58,6 @@ static bool	ft_init_rt(t_rt *rt, char *input)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	if (mlx_image_to_window(rt->mlx, rt->window_img, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
-	if (pthread_mutex_init(&rt->lock, NULL) != 0)
-		return (ft_putendl_fd("RT: Mutex Failure!", STDERR_FILENO), false);
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);

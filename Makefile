@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/04/11 12:01:11 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/11 14:08:25 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ HEADERS		:=	-I include -I $(LIBMLX)/include -I $(LIBFT)
 
 CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
 ifdef DEBUG
-	CFLAGS	+=	-fsanitize=address -g3
+	CFLAGS	+=	-g3
 else
 	CFLAGS	+=	-Ofast -D NDEBUG
 endif
@@ -67,18 +67,18 @@ dep:
 	@$(MAKE) -C $(LIBFT)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	gcc $(OBJS) $(ARCHIVE) -o $(NAME)
+	@gcc $(OBJS) $(ARCHIVE) -o $(NAME)
 	@printf "$(GREEN)$(BOLD)Done\n$(RESET)"
 
 $(OBJ_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 $(OBJ_DIR):
 	mkdir -p $@
 
 test: dep $(OBJ_DIR) $(OBJS)
-	$(MAKE) -C $(TESTER)
-	$(MAKE) -C $(TESTER) run
+	@$(MAKE) -C $(TESTER)
+	@$(MAKE) -C $(TESTER) run
 
 clean:
 	@echo "$(RED)Cleaning $(NAME)$(RESET)"
@@ -88,7 +88,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBMLX) fclean
-	@$(MAKE) -C $(LIB3D) fclean
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(TESTER) fclean
 

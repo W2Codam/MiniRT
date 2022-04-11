@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Ray_Operations.c                                   :+:      :+:    :+:   */
+/*   Ray_Operations.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/30 15:50:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/11 12:46:36 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:50:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 //Source: Real-Time Collision Detection by Christer Ericson
 //Reference: Page 177
-bool	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit)
+bool	intersect_sphere(t_EntityObject *object, t_Ray *ray, t_Hit *hit)
 {
 	t_FVec3	oc;
 	float		a;
@@ -35,10 +35,10 @@ bool	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit)
 	float		result_1;
 	float		result_2;
 
-	oc = sub_vec3(ray->origin, object.entity_sphere.base.transform.pos);
+	oc = sub_vec3(ray->origin, object->entity_sphere.base.transform.pos);
 	a = dot_fvec3(ray->direction, ray->direction);
 	b = 2.0f * dot_fvec3(oc, ray->direction);
-	radius = object.entity_sphere.diameter / 2;
+	radius = object->entity_sphere.diameter / 2;
 	c = dot_fvec3(oc, oc) - (radius * radius);
 	discriminant = (b * b) - (4 * a * c);
 	if (discriminant < 0.0f)
@@ -56,16 +56,16 @@ bool	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit)
 
 //Source: Real-Time Collision Detection by Christer Ericson
 //Reference: Page 175
-bool	intersect_plane(t_EntityObject object, t_Ray *ray, t_Hit *hit)
+bool	intersect_plane(t_EntityObject *object, t_Ray *ray, t_Hit *hit)
 {
 	t_FVec3	oc;
 	float		a;
 	float		b;
 	float		t;
 
-	oc = sub_vec3(object.entity_plane.base.transform.pos, ray->origin);
-	a = dot_fvec3(oc, object.entity_plane.base.transform.rot);
-	b = dot_fvec3(ray->direction, object.entity_plane.base.transform.rot);
+	oc = sub_vec3(object->entity_plane.base.transform.pos, ray->origin);
+	a = dot_fvec3(oc, object->entity_plane.base.transform.rot);
+	b = dot_fvec3(ray->direction, object->entity_plane.base.transform.rot);
 	if (fabs(b) < FLT_MIN)
 		return (false);
 	else
@@ -78,7 +78,7 @@ bool	intersect_plane(t_EntityObject object, t_Ray *ray, t_Hit *hit)
 	return (true);
 }
 
-bool	intersect_cylinder(t_EntityObject object, t_Ray *ray, t_Hit *hit)
+bool	intersect_cylinder(t_EntityObject *object, t_Ray *ray, t_Hit *hit)
 {
 	(void)object;
 	(void)ray;
@@ -86,7 +86,7 @@ bool	intersect_cylinder(t_EntityObject object, t_Ray *ray, t_Hit *hit)
 	return (true);
 }
 
-bool	intersect_triangle(t_EntityObject object, t_Ray *ray, t_Hit *hit)
+bool	intersect_triangle(t_EntityObject *object, t_Ray *ray, t_Hit *hit)
 {
 	(void)object;
 	(void)ray;

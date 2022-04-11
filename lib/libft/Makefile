@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/10/08 11:13:32 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/04/07 13:08:47 by dvan-der         ###   ########.fr        #
+#    Updated: 2022/04/11 14:07:33 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME	=	libft.a
 HEADERS	=	-I .
 CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
 ifdef DEBUG
-	CFLAGS	+=	-fsanitize=address -g3
+	CFLAGS	+=	-g3
 else
 	CFLAGS	+=	-Ofast -D NDEBUG
 endif

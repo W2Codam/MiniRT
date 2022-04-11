@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 19:30:49 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/11 12:52:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/11 14:34:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,51 @@ static bool	ft_intersect(t_rt *rt, t_Ray ray, t_FVec3 *out)
 }
 */
 
+/*
 static t_Ray	ft_new_ray(t_FVec3 pos, t_FVec3 dir)
 {
 	return ((t_Ray){pos, dir});
 }
+*/
 
 // Test every fucking object
-static bool ft_intersect(t_rt *rt, t_Ray ray, t_hit* outhit)
+static bool ft_intersect(t_rt *rt, t_Ray ray, t_Hit* outhit)
 {
 	size_t	i;
 
-	i = -1;
+	i = 0;
 	while (++i < rt->objects_size)
-		if (rt->objects[i].intersect(&ray, outhit))
+	{
+		if (rt->objects[i].intersect(&rt->objects[i], &ray, outhit))
 			return (true);
+		i++;
+	}
 	return (false);
 }
+
+/*
+		//target = add_vec3(outhit.point_at_t, outhit.normal);
+		//return (mul_fvec3(ft_ray_color(rt, \
+		//ft_new_ray(outhit.point_at_t, sub_vec3(target, outhit.point_at_t)), \
+		//--depth), 0.5f));
+*/
 
 static t_FVec3	ft_ray_color(t_rt *rt, t_Ray ray, int32_t depth)
 {
 	float	t;
 	t_FVec3	a;
 	t_FVec3	b;
-	t_FVec3	target;
-	t_hit	outhit;
+	//t_FVec3	target;
+	t_Hit	outhit;
 
-	if (depth == 0)
-		return (new_fvec3(0,0,0));	
+	(void) rt;
+	(void) depth;
 
 	// Draw object
 	if (ft_intersect(rt, ray, &outhit))
 	{
-		target = add_vec3(outhit.hit_location, outhit.normal);
-		return (mul_fvec3(ft_ray_color(rt, \
-		ft_new_ray(outhit.hit_location, sub_vec3(target, outhit.hit_location)), \
-		depth--), 0.5f));
+		printf("X: %f | Y: %f | Z: %f\n", outhit.normal.x, outhit.normal.y, outhit.normal.z);
+		return (outhit.normal);
 	}
 
 	// Draw background

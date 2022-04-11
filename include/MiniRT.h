@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:      :+:    :+:   */
+/*   MiniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/11 12:46:58 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:00:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ Coordinate System: UE5
 # include "MLX42/MLX42.h"
 # define MAX_OBJS		100
 # define MAX_CAMERAS	10
+# define MAX_DEPTH		1
 # define WIN_WIDTH		800
 
 //= Types =//
@@ -182,7 +183,7 @@ typedef struct s_EntityObject
 	t_MaterialType	material;
 	mlx_texture_t	*texture;
 	
-	bool (*intersect)(struct s_EntityObject object, t_Ray *ray, t_Hit *hit);
+	bool (*intersect)(struct s_EntityObject *object, t_Ray *ray, t_Hit *hit);
 
 	union
 	{
@@ -245,9 +246,9 @@ int			minirt_atoi(const char *str, int row, size_t *i);
 
 //= Intersect =//
 
-bool	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit);
-bool	intersect_plane(t_EntityObject object, t_Ray *ray, t_Hit *hit);
-bool	intersect_cylinder(t_EntityObject object, t_Ray *ray, t_Hit *hit);
-bool	intersect_triangle(t_EntityObject object, t_Ray *ray, t_Hit *hit);
+bool	intersect_sphere(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
+bool	intersect_plane(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
+bool	intersect_cylinder(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
+bool	intersect_triangle(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
 
 #endif // MINIRT_H
