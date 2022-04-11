@@ -6,11 +6,13 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/30 15:50:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/08 16:15:10 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/11 11:20:52 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
+#include <float.h>
+#include <math.h>
 
 // NOTE: PROTO -> bool (name)(Object Self, Ray* Ray, struct HIT* out)
 
@@ -24,7 +26,7 @@ t_FVec3	ray_at(t_Ray *ray, float t)
 
 //Source: Real-Time Collision Detection by Christer Ericson
 //Reference: Page 177
-float	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit);
+bool	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit);
 {
 	const t_FVec3	oc;
 	const float		a;
@@ -46,22 +48,36 @@ float	intersect_sphere(t_EntityObject object, t_Ray *ray, t_Hit *hit);
 		result_1 = (-b - sqrt(discriminant)) / (2.0 * a);
 		result_2 = (-b + sqrt(discriminant)) / (2.0 * a);
 		if (result_2 < result_1)
-			return (-1);
+			return (-1.0f);
 	}
 	return (result_1);
 }
 
 //Source: Real-Time Collision Detection by Christer Ericson
 //Reference: Page 175
-bool	intersect_plane(t_FVec3 center, float radius, t_Ray *ray)
+bool	intersect_plane(t_EntityObject object, t_Ray *ray, t_Hit *hit)
 {
-	(void) center;
-	(void) radius;
-	(void) ray;
-	return (true);
+	const t_FVec3	oc;
+	const float		a;
+	const float		b;
+	const float		t;
+
+	oc = sub_vec3(object->base->transform->pos, ray->origin);
+	a = dot_fvec3(oc, object->base->transform->rot);
+	b = dot_fvec3(ray->direction, object->base->transform->rot);
+	if (fabs(b) < FLT_MIN)
+		return (-1.0f);
+	else
+	{
+		t = a / b;
+		if (t <= FLT_MIN)
+			return (t);
+		else
+			return (-1.0f);
+	}
 }
 
-bool	intersect_cyllinder(t_FVec3 center, float radius, t_Ray *ray)
+bool	intersect_cylinder(t_FVec3 center, float radius, t_Ray *ray)
 {
 	(void) center;
 	(void) radius;
