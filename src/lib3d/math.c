@@ -17,19 +17,16 @@ t_FVec3	ft_rotate(t_FVec3 vec, t_FVec3 k, float angle)
 	return (result);
 }
 
-float	ft_abc(float a, float b, float c, bool *solved)
+bool	ft_abc(float a, float b, float c, float *distance)
 {
 	float	d;
 
 	d = b * b - 4 * a * c;
 	if (d < 0)
-	{
-		*solved = false;
-		return (0);
-	}
+		return (false);
 	else
 	{
-		*solved = true;
-		return ((-b -sqrt(d)) / (2.0 * a));
+		*distance = ((-b -sqrt(d)) / (2.0 * a));
+		return (true);
 	}
 }

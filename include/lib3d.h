@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 14:35:23 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:10:41 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_Plane
 {
 	t_FVec3	center;
 	t_FVec3	dir;
-	t_FVec3	normal;
 }	t_Plane;
 
 // A Cylinder.

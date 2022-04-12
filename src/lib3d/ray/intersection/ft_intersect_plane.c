@@ -6,16 +6,27 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 10:27:07 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 17:01:55 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-bool	ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit)
+bool	ft_hit_plane(t_Ray ray, t_Plane plane, t_Hit *out_hit)
 {
-	(void)ray;
-	(void)plane;
-	(void)out_hit;
+	const t_FVec3	oc = sub_vec3(plane.center, ray.origin);
+	const float		a = dot_fvec3(oc, plane.dir);
+	const float		b = dot_fvec3(ray.dir, plane.dir);
+	float			t;
+
+	if (fabs(b) < FLT_MIN)
+		return (false);
+	else
+	{
+		t = a / b;
+		if (t <= FLT_MIN)
+			return (false);
+	}
+	out_hit->t = t;
 	return (true);
 }

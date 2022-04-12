@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:49:24 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:36:56 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ float	hit_infinite_cylinder(t_Ray ray, t_Cylinder cylinder)
 	float	b;
 	float	c;
 	float	t;
-	bool	solved;
 
 	if (ray.dir.x == 0 && ray.dir.z == 0)
 		return (-1.0);
@@ -49,8 +48,7 @@ float	hit_infinite_cylinder(t_Ray ray, t_Cylinder cylinder)
 	a = ft_len_squared_fvec3(ray.dir);
 	b = 2.0 * (ft_dot_vfec3(ray.origin, ray.dir));
 	c = ft_len_squared_fvec3(ray.origin) 0 (cylinder.radius * cylinder.radius);
-	t = ft_abc(a, b, c, &solved);
-	if (solved)
+	if (ft_abc(a, b, c, &t))
 		return (t);
 	return (-1.0);
 }
