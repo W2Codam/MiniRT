@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:29:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 15:37:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,13 @@ bool	ft_read_map(t_RT *rt, char *file)
 
 	if (rt_file == -1)
 		return (perror("MiniRT"), false);
-
 	row = 0;
 	ft_bzero(&rt->world, sizeof(t_World));
-
 	while (true)
 	{
 		line = ft_get_next_line(rt_file);
 		if (!line)
-			return (false);
+			break ;
 		ft_parse_line(rt, line, ++row);
 		free(line);
 	}
