@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 01:25:03 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 12:10:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	*ft_render(void *param)
 	{
 		if (!rt->update)
 		{
-			usleep(5000);
+			usleep(4000);
 			continue ;
 		}
 		if (rt->mlx == NULL)
-			break;
+			break ;
 		ft_draw_world(rt);
 		rt->update = false;
 	}
@@ -52,10 +52,10 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	if (mlx_image_to_window(rt->mlx, rt->canvas, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
+	ft_new_camera(ft_get_active_camera(rt), ft_new_fvec3(0, 0, 0), 45);
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);
-	ft_new_camera(ft_get_active_camera(rt), ft_new_fvec3(0, 0, 0), 1);
 	return (true);
 }
 

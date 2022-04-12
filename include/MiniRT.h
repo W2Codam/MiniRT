@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 10:39:05 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 11:29:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define MAX_OBJECTS	100
 # define MAX_LIGHTS		100
 # define MAX_CAMERAS	10
-# define WIN_WIDTH		800
+# define WIN_WIDTH		400
 
 // Types of entities that exist.
 typedef enum e_EntityType
