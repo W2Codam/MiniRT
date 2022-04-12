@@ -6,11 +6,11 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:11:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:14:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MiniRT.h"
+#include "Parser.h"
 
 void	ft_add_light(t_RT *rt, char *line, int32_t row)
 {

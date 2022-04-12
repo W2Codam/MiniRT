@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 12:05:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:16:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ft_draw_world(t_RT *rt)
 	int32_t		x;
 	int32_t		y;
 	t_Ray		ray;
-	t_FVec3		lin;
 	uint32_t	color;
 
 	y = ((int32_t)rt->canvas->height) - 1;
@@ -72,8 +71,7 @@ void	ft_draw_world(t_RT *rt)
 		while (x < ((int32_t)rt->canvas->width))
 		{
 			ray = ft_fire_ray(rt, ft_get_active_camera(rt), x, y);
-			lin = ft_ray_color(ray);
-			color = ft_to_rgba(lin);
+			color = ft_to_rgba(ft_ray_color(ray));
 			mlx_put_pixel(rt->canvas, x, rt->canvas->height - y, color);
 			x++;
 		}

@@ -6,11 +6,11 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:16 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:12:44 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:14:44 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MiniRT.h"
+#include "Parser.h"
 
 // TODO: Simplify...
 static bool	ft_in_range(t_FVec3 vec, float min, float max)

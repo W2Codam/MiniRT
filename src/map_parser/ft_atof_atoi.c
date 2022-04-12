@@ -6,11 +6,11 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 14:38:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:09:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:15:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MiniRT.h"
+#include "Parser.h"
 
 static float	make_decimal(const char *str, int32_t row, size_t *i)
 {

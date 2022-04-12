@@ -6,11 +6,11 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:37:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:14:36 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MiniRT.h"
+#include "Parser.h"
 
 void	ft_exit_parser(char *error_line, int32_t row, size_t column, char *func)
 {
