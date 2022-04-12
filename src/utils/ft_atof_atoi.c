@@ -1,5 +1,4 @@
 #include "MiniRT.h"
-#include <math.h>
 #include <float.h>
 
 static float	make_decimal(const char *str, int row, size_t *i)

@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Vector_NewF.c                                      :+:    :+:            */
+/*   conversion.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/28 11:17:01 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 19:38:26 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/04/11 19:21:29 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/12 01:32:23 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-t_FVec2	new_fvec2(float x, float y)
+uint32_t	ft_to_rgba(t_FVec3 linear)
 {
-	return ((t_FVec2){{x, y}});
-}
+	const int32_t	red = (int32_t)(linear.x * 255.999f);
+	const int32_t	green = (int32_t)(linear.y * 255.999f);
+	const int32_t	blue = (int32_t)(linear.z * 255.999f);
 
-t_FVec3	new_fvec3(float x, float y, float z)
-{
-	return ((t_FVec3){{x, y, z}});
-}
-
-t_FVec4	new_fvec4(float x, float y, float z, float w)
-{
-	return ((t_FVec4){{x, y, z, w}});
+	return (red << 24 | green << 16 | blue << 8 | 255);
 }

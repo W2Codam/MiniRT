@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Vector_Operations.c                                :+:    :+:            */
+/*   generic.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/28 11:31:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 19:38:23 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/04/11 18:04:10 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/11 22:34:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-float	get_length_fvec3(t_FVec3 vec)
+float	ft_len_fvec3(t_FVec3 vec)
 {
 	return (sqrtf((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z)));
 }
 
-float	get_length_squared_fvec3(t_FVec3 vec)
+float	ft_len_squared_fvec3(t_FVec3 vec)
 {
 	return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
 }
 
-void	normalize_fvec3(t_FVec3 *vec)
+void	ft_normalize_fvec3(t_FVec3 *vec)
 {
 	float		inv;
-	const float	length = get_length_fvec3(*vec);
+	const float	length = ft_len_fvec3(*vec);
 
 	if (length == 0)
 	{
@@ -36,14 +36,7 @@ void	normalize_fvec3(t_FVec3 *vec)
 	}
 }
 
-float	dot_fvec3(t_FVec3 a, t_FVec3 b)
+float	ft_dot_fvec3(t_FVec3 left, t_FVec3 right)
 {
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
-}
-
-t_FVec3	cross_fvec3(t_FVec3 a, t_FVec3 b)
-{
-	return (new_fvec3(a.y * b.z - a.z * b.y, \
-						a.z * b.x - a.x * b.z, \
-						a.x * b.y - a.y * b.x));
+	return (left.x * right.x + left.y * right.y + left.y * right.z);
 }
