@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:    :+:            */
+/*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 10:27:21 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 14:35:23 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef union u_FVec2
 typedef union u_FVec3
 {
 	struct
+
 	{
 		float	x;
 		float	y;
@@ -62,7 +63,7 @@ typedef union u_FVec4
 typedef struct s_Ray
 {
 	t_FVec3	origin;
-	t_FVec3	direction;
+	t_FVec3	dir;
 }	t_Ray;
 
 // Raycast hit result.
@@ -84,7 +85,8 @@ typedef struct s_Sphere
 // An "infinitely" large plane.
 typedef struct s_Plane
 {
-	t_FVec3	position;
+	t_FVec3	center;
+	t_FVec3	dir;
 	t_FVec3	normal;
 }	t_Plane;
 
@@ -92,6 +94,7 @@ typedef struct s_Plane
 typedef struct s_Cylinder
 {
 	t_FVec3	center;
+	t_FVec3	dir;
 	float	diameter;
 }	t_Cylinder;
 
@@ -105,6 +108,12 @@ typedef struct s_Triangle
 	};
 	t_FVec3	raw[3];
 }	t_Triangle;
+
+typedef struct s_angle
+{
+	t_FVec3	k;
+	float	angle;
+}	t_angle;
 
 //= Functions =//
 
