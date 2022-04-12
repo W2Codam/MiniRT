@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 11:29:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 15:15:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,18 @@
 # include <pthread.h>
 # include <assert.h>
 # include <float.h>
+# include <errno.h>
+# include <math.h>
 # define MAX_OBJECTS	100
 # define MAX_LIGHTS		100
 # define MAX_CAMERAS	10
 # define WIN_WIDTH		400
+
+typedef enum rt_errno
+{
+	RT_SUCCESS = 0,
+	RT_INVFILE,
+}	rt_errno_t;
 
 // Types of entities that exist.
 typedef enum e_EntityType
@@ -48,7 +56,7 @@ typedef struct s_Object
 {
 	t_EntityType	type;
 	t_FVec3			color;
-	bool			(* intersects)(struct s_Object *self, t_Ray *ray, t_Hit *hit);
+	bool			(*intersects)(struct s_Object*, t_Ray*, t_Hit*);
 
 	union
 	{
@@ -122,7 +130,15 @@ typedef struct s_RT
 
 	pthread_t	render_thread;
 	bool		update;
+	bool		has_ambient;
+	rt_errno_t	errval;
 }	t_RT;
+
+typedef struct s_JmpTable
+{
+	const char *id;
+	void		(*func)(t_RT*, char*, int32_t);
+} 	t_JmpTable;
 
 //= Functions =//
 
@@ -139,4 +155,26 @@ bool	ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_tr(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 
+//= Map parser =//
+
+// TODO: Move to different header
+
+bool	ft_read_map(t_RT *rt, char *file);
+
+void	ft_add_sphere(t_RT *rt, char *line, int32_t row);
+void	ft_add_plane(t_RT *rt, char *line, int32_t row);
+void	ft_add_cylinder(t_RT *rt, char *line, int32_t row);
+void	ft_add_triangle(t_RT *rt, char *line, int32_t row);
+void	ft_add_ambient(t_RT *rt, char *line, int32_t row);
+void	ft_add_light(t_RT *rt, char *line, int32_t row);
+void	ft_add_camera(t_RT *rt, char *line, int32_t row);
+
+float	minirt_atof(const char *str, int32_t row, size_t *i);
+int32_t	minirt_atoi(const char *str, int32_t row, size_t *i);
+
+t_FVec3	ft_init_coordinates(char *line, int32_t row, size_t *i, int32_t check);
+t_FVec3	ft_init_color(char *line, int32_t row, size_t *i);
+float	ft_init_number(char *line, int32_t row, size_t *i, int32_t atof);
+
+void	ft_exit_parser(char *error_line, int32_t row, size_t column, char *func);
 #endif

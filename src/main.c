@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 12:10:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 15:16:38 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 	const int32_t	image_height = (int32_t)(image_width / aspect_ratio);
 
 	(void)input;
+	if (!ft_read_map(rt, input))
+		return (false);
 	rt->mlx = mlx_init(image_width, image_height, "👾 MegaRT 👾", false);
 	if (mlx_errno)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
