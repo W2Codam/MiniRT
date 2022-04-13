@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 14:30:29 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/13 11:45:53 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,6 @@ typedef struct s_Ray
 	t_FVec3	dir;
 }	t_Ray;
 
-// Raycast hit result.
-typedef struct s_Hit
-{
-	float	distance;
-	t_FVec3	location;
-}	t_Hit;
 
 //= Bounds =//
 
@@ -109,11 +103,19 @@ typedef struct s_Triangle
 	t_FVec3	vertices[3];
 }	t_Triangle;
 
+// Angle
 typedef struct s_angle
 {
 	t_FVec3	k;
 	float	angle;
 }	t_angle;
+
+// Raycast hit result.
+typedef struct s_Hit
+{
+	float		distance;
+	t_Object	object;	
+}	t_Hit;
 
 //= Functions =//
 

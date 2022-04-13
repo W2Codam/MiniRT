@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 17:01:55 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/13 09:14:34 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	ft_hit_plane(t_Ray ray, t_Plane plane, t_Hit *out_hit)
 	const t_FVec3	oc = sub_vec3(plane.center, ray.origin);
 	const float		a = dot_fvec3(oc, plane.dir);
 	const float		b = dot_fvec3(ray.dir, plane.dir);
-	float			t;
+	float			distance;
 
 	if (fabs(b) < FLT_MIN)
 		return (false);
@@ -27,6 +27,7 @@ bool	ft_hit_plane(t_Ray ray, t_Plane plane, t_Hit *out_hit)
 		if (t <= FLT_MIN)
 			return (false);
 	}
-	out_hit->t = t;
+	out_hit->distance = distance;
+	out_hit->as_plane = plane;
 	return (true);
 }
