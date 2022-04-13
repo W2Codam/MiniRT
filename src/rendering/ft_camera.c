@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:12:52 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 11:47:47 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:22:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ static t_FVec3	ft_make_llc(t_Camera *camera)
 t_Camera	*ft_get_active_camera(t_RT *rt)
 {
 	return (&rt->world.cameras[rt->camera_index]);
+}
+
+void	ft_update_camera(t_RT *rt)
+{
+	t_Camera *const	camera = ft_get_active_camera(rt);
+
+	ft_new_camera(camera, camera->position, camera->fov);
 }
 
 void	ft_new_camera(t_Camera *camera, t_FVec3 pos, float fov)

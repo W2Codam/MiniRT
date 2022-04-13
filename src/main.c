@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:40:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:23:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ static void	ft_hook(void *param)
 		mlx_close_window(rt->mlx);
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_W))
 	{
-		ft_get_active_camera(rt)->position.z += 0.1f;
+		ft_get_active_camera(rt)->position.z += 0.05f;
 		rt->update = true;
 	}
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_S))
 	{
-		ft_get_active_camera(rt)->position.z -= 0.1f;
+		ft_get_active_camera(rt)->position.z -= 0.05f;
 		rt->update = true;
 	}
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_D))
@@ -97,8 +97,17 @@ static void	ft_hook(void *param)
 		ft_get_active_camera(rt)->position.y -= 0.05f;
 		rt->update = true;
 	}
-	ft_new_camera(ft_get_active_camera(rt), \
-	ft_get_active_camera(rt)->position, ft_get_active_camera(rt)->fov);
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_PAGE_UP))
+	{
+		ft_get_active_camera(rt)->fov += 0.5f;
+		rt->update = true;
+	}
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_PAGE_DOWN))
+	{
+		ft_get_active_camera(rt)->fov -= 0.5f;
+		rt->update = true;
+	}
+	ft_update_camera(rt);
 }
 
 /**

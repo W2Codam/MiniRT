@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:18:26 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:22:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_JmpTable
 //= Functions =//
 
 t_Camera	*ft_get_active_camera(t_RT *rt);
+void		ft_update_camera(t_RT *rt);
 void		ft_new_camera(t_Camera *camera, t_FVec3 pos, float fov);
 void		ft_draw_world(t_RT *rt);
 
