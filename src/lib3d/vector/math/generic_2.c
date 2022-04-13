@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_plane.c                               :+:    :+:            */
+/*   generic_2.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:24:13 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/04/13 12:35:07 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/13 12:35:56 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-bool	ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit)
+t_FVec3	ft_normalize_fvec3_2(t_FVec3 vec)
 {
-	const t_FVec3	oc = ft_sub_fvec3(plane->center, ray->origin);
-	const float		a = ft_dot_fvec3(oc, plane->dir);
-	const float		b = ft_dot_fvec3(ray->dir, plane->dir);
-	float			distance;
+	t_FVec3		out;
+	float		inv;
+	const float	length = ft_len_fvec3(vec);
 
-	if (fabs(b) < FLT_MIN)
-		return (false);
-	distance = a / b;
-	if (distance <= FLT_MIN)
-		return (false);
-	out_hit->distance = distance;
-	return (true);
+	out = vec;
+	if (length == 0)
+	{
+		inv = 1.0f / length;
+		out.x *= inv;
+		out.y *= inv;
+		out.z *= inv;
+	}
+	return (out);
 }

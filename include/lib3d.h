@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:      :+:    :+:   */
+/*   lib3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 11:45:53 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/13 12:49:59 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <math.h>
+# include <float.h>
 
 //= Vector =//
 
@@ -35,7 +36,6 @@ typedef union u_FVec2
 typedef union u_FVec3
 {
 	struct
-
 	{
 		float	x;
 		float	y;
@@ -66,7 +66,6 @@ typedef struct s_Ray
 	t_FVec3	dir;
 }	t_Ray;
 
-
 //= Bounds =//
 
 // A sphere.
@@ -89,6 +88,7 @@ typedef struct s_Cylinder
 	t_FVec3	center;
 	t_FVec3	dir;
 	float	diameter;
+	float	radius;
 	float	height;
 }	t_Cylinder;
 
@@ -113,8 +113,8 @@ typedef struct s_angle
 // Raycast hit result.
 typedef struct s_Hit
 {
-	float		distance;
-	t_Object	object;	
+	float			distance;
+	struct s_Object	*object;
 }	t_Hit;
 
 //= Functions =//
@@ -131,8 +131,13 @@ t_Ray		ft_new_ray(t_FVec3 origin, t_FVec3 direction);
 
 float		ft_len_fvec3(t_FVec3 vec);
 void		ft_normalize_fvec3(t_FVec3 *vec);
+t_FVec3		ft_normalize_fvec3_2(t_FVec3 vec);
 float		ft_len_squared_fvec3(t_FVec3 vec);
 float		ft_dot_fvec3(t_FVec3 left, t_FVec3 right);
+t_FVec3		ft_cross_fvec3(t_FVec3 left, t_FVec3 right);
+bool		ft_equal_fvec3(t_FVec3 left, t_FVec3 right);
+t_FVec3		ft_rotate(t_FVec3 vec, t_FVec3 k, float angle);
+t_angle		ft_get_angle_to(t_FVec3 dir, t_FVec3 desired_angle);
 
 t_FVec3		ft_add_fvec3(t_FVec3 left, t_FVec3 right);
 t_FVec3		ft_sub_fvec3(t_FVec3 left, t_FVec3 right);
@@ -147,8 +152,10 @@ t_FVec3		ft_div_fvec3f(t_FVec3 left, float right);
 //= Ray =//
 
 t_FVec3		ft_ray_at(t_Ray *ray, float distance);
+t_Ray		ft_rotate_ray(t_Ray *ray, t_FVec3 center, t_FVec3 dir);
+bool		ft_ray_in_right_dir(t_Ray *ray, t_Cylinder *cylinder);
 
-// Intersections
+//= Intersections =//
 
 bool		ft_hit_sphere(t_Ray *ray, t_Sphere *sphere, t_Hit *out_hit);
 bool		ft_hit_triangle(t_Ray *ray, t_Triangle *triangle, t_Hit *out_hit);
@@ -158,5 +165,10 @@ bool		ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit);
 //= Color =//
 
 uint32_t	ft_to_rgba(t_FVec3 linear);
+
+//= Generic =//
+
+bool		ft_abc(float a, float b, float c, float *distance);
+float		ft_signf(float a);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   operations.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 18:02:22 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 13:55:36 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/13 12:30:27 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ t_FVec3	ft_cross_fvec3(t_FVec3 left, t_FVec3 right)
 	const float	x = left.y * right.z - left.z * right.y;
 	const float	y = left.z * right.x - left.x * right.z;
 	const float	z = left.x * right.y - left.y * right.x;
-	
+
 	return (ft_new_fvec3(x, y, z));
 }
