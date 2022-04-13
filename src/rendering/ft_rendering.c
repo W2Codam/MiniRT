@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rendering.c                                     :+:    :+:            */
+/*   ft_rendering.c                                     :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:56:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/13 14:54:36 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static t_FVec3	hit_object(t_Ray ray, t_Hit hit)
 	t_FVec3	normal;
 
 	if (hit.object->type == SPHERE)
-		normal = normal_sphere;
+		normal = ft_normal_sphere(ray, hit);
 	else if (hit.object->type == PLANE)
-		normal = normal_plane;
-	else if (hit.object.type == CYLINDER)
-		normal = normal_cylinder;
+		normal = ft_normal_plane(ray, hit);
+	else
+		normal = ft_new_fvec3(0, 0, 0);
+	//else if (hit.object.type == CYLINDER)
+	//	normal = ft_normal_cylinder(ray, hit);
 	return (ft_mul_fvec3f(ft_add_fvec3(normal, ft_new_fvec3(1, 1, 1)), 0.5f));
 }
 

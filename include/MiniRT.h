@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:22:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/13 14:50:58 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,8 @@ bool	ft_intersect_tr(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 
 bool	ft_read_map(t_RT *rt, char *file);
 
+t_FVec3	ft_normal_sphere(t_Ray ray, t_Hit hit);
+t_FVec3	ft_normal_plane(t_Ray ray, t_Hit hit);
+
 #endif
+
