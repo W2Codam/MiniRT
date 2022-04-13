@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 01:35:56 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 17:11:51 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ bool	ft_hit_sphere(t_Ray *ray, t_Sphere *sphere, t_Hit *out_hit)
 		distance = 0.0f;
 
 	out_hit->distance = distance;
+	out_hit->location = ft_ray_at(ray, distance);
 	return (true);
 }
