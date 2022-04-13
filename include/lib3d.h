@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:    :+:            */
+/*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -35,6 +35,7 @@ typedef union u_FVec2
 typedef union u_FVec3
 {
 	struct
+
 	{
 		float	x;
 		float	y;
@@ -62,7 +63,7 @@ typedef union u_FVec4
 typedef struct s_Ray
 {
 	t_FVec3	origin;
-	t_FVec3	direction;
+	t_FVec3	dir;
 }	t_Ray;
 
 // Raycast hit result.
@@ -84,15 +85,15 @@ typedef struct s_Sphere
 // An "infinitely" large plane.
 typedef struct s_Plane
 {
-	t_FVec3	position;
-	t_FVec3	normal;
+	t_FVec3	center;
+	t_FVec3	dir;
 }	t_Plane;
 
 // A Cylinder.
 typedef struct s_Cylinder
 {
 	t_FVec3	center;
-	t_FVec3	rotation;
+	t_FVec3	dir;
 	float	diameter;
 	float	height;
 }	t_Cylinder;
@@ -107,6 +108,12 @@ typedef struct s_Triangle
 	};
 	t_FVec3	vertices[3];
 }	t_Triangle;
+
+typedef struct s_angle
+{
+	t_FVec3	k;
+	float	angle;
+}	t_angle;
 
 //= Functions =//
 

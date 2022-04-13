@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   generic.c                                          :+:    :+:            */
+/*   generic.c                                          :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -39,4 +39,9 @@ void	ft_normalize_fvec3(t_FVec3 *vec)
 float	ft_dot_fvec3(t_FVec3 left, t_FVec3 right)
 {
 	return (left.x * right.x + left.y * right.y + left.z * right.z);
+}
+
+bool	ft_equal_fvec3(t_FVec3 left, t_FVec3 right)
+{
+	return (left.x == right.x && left.y == right.y && left.z == right.z);
 }
