@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 01:34:51 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:16:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static t_FVec3	ft_ray_color(t_Ray ray)
 	// Background
 	ft_normalize_fvec3(&ray.direction);
 	t = 0.5f * (ray.direction.y + 1.0f);
-	a = ft_mul_fvec3f(ft_new_fvec3(0.5f, 0.7f, 1.0f), 1.0f - t);
-	b = ft_mul_fvec3f(ft_new_fvec3(1.0f, 1.0f, 1.0f), t);
+	a = ft_mul_fvec3f(ft_new_fvec3(1.0f, 1.0f, 1.0f), 1.0f - t);
+	b = ft_mul_fvec3f(ft_new_fvec3(0.5f, 0.7f, 1.0f), t);
 	return (ft_add_fvec3(a, b));
 }
 
@@ -59,9 +59,10 @@ static t_Ray	ft_fire_ray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)
 
 void	ft_draw_world(t_RT *rt)
 {
-	int32_t	x;
-	int32_t	y;
-	t_Ray	ray;
+	int32_t		x;
+	int32_t		y;
+	t_Ray		ray;
+	uint32_t	color;
 
 	y = ((int32_t)rt->canvas->height) - 1;
 	while (y >= 0)
@@ -70,7 +71,8 @@ void	ft_draw_world(t_RT *rt)
 		while (x < ((int32_t)rt->canvas->width))
 		{
 			ray = ft_fire_ray(rt, ft_get_active_camera(rt), x, y);
-			mlx_put_pixel(rt->canvas, x, y, ft_to_rgba(ft_ray_color(ray)));
+			color = ft_to_rgba(ft_ray_color(ray));
+			mlx_put_pixel(rt->canvas, x, rt->canvas->height - y, color);
 			x++;
 		}
 		y--;

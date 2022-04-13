@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 14:00:33 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/06 09:02:00 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/12 13:58:29 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,14 @@ char	*ft_strjoin(char const *s1, char const *s2);
  * @returns The trimmed string. NULL if the allocation fails.
  */
 char	*ft_strtrim(char const *s1, char const *set);
+
+/**
+ * Checks if a string is just empty spaces.
+ * 
+ * @param str The string to check.
+ * @return True if the string is only spaces, false otherwise.
+ */
+bool	ft_isempty(const char *str);
 
 /** 
  * Allocates and returns an array of strings obtained by 

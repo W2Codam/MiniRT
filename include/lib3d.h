@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 17:10:41 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/12 14:30:29 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,18 @@ typedef struct s_Cylinder
 	t_FVec3	center;
 	t_FVec3	dir;
 	float	diameter;
+	float	height;
 }	t_Cylinder;
 
 typedef struct s_Triangle
 {
 	struct
 	{
-		t_FVec3	x;
-		t_FVec3	y;
-		t_FVec3	z;
+		t_FVec3	v1;
+		t_FVec3	v2;
+		t_FVec3	v3;
 	};
-	t_FVec3	raw[3];
+	t_FVec3	vertices[3];
 }	t_Triangle;
 
 typedef struct s_angle

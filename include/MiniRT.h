@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 10:39:05 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:18:26 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 # include <pthread.h>
 # include <assert.h>
 # include <float.h>
+# include <errno.h>
+# include <math.h>
 # define MAX_OBJECTS	100
 # define MAX_LIGHTS		100
 # define MAX_CAMERAS	10
-# define WIN_WIDTH		800
+# define WIN_WIDTH		400
 
 // Types of entities that exist.
 typedef enum e_EntityType
@@ -48,7 +50,7 @@ typedef struct s_Object
 {
 	t_EntityType	type;
 	t_FVec3			color;
-	bool			(* intersects)(struct s_Object *self, t_Ray *ray, t_Hit *hit);
+	bool			(*intersects)(struct s_Object*, t_Ray*, t_Hit*);
 
 	union
 	{
@@ -122,7 +124,14 @@ typedef struct s_RT
 
 	pthread_t	render_thread;
 	bool		update;
+	bool		has_ambient;
 }	t_RT;
+
+typedef struct s_JmpTable
+{
+	const char *id;
+	void		(*func)(t_RT*, char*, int32_t);
+} 	t_JmpTable;
 
 //= Functions =//
 
@@ -138,5 +147,9 @@ bool	ft_intersect_sp(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_tr(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+
+//= Map parser =//
+
+bool	ft_read_map(t_RT *rt, char *file);
 
 #endif
