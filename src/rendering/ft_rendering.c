@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rendering.c                                     :+:      :+:    :+:   */
+/*   ft_rendering.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 14:54:36 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:19:14 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static t_Hit	ft_hittables(t_RT *rt, t_Ray ray)
 			}
 			else if (new_hit.distance < closest_hit.distance)
 				closest_hit = new_hit;
-		i++;
 		}
+		i++;
 	}
 	return (closest_hit);
 }
