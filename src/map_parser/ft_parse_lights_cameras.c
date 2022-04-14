@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:14:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/14 11:16:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ void	ft_add_light(t_RT *rt, char *line, int32_t row)
 void	ft_add_ambient(t_RT *rt, char *line, int32_t row)
 {
 	size_t			i;
-	t_Light *const	light = &rt->world.lights[rt->world.light_count];
+	t_Light *const	light = &rt->world.ambient;
 
 	i = 0;
 	if (rt->has_ambient)
 		ft_exit_parser("Multiple ambient lighting", row, i, "init_ambient");
-	rt->world.light_count++;
 	light->is_ambient = true;
 	light->position = ft_new_fvec3(0, 0, 0);
 	light->intensity = ft_init_number(line, row, &i, 1);

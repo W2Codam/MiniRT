@@ -1,40 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_world.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/14 11:17:21 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/14 11:52:19 by lde-la-h      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "MiniRT.h"
 
-static t_FVec3	hit_object(t_Ray ray, t_Hit hit)
-{
-	t_FVec3	normal;
-
-	if (hit.object->type == SPHERE)
-	{
-		normal = ft_normal_sphere(ray, hit);
-		return (hit.object->color);
-	}
-	else if (hit.object->type == PLANE)
-	{
-		normal = ft_normal_plane(ray, hit);
-		return (hit.object->color);
-	}
-	else
-		normal = ft_new_fvec3(0, 0, 0);
-	//else if (hit.object.type == CYLINDER)
-	//	normal = ft_normal_cylinder(ray, hit);
-	return (ft_mul_fvec3f(ft_add_fvec3(normal, ft_new_fvec3(1, 1, 1)), 0.5f));
-}
-
-static t_FVec3	hit_nothing(t_Ray ray)
-{
-	//float		t;
-	//t_FVec3		a;
-	//t_FVec3		b;
-
-	//ft_normalize_fvec3(&ray.dir);
-	//t = 0.5f * (ray.dir.y + 1.0f);
-	//a = ft_mul_fvec3f(ft_new_fvec3(1.0f, 1.0f, 1.0f), 1.0f - t);
-	//b = ft_mul_fvec3f(ft_new_fvec3(0.5f, 0.7f, 1.0f), t);
-	//return (ft_add_fvec3(a, b));
-	(void)ray;
-	return (ft_new_fvec3(0, 0, 0));
-}
+//= Private =//
 
 static t_Hit	ft_hittables(t_RT *rt, t_Ray ray)
 {
@@ -50,7 +28,7 @@ static t_Hit	ft_hittables(t_RT *rt, t_Ray ray)
 	{
 		if (rt->world.objects[i].intersects(&rt->world.objects[i], &ray, &new_hit))
 		{
-			printf("hit_distance: %f\n", new_hit.distance);
+			//printf("hit_distance: %f\n", new_hit.distance);
 			if (new_hit.distance > 0.0f)
 			{
 				if (first_hit)
@@ -67,14 +45,38 @@ static t_Hit	ft_hittables(t_RT *rt, t_Ray ray)
 	return (closest_hit);
 }
 
-uint32_t	ray_to_world(t_RT *rt, t_Ray ray)
+/**
+ * Returns the normal of the hit object.
+ * 
+ * TODO: Make func ptrs.
+ * 
+ * @param ray The ray.
+ * @param hit The hit result.
+ * @return The normal. 
+ */
+static t_FVec3	ft_hit_object(t_Ray ray, t_Hit hit)
 {
-	t_Hit		hit;
+	if (hit.object->type == SPHERE)
+		return (ft_normal_sphere(ray, hit));
+	else if (hit.object->type == PLANE)
+		return (ft_normal_plane(ray, hit));
+	return (ft_new_fvec3(0, 0, 0));
+}
 
-	hit = ft_hittables(rt, ray);
+//= Public =//
+
+bool	ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out)
+{
+	const t_Hit		hit = ft_hittables(rt, ray);
+
 	if (hit.distance > 0.0f)
-		return (ft_to_rgba(hit_object(ray, hit)));
-	else
-		return (ft_to_rgba(hit_nothing(ray)));
+	{
+		*hit_out = hit;
+		*normal = ft_hit_object(ray, hit);
+		return (true);
+	}
+	ft_bzero(hit_out, sizeof(t_Hit));
+	*normal = ft_new_fvec3(0.0f, 0.0f, 0.0f);
+	return (false);
 }
 

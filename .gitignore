@@ -55,3 +55,4 @@ MiniRT
 *.rt
 .vscode
 .cache
+tags
