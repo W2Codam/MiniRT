@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 14:50:58 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:36:19 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ t_Camera	*ft_get_active_camera(t_RT *rt);
 void		ft_update_camera(t_RT *rt);
 void		ft_new_camera(t_Camera *camera, t_FVec3 pos, float fov);
 void		ft_draw_world(t_RT *rt);
+void		ft_apply_lights(t_RT *rt, uint32_t *color);
+uint32_t	ray_to_world(t_RT *rt, t_Ray ray);
 
 //= Collision Functions =//
 
