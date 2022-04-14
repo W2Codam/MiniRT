@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 12:32:56 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:49:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/14 13:03:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ float	ft_signf(float a)
 	if (a < 0)
 		return (-1.0);
 	return (1.0);
+}
+
+float ft_clamp(float x, float min, float max) 
+{
+    if (x < min) 
+		return (min);
+    if (x > max) 
+		return (max);
+    return (x);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:      :+:    :+:   */
+/*   MiniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/14 10:36:19 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:28:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define MAX_OBJECTS	100
 # define MAX_LIGHTS		100
 # define MAX_CAMERAS	10
-# define WIN_WIDTH		400
+# define WIN_WIDTH		800
+# define SAMPLE_COUNT	42
 
 // Types of entities that exist.
 typedef enum e_EntityType
@@ -99,6 +100,8 @@ typedef struct s_Light
  */
 typedef struct s_World
 {
+	t_Light		ambient;
+
 	t_Object	objects[MAX_OBJECTS];
 	uint16_t	object_count;
 
@@ -140,7 +143,7 @@ void		ft_update_camera(t_RT *rt);
 void		ft_new_camera(t_Camera *camera, t_FVec3 pos, float fov);
 void		ft_draw_world(t_RT *rt);
 void		ft_apply_lights(t_RT *rt, uint32_t *color);
-uint32_t	ray_to_world(t_RT *rt, t_Ray ray);
+bool		ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out);
 
 //= Collision Functions =//
 

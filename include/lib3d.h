@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:      :+:    :+:   */
+/*   lib3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:49:59 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/14 13:03:19 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <float.h>
+# include <stdlib.h>
 
 //= Vector =//
 
@@ -170,5 +171,8 @@ uint32_t	ft_to_rgba(t_FVec3 linear);
 
 bool		ft_abc(float a, float b, float c, float *distance);
 float		ft_signf(float a);
+float		ft_randf(void);
+float		ft_randf_r(float min, float max);
+float		ft_clamp(float x, float min, float max);
 
 #endif
