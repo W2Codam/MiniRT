@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/18 13:40:16 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/18 17:35:31 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,21 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 	// Work with 0-255
 	if (is_hit)
 	{
-		out_color = ft_mul_fvec3f(hit.object->color, rt->world.ambient.intensity);
-		printf("%f %f %f\n", out_color.x, out_color.y, out_color.z);
+		// Regular light TODO: Move to apply light func instead
+		for (uint16_t i = 0; i < rt->world.light_count; i++)
+		{
+			t_Light *light = &rt->world.lights[i];
+			t_Hit	obstacle = ft_ray_intersect_any(rt, ft_new_ray(ft_ray_at(ray, hit.distance), ft_sub_fvec3(light->position, ft_ray_at(ray, hit.distance))));
+			if (obstacle.distance != -1)
+			{
+				/* code */
+			}
+			out_color = ft_muls_color(hit.object->color, , rt->world.ambient.intensity);
+		}
+
+		// Ambient (Correct?)
+		//out_color = ft_muls_color(hit.object->color, rt->world.ambient.color, rt->world.ambient.intensity);
+		//printf("%f %f %f\n", out_color.x, out_color.y, out_color.z);
 	}
 	else
 		out_color = ft_to_color(ft_hit_nothing(ray));
@@ -76,11 +89,8 @@ void	ft_draw_world(t_RT *rt)
 		while (x < ((int32_t)rt->canvas->width))
 		{
 			ft_bzero(&color, sizeof(t_FVec3));
-			//for (size_t s = 0; s < SAMPLE_COUNT; s++)
-			//{
-				ray = ft_fire_ray(rt, ft_get_active_camera(rt), x, y);
-				color = ft_add_fvec3(color, ft_ray_color(rt, ray));
-			//}			
+			ray = ft_fire_ray(rt, ft_get_active_camera(rt), x, y);
+			color = ft_ray_color(rt, ray);
 			mlx_put_pixel(rt->canvas, x, rt->canvas->height - y, ft_from_color(color));
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 11:17:21 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/14 11:52:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/18 17:30:11 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,25 @@ bool	ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out)
 	return (false);
 }
 
+/**
+ * Does the ray intersect ANY object in the scene ?
+ * 
+ * @param rt The state.
+ * @param ray The ray to shoot.
+ * @return Distance of -1 to indicate no hit.
+ */
+t_Hit	ft_ray_intersect_any(t_RT *rt, t_Ray ray)
+{
+	uint16_t	i;
+	t_Hit		hit;
+
+	i = 0;
+	hit.distance = -1.0f;
+	while (i < rt->world.object_count)
+	{
+		if (rt->world.objects[i].intersects(&rt->world.objects[i], &ray, &hit))
+			break;
+		i++;
+	}
+	return (hit);
+}
