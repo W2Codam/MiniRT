@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/14 19:46:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/18 13:39:50 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,10 @@ bool		ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit);
 //= Color =//
 
 uint32_t	ft_to_rgba(t_FVec3 linear);
+t_FVec3		ft_to_color(t_FVec3 linear);
 t_FVec3		ft_from_rgba(t_FVec3 color);
+uint32_t	ft_from_color(t_FVec3 color);
+
 
 //= Generic =//
 
