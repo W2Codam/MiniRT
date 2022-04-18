@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/14 13:32:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/15 11:22:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 
 	if (is_hit)
 	{
-		// 1. Diffuse
-		// 2. (Specular)
-		// 3. Ambient
+		//out_color = ft_from_rgba(ft_div_fvec3f(ft_mul_fvec3(hit.object->color, rt->world.ambient.color), 255.0f)); // 0-255
 		out_color = ft_mul_fvec3(hit.object->color, rt->world.ambient.color);
+		//printf("%f %f %f\n", out_color.x, out_color.y, out_color.z);
+		//printf("%f %f %f\n", out_color.x, out_color.y, out_color.z);
 	}
 	else
 		out_color = ft_hit_nothing(ray);
