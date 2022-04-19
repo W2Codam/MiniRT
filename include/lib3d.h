@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/18 17:30:23 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/19 08:22:46 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ t_FVec3		ft_cross_fvec3(t_FVec3 left, t_FVec3 right);
 bool		ft_equal_fvec3(t_FVec3 left, t_FVec3 right);
 t_FVec3		ft_rotate(t_FVec3 vec, t_FVec3 k, float angle);
 t_angle		ft_get_angle_to(t_FVec3 dir, t_FVec3 desired_angle);
+float		ft_distance(t_FVec3 p1, t_FVec3 p2);
 
 t_FVec3		ft_add_fvec3(t_FVec3 left, t_FVec3 right);
 t_FVec3		ft_sub_fvec3(t_FVec3 left, t_FVec3 right);

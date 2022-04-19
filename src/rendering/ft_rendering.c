@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/18 17:35:31 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/19 10:37:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 //= Private =//
 
+// Returns in 0-255 vec3
 static t_FVec3	ft_hit_nothing(t_Ray ray)
 {
 	float		t;
@@ -35,30 +36,11 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 	t_FVec3		out_color;
 	const bool	is_hit = ft_ray_to_world(rt, ray, &normal, &hit);
 
-	// Work with 0-255
 	if (is_hit)
-	{
-		// Regular light TODO: Move to apply light func instead
-		for (uint16_t i = 0; i < rt->world.light_count; i++)
-		{
-			t_Light *light = &rt->world.lights[i];
-			t_Hit	obstacle = ft_ray_intersect_any(rt, ft_new_ray(ft_ray_at(ray, hit.distance), ft_sub_fvec3(light->position, ft_ray_at(ray, hit.distance))));
-			if (obstacle.distance != -1)
-			{
-				/* code */
-			}
-			out_color = ft_muls_color(hit.object->color, , rt->world.ambient.intensity);
-		}
-
-		// Ambient (Correct?)
-		//out_color = ft_muls_color(hit.object->color, rt->world.ambient.color, rt->world.ambient.intensity);
-		//printf("%f %f %f\n", out_color.x, out_color.y, out_color.z);
-	}
+		out_color = ft_apply_lights(rt, ray, &hit, &normal);
 	else
 		out_color = ft_to_color(ft_hit_nothing(ray));
-
 	return (out_color);
-	//return (ft_mul_fvec3f(out_color, 1.0 / SAMPLE_COUNT));
 }
 
 static t_Ray	ft_fire_ray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)

@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/18 17:30:40 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/19 08:17:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_Camera	*ft_get_active_camera(t_RT *rt);
 void		ft_update_camera(t_RT *rt);
 void		ft_new_camera(t_Camera *camera, t_FVec3 pos, float fov);
 void		ft_draw_world(t_RT *rt);
-uint32_t	ft_apply_lights(t_RT *rt, t_Hit *hit, t_FVec3 *normal);
+t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal);
 bool		ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out);
 t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray);
 
