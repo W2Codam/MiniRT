@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:    :+:            */
+/*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 08:22:46 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/19 16:20:53 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct s_Cylinder
 {
 	t_FVec3	center;
 	t_FVec3	dir;
-	float	diameter;
 	float	radius;
 	float	height;
 }	t_Cylinder;
@@ -115,6 +114,7 @@ typedef struct s_angle
 typedef struct s_Hit
 {
 	float			distance;
+	bool			cy_side;
 	struct s_Object	*object;
 }	t_Hit;
 

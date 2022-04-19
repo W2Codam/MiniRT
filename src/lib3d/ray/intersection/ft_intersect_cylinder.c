@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_cylinder.c                            :+:    :+:            */
+/*   ft_intersect_cylinder.c                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:50:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/19 16:56:43 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
+#include <stdio.h>
 
 static bool	inside_cylinder(t_FVec3 pos, t_Cylinder *cylinder)
 {
@@ -38,18 +39,25 @@ static float	hit_infinite_cylinder(t_Ray *ray, t_Cylinder *cylinder)
 	float	b;
 	float	c;
 	float	t;
+	float	disc;
 
 	if (ray->dir.x == 0 && ray->dir.z == 0)
+	{
 		return (-1.0);
+	}
 	ray->dir.y = 0;
 	ray->origin.y = 0;
 	a = ft_len_squared_fvec3(ray->dir);
 	b = 2.0 * (ft_dot_fvec3(ray->origin, ray->dir));
 	c = ft_len_squared_fvec3(ray->origin) - \
 	(cylinder->radius * cylinder->radius);
-	if (ft_abc(a, b, c, &t))
+ 	disc = (b * b) - 4 * a * c;
+	if (disc > 0)
+	{
+		t = (-b - sqrtf(disc)) / (2.0f * a);
 		return (t);
-	return (-1.0);
+	}
+	return (-1.0f);
 }
 
 bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
@@ -59,6 +67,8 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 	float	t_top_bottom;
 	float	t;
 
+	out_hit->distance = -1;
+	out_hit->cy_side = false;
 	rotated_ray = ft_rotate_ray(ray, cylinder->center, cylinder->dir);
 	if (!ft_ray_in_right_dir(&rotated_ray, cylinder) || \
 	inside_cylinder(rotated_ray.origin, cylinder))
@@ -71,6 +81,7 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 	if (fabsf(p_at_t.y) < cylinder->height / 2
 		&& (t_top_bottom < 0 || t < t_top_bottom))
 	{
+		out_hit->cy_side = true;
 		out_hit->distance = t;
 		return (true);
 	}
@@ -79,5 +90,6 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 		out_hit->distance = t_top_bottom;
 		return (true);
 	}
+	printf("3rd\n");
 	return (false);
 }

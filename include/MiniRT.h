@@ -4,9 +4,7 @@
 /*   MiniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 13:18:52 by lde-la-h      ########   odam.nl         */
+/*                                                   +#+                      */ /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */ /*   Updated: 2022/04/19 13:18:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +165,12 @@ bool	ft_intersect_tr(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 
 bool	ft_read_map(t_RT *rt, char *file);
 
+t_FVec3	ft_cy_side_normal(t_FVec3 hit_pos, t_Cylinder cylinder);
+t_FVec3	ft_plane_normal(t_FVec3 plane_dir, t_FVec3 ray_dir);
+t_FVec3	ft_normal_cylinder(t_Ray ray, t_Hit hit);
 t_FVec3	ft_normal_sphere(t_Ray ray, t_Hit hit);
-t_FVec3	ft_normal_plane(t_Ray ray, t_Hit hit);
+t_FVec3 ft_normal_plane(t_Ray ray, t_Hit hit);
+float	ft_hit_plane_2(t_Ray *ray, t_FVec3 dir, t_FVec3 pos);
 
 #endif
 
