@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 10:37:32 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/19 14:01:38 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 	if (is_hit)
 		out_color = ft_apply_lights(rt, ray, &hit, &normal);
 	else
-		out_color = ft_to_color(ft_hit_nothing(ray));
+		out_color = ft_hit_nothing(ray);
 	return (out_color);
 }
 
@@ -62,7 +62,7 @@ void	ft_draw_world(t_RT *rt)
 	int32_t		x;
 	int32_t		y;
 	t_Ray		ray;
-	t_FVec3		color; // 255
+	t_FVec3		color;
 
 	y = ((int32_t)rt->canvas->height) - 1;
 	while (y >= 0)
@@ -73,7 +73,7 @@ void	ft_draw_world(t_RT *rt)
 			ft_bzero(&color, sizeof(t_FVec3));
 			ray = ft_fire_ray(rt, ft_get_active_camera(rt), x, y);
 			color = ft_ray_color(rt, ray);
-			mlx_put_pixel(rt->canvas, x, rt->canvas->height - y, ft_from_color(color));
+			mlx_put_pixel(rt->canvas, x, rt->canvas->height - y, ft_to_rgba(color));
 			x++;
 		}
 		y--;

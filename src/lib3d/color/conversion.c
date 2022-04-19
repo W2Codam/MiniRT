@@ -6,12 +6,13 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:21:29 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/18 13:39:07 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/19 14:01:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
+// Linear to int
 uint32_t	ft_to_rgba(t_FVec3 linear)
 {
 	const int32_t	r = (int32_t)(256 * ft_clamp(linear.x, 0.0f, 0.999f));
@@ -21,6 +22,7 @@ uint32_t	ft_to_rgba(t_FVec3 linear)
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
+// 0-255 Vec3 to int
 uint32_t	ft_from_color(t_FVec3 color)
 {
 	const int32_t	r = (int32_t)color.x;
@@ -30,6 +32,7 @@ uint32_t	ft_from_color(t_FVec3 color)
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
+// 0 - 255 to linear
 t_FVec3	ft_from_rgba(t_FVec3 color)
 {
 	const int32_t	r = roundf(color.x / 255.999f);
@@ -39,6 +42,7 @@ t_FVec3	ft_from_rgba(t_FVec3 color)
 	return (ft_new_fvec3(r, g, b));
 }
 
+// linear to 0-255
 t_FVec3	ft_to_color(t_FVec3 linear)
 {
 	const uint32_t	color = ft_to_rgba(linear);

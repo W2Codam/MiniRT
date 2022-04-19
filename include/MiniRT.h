@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 08:17:43 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/19 13:18:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@
 # define MAX_CAMERAS	10
 # define WIN_WIDTH		800
 # define SAMPLE_COUNT	10
+
+/*
+typedef float t_vec4 __attribute__ ((vector_size (16)));
+
+t_vec4 one = (t_vec4){0,1,1,1};
+
+one = one * 1.f; 
+*/
 
 // Types of entities that exist.
 typedef enum e_EntityType

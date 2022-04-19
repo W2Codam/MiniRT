@@ -6,51 +6,54 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 15:10:46 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 10:50:48 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/19 14:43:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MiniRT.h"
+
+//= Private =//
 
 static float ft_max_float(float a, float b)
 {
 	return (a * (a >= b) + b * (b > a));
 }
 
-static t_FVec3 ft_mult_float(t_FVec3 color, float a)
-{
-	return (ft_new_fvec3(color.x * a, color.y * a, color.z * a));
-}
-
 //= Public =//
 
+// Utterly fucked bullshit, but it works.
 t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 {
 	uint16_t		i;
 	t_Light			*light;
 	t_Ray			ray_light;
-	t_FVec3			diffuse;
-	const t_FVec3	obj_pos = ft_ray_at(&cur_ray, hit->distance);
+	t_FVec3			output_color;
+	const t_FVec3	hit_pos = ft_ray_at(&cur_ray, hit->distance);
+	const t_FVec3	ambient_col = ft_mul_fvec3f(ft_from_rgba(rt->world.ambient.color), rt->world.ambient.intensity);
+
+	t_FVec3	new;
+	new.x = hit_pos.x + normal->x * 0.0001;
+	new.y = hit_pos.y + normal->y * 0.0001;
+	new.z = hit_pos.z + normal->z * 0.0001;
 
 	i = 0;
-	ft_bzero(&diffuse, sizeof(t_FVec3));
-	//out_color = hit->object->color;
+	output_color = ft_mul_fvec3(ft_from_rgba(hit->object->color), ambient_col);
 	while (i < rt->world.light_count)
 	{
 		light = &rt->world.lights[i];
-		ray_light = ft_new_ray(obj_pos, ft_sub_fvec3(light->position, obj_pos));
-
-		// TODO: Norme
-		const t_Hit hit = ft_ray_intersect_any(rt, ray_light);
-		if (hit.distance > 0)
+		ray_light = ft_new_ray(new, ft_sub_fvec3(light->position, new));
+	
+		t_Hit l_hit = ft_ray_intersect_any(rt, ray_light);
+		if (l_hit.distance <= 0)
 		{
-			// Divison is for distance! Keep it or leave it if you want
-			float shade = ft_max_float(ft_dot_fvec3(*normal, ray_light.dir), 0.0f) / (ft_distance(obj_pos, light->position) * (ft_distance(obj_pos, light->position)));
-			t_FVec3 color_l = ft_mult_float(light->color, shade);
-			diffuse = ft_add_fvec3(diffuse, color_l);
+			t_FVec3 light_color = ft_from_rgba(light->color);
+			const float shade = ft_max_float(ft_dot_fvec3(*normal, ray_light.dir), 0.0f);
+	
+			light_color = ft_mul_fvec3f(ft_mul_fvec3f(light_color, shade), light->intensity);
+			output_color = ft_add_fvec3(output_color, light_color);
 		}
 		i++;
 	}
-
-	return (ft_muls_color(ft_add_fvec3(rt->world.ambient.color, diffuse), hit->object->color, rt->world.ambient.intensity));
+	output_color = ft_mul_fvec3(ft_from_rgba(hit->object->color), output_color);
+	return (output_color); 
 }
