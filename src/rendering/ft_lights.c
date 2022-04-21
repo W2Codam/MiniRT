@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 15:10:46 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 14:43:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 12:58:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 		if (l_hit.distance <= 0)
 		{
 			t_FVec3 light_color = ft_from_rgba(light->color);
-			const float shade = ft_max_float(ft_dot_fvec3(*normal, ray_light.dir), 0.0f);
+			const float shade = ft_max_float(ft_dot_fvec3(*normal, ray_light.dir), 0.0f) \
+			/ ft_distance(hit_pos, light->position);
 	
 			light_color = ft_mul_fvec3f(ft_mul_fvec3f(light_color, shade), light->intensity);
 			output_color = ft_add_fvec3(output_color, light_color);
