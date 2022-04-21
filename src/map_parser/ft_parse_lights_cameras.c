@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 11:23:54 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 12:20:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,5 @@ void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 		ft_exit_parser("Surpassed range", row, i, "init_camera");
 	if (line[i] != '\n')
 		ft_exit_parser("Missing immediate newline", row, i, "init_camera");
-	ft_new_camera(camera, camera->position, ft_new_fvec3(0, 0, 0), camera->fov);
 	rt->world.camera_count++;
 }

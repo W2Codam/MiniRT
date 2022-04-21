@@ -77,11 +77,6 @@ typedef struct s_Camera
 	float	fov;
 	t_FVec3	position;
 	t_FVec3	rotation;
-
-	t_FVec3	llc;
-	t_FVec3	horizontal;
-	t_FVec3	vertical;
-	int32_t	sharpness;
 }	t_Camera;
 
 /**
@@ -145,8 +140,7 @@ typedef struct s_JmpTable
 //= Functions =//
 
 t_Camera	*ft_get_active_camera(t_RT *rt);
-void		ft_update_camera(t_RT *rt);
-void   		ft_new_camera(t_Camera *camera, t_FVec3 pos, t_FVec3 look, float fov);
+void   		ft_update_camera(t_Camera *camera, t_FVec3 pos, t_FVec3 dir, float fov);
 void		ft_draw_world(t_RT *rt);
 t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal);
 bool		ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out);

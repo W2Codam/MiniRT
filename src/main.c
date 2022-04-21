@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 11:03:46 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 12:32:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 	if (mlx_image_to_window(rt->mlx, rt->canvas, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	mlx_put_string(rt->mlx, "WWRT - Worlds Worst RayTracer", 5, 5);
-	ft_new_camera(ft_get_active_camera(rt), ft_new_fvec3(0, 0, 0), ft_new_fvec3(0, 0, 0), 90);
 	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
 		return (false);
 	pthread_detach(rt->render_thread);
@@ -70,12 +69,12 @@ static void	ft_hook(void *param)
 		mlx_close_window(rt->mlx);
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_W))
 	{
-		ft_get_active_camera(rt)->position.z -= 0.05f;
+		ft_get_active_camera(rt)->position.z += 0.05f;
 		rt->update = true;
 	}
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_S))
 	{
-		ft_get_active_camera(rt)->position.z += 0.05f;
+		ft_get_active_camera(rt)->position.z -= 0.05f;
 		rt->update = true;
 	}
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_D))
@@ -108,7 +107,8 @@ static void	ft_hook(void *param)
 		ft_get_active_camera(rt)->fov -= 0.5f;
 		rt->update = true;
 	}
-	ft_update_camera(rt);
+	t_Camera* cam = ft_get_active_camera(rt);
+	ft_update_camera(cam, cam->position, cam->rotation, 90);
 }
 
 /**

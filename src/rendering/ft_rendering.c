@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 11:08:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 12:51:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 //= Private =//
 
-// Returns in 0-255 vec3
 static t_FVec3	ft_hit_nothing(t_Ray ray)
 {
+	/*
 	float		t;
 	t_FVec3		a;
 	t_FVec3		b;
@@ -26,6 +26,9 @@ static t_FVec3	ft_hit_nothing(t_Ray ray)
 	a = ft_mul_fvec3f(ft_new_fvec3(1.0f, 1.0f, 1.0f), 1.0f - t);
 	b = ft_mul_fvec3f(ft_new_fvec3(0.5f, 0.7f, 1.0f), t);
 	return (ft_add_fvec3(a, b));
+	*/
+	(void)ray;
+	return (ft_new_fvec3(0.1f, 0.1f, 0.1f));
 }
 
 // Kd * DOT(N, L) * Od * Ld
@@ -43,14 +46,27 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 	return (out_color);
 }
 
-static t_Ray	ft_fire_ray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)
+float	ft_to_rad(float angle)
 {
-	const float		u = ((float)x) / (rt->canvas->width - 1);
-	const float		v = ((float)y) / (rt->canvas->height - 1);
-	const t_FVec3	a = ft_add_fvec3(camera->llc, ft_mul_fvec3f(camera->horizontal, u));
-	const t_FVec3	b = ft_sub_fvec3(ft_mul_fvec3f(camera->vertical, v), camera->position);
+	return (angle * (M_PI * 0.5));
+}
 
-	return (ft_new_ray(camera->position, ft_add_fvec3(a, b)));
+static t_FVec3	ft_pos_cam(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)
+{
+	const float		u = x - (rt->canvas->width) * 0.5f;
+	const float		v = y - (rt->canvas->height) * 0.5f;
+	const float		c = rt->canvas->width / (2 * tanf((ft_to_rad(camera->fov)) / 180.0));
+
+	return (ft_normalize_fvec3_2(ft_new_fvec3(u, v, c)));
+}
+
+static t_Ray	ft_fire_ray(t_RT *rt, uint32_t x, uint32_t y)
+{
+	t_Camera *const camera = ft_get_active_camera(rt);
+	const t_FVec3	dir = ft_pos_cam(rt, camera, x, y);
+	// TODO: Rotate
+
+	return (ft_new_ray(camera->position, dir));
 }
 
 //= Public =//
@@ -69,7 +85,7 @@ void	ft_draw_world(t_RT *rt)
 		while (x < ((int32_t)rt->canvas->width))
 		{
 			ft_bzero(&color, sizeof(t_FVec3));
-			ray = ft_fire_ray(rt, ft_get_active_camera(rt), x, y);
+			ray = ft_fire_ray(rt, x, y);
 			color = ft_ray_color(rt, ray);
 			mlx_put_pixel(rt->canvas, x, rt->canvas->height - y, ft_to_rgba(color));
 			x++;
