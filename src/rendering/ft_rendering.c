@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 14:01:38 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 11:08:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 
 static t_Ray	ft_fire_ray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)
 {
-	const float		u = (x + ft_randf()) / (rt->canvas->width - 1);
-	const float		v = (y + ft_randf()) / (rt->canvas->height - 1);
-	const t_FVec3	a = ft_add_fvec3(camera->llc, \
-						ft_mul_fvec3f(camera->horizontal, u));
-	const t_FVec3	b = ft_sub_fvec3(ft_mul_fvec3f(camera->vertical, v), \
-						camera->position);
+	const float		u = ((float)x) / (rt->canvas->width - 1);
+	const float		v = ((float)y) / (rt->canvas->height - 1);
+	const t_FVec3	a = ft_add_fvec3(camera->llc, ft_mul_fvec3f(camera->horizontal, u));
+	const t_FVec3	b = ft_sub_fvec3(ft_mul_fvec3f(camera->vertical, v), camera->position);
 
 	return (ft_new_ray(camera->position, ft_add_fvec3(a, b)));
 }
