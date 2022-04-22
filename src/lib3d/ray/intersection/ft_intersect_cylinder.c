@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_cylinder.c                            :+:      :+:    :+:   */
+/*   ft_intersect_cylinder.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 16:56:43 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/21 17:02:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static float	hit_top_or_bottom(t_Ray *ray, t_Cylinder *cylinder)
 	return (-1.0);
 }
 
-static float	hit_infinite_cylinder(t_Ray *ray, t_Cylinder *cylinder)
+static float	hit_infinite_cylinder(t_Ray ray, t_Cylinder *cylinder)
 {
 	float	a;
 	float	b;
@@ -41,17 +41,17 @@ static float	hit_infinite_cylinder(t_Ray *ray, t_Cylinder *cylinder)
 	float	t;
 	float	disc;
 
-	if (ray->dir.x == 0 && ray->dir.z == 0)
+	if (ray.dir.x == 0 && ray.dir.z == 0)
 	{
 		return (-1.0);
 	}
-	ray->dir.y = 0;
-	ray->origin.y = 0;
-	a = ft_len_squared_fvec3(ray->dir);
-	b = 2.0 * (ft_dot_fvec3(ray->origin, ray->dir));
-	c = ft_len_squared_fvec3(ray->origin) - \
+	ray.dir.y = 0;
+	ray.origin.y = 0;
+	a = ft_len_squared_fvec3(ray.dir);
+	b = 2.0 * (ft_dot_fvec3(ray.origin, ray.dir));
+	c = ft_len_squared_fvec3(ray.origin) - \
 	(cylinder->radius * cylinder->radius);
- 	disc = (b * b) - 4 * a * c;
+	disc = (b * b) - 4 * a * c;
 	if (disc > 0)
 	{
 		t = (-b - sqrtf(disc)) / (2.0f * a);
@@ -74,7 +74,7 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 	inside_cylinder(rotated_ray.origin, cylinder))
 		return (false);
 	t_top_bottom = hit_top_or_bottom(&rotated_ray, cylinder);
-	t = hit_infinite_cylinder(&rotated_ray, cylinder);
+	t = hit_infinite_cylinder(rotated_ray, cylinder);
 	if (t < 0 && t_top_bottom < 0)
 		return (false);
 	p_at_t = ft_ray_at(&rotated_ray, t);
@@ -90,6 +90,5 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 		out_hit->distance = t_top_bottom;
 		return (true);
 	}
-	printf("3rd\n");
 	return (false);
 }

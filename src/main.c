@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 12:32:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 15:50:47 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static void	*ft_render(void *param)
 			usleep(4000);
 			continue ;
 		}
-		if (rt->mlx == NULL)
-			break ;
 		ft_draw_world(rt);
 		rt->update = false;
 	}

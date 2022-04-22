@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:      :+:    :+:   */
+/*   lib3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 16:20:53 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:42:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,13 @@ typedef struct s_Hit
 	struct s_Object	*object;
 }	t_Hit;
 
+typedef enum e_Axis
+{
+	X,
+	Y,
+	Z
+}	t_Axis;
+
 //= Functions =//
 
 //= Constructors =//
@@ -180,5 +187,11 @@ float		ft_signf(float a);
 float		ft_randf(void);
 float		ft_randf_r(float min, float max);
 float		ft_clamp(float x, float min, float max);
+float		ft_to_rad(float deg);
+float		ft_to_deg(float rad);
+
+//= Matrices =//
+
+t_FVec3		ft_rotate_vec(t_FVec3 vec, float angle, t_Axis axis);
 
 #endif

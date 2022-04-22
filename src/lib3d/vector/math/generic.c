@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   generic.c                                          :+:      :+:    :+:   */
+/*   generic.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 18:04:10 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 14:20:42 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/21 14:00:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@ void	ft_normalize_fvec3(t_FVec3 *vec)
 	float		inv;
 	const float	length = ft_len_fvec3(*vec);
 
-	if (length == 0)
-	{
-		inv = 1.0f / length;
-		vec->x *= inv;
-		vec->y *= inv;
-		vec->z *= inv;
-	}
+	inv = 1.0f / length;
+	vec->x *= inv;
+	vec->y *= inv;
+	vec->z *= inv;
 }
 
 float	ft_dot_fvec3(t_FVec3 left, t_FVec3 right)

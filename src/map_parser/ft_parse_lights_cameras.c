@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 12:20:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/21 16:59:19 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,34 @@ void	ft_add_ambient(t_RT *rt, char *line, int32_t row)
 	rt->has_ambient = true;
 }
 
+// void coordSystem(vec3 n, out vec3 r, out vec3 u)
+// {
+// 	if (abs(n.x) > abs(n.y))
+// 		u = vec3(n.z, 0, -n.x) / sqrt(n.x * n.x + n.z * n.z);
+// 	else
+// 		u = vec3(0, -n.z, n.y) / sqrt(n.y * n.y + n.z * n.z);
+// 	r = cross(n, u);
+// }
+
+static void	ft_dir_to_mat(t_FVec3 normal, t_FVec3 arb, t_FVec3 *matrix_out[3])
+{
+	(*matrix_out)[2] = ft_new_fvec3(normal.x, normal.y, normal.z);
+	(*matrix_out)[0] = ft_cross_fvec3(arb, (*matrix_out)[2]);
+	(*matrix_out)[1] = ft_cross_fvec3((*matrix_out)[0], (*matrix_out)[2]);
+}
+
+//	transpose
+
 void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 {
 	size_t			i;
+	t_FVec3			dir;
 	t_Camera *const	camera = &rt->world.cameras[rt->world.camera_count];
 
 	i = 0;
 	camera->position = ft_init_coordinates(line, row, &i, 0);
-	camera->rotation = ft_init_coordinates(line, row, &i, 1);
+	dir = ft_init_coordinates(line, row, &i, 1);
+	ft_dir_to_mat(dir, ft_new_fvec3(0.577,0.577,0.577), &camera->rotation_matrix);
 	camera->fov = ft_init_number(line, row, &i, 0);
 	if (camera->fov > 180 || camera->fov < 0)
 		ft_exit_parser("Surpassed range", row, i, "init_camera");
