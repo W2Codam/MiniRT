@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rendering.c                                     :+:      :+:    :+:   */
+/*   ft_rendering.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 13:35:34 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:41:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,27 @@ static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 	return (out_color);
 }
 
-float	ft_rad(float angle)
+t_FVec3	ft_mat3_mult_dir(t_FVec3 matrix[3], t_FVec3 dir)
 {
-	return (angle * M_PI * 0.5f);
+	t_FVec3	new;
+
+	new.x = dir.x * matrix[0].raw[0] + dir.y * matrix[1].raw[0] + dir.z * matrix[2].raw[0];
+	new.y = dir.x * matrix[0].raw[1] + dir.y * matrix[1].raw[1] + dir.z * matrix[2].raw[1];
+	new.z = dir.x * matrix[0].raw[2] + dir.y * matrix[1].raw[2] + dir.z * matrix[2].raw[2];
+
+	return (new);
 }
 
-static t_FVec3	ft_make_camray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)
-{
-	const float		u = x - (rt->canvas->width) * 0.5f;
-	const float		v = y - (rt->canvas->height) * 0.5f;
-	const float		c = rt->canvas->width / (2 * tanf((ft_rad(camera->fov)) \
-					/ 180.0));
-
-	return (ft_normalize_fvec3_2(ft_new_fvec3(u, v, c)));
-}
 
 static t_Ray	ft_fire_ray(t_RT *rt, uint32_t x, uint32_t y)
 {
-	t_FVec3			dir;
+	t_FVec3	ws;
 	t_Camera *const	camera = ft_get_active_camera(rt);
 
-	dir = ft_make_camray(rt, camera, x, y);
-	//printf("ray.xyz: %f, %f, %f\n", dir.x, dir.y, dir.z);
-	dir = ft_rotate_vec(camera->rotation_matrix, dir, 0, X);
-	dir = ft_rotate_vec(camera->rotation_matrix, dir, 0, Y);
-	dir = ft_rotate_vec(camera->rotation_matrix, dir, 0, Z);
-	//printf("new_ray.xyz: %f, %f, %f\n", dir.x, dir.y, dir.z);
-	return (ft_new_ray(camera->position, dir));
+	ws.x = 2 * ((x + 0.5) / rt->canvas->width) - 1;
+	ws.y = 1 - 2 * ((y + 0.5) / rt->canvas->width);
+	ws.z = 1;
+	return (ft_new_ray(camera->position, ft_normalize_fvec3_2(ft_mat3_mult_dir(camera->rotation_matrix, ws))));
 }
 
 //= Public =//

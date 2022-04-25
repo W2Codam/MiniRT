@@ -74,6 +74,7 @@ typedef struct s_Camera
 {
 	float	fov;
 	t_FVec3	position;
+	t_FVec3	direction;
 	t_FVec3	rotation_matrix[3];
 }	t_Camera;
 

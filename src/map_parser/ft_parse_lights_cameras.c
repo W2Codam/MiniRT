@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_parse_lights_cameras.c                          :+:      :+:    :+:   */
+/*   ft_parse_lights_cameras.c                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:18:59 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/25 19:14:21 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,31 @@ void	ft_add_ambient(t_RT *rt, char *line, int32_t row)
 		ft_exit_parser("Missing immediate newline", row, i, "init_ambient");
 	rt->has_ambient = true;
 }
+/*
+void	ft_lookat(t_FVec3 out[3] ,t_FVec3 origin, t_FVec3 look_at)
+{
+	t_FVec3		check;
+	t_FVec3		up_tmp;
+	t_FVec3		forward;
+	t_FVec3		right;
+	t_FVec3		up;
 
-// void coordSystem(vec3 n, out vec3 r, out vec3 u)
-// {
-// 	if (abs(n.x) > abs(n.y))
-// 		u = vec3(n.z, 0, -n.x) / sqrt(n.x * n.x + n.z * n.z);
-// 	else
-// 		u = vec3(0, -n.z, n.y) / sqrt(n.y * n.y + n.z * n.z);
-// 	r = cross(n, u);
-// }
-
-//static void	ft_dir_to_mat(t_FVec3 normal, t_FVec3 arb, t_FVec3 *matrix_out[3])
-//{
-//	(*matrix_out)[2] = ft_new_fvec3(normal.x, normal.y, normal.z);
-//	(*matrix_out)[0] = ft_cross_fvec3(arb, (*matrix_out)[2]);
-//	(*matrix_out)[1] = ft_cross_fvec3((*matrix_out)[0], (*matrix_out)[2]);
-//}
-
-//	transpose
+	check = vec3_unit(look_at);
+	if (check.x == 0.0 && fabs(check.y) == 1.0 && check.z == 0.0)
+	{
+		forward = vec3_unit(vec3_mult_s(vec3_sub(origin, look_at), -1));
+		right = vec3_id(ID_X);
+	}
+	else
+	{
+		up_tmp = vec3_id(ID_Y);
+		forward = vec3_unit(vec3_mult_s(vec3_sub(origin, look_at), -1));
+		right = vec3_cross(up_tmp, forward);
+	}
+	up = vec3_cross(forward, right);
+	return (mat4(origin, forward, right, up));
+}
+*/
 
 void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 {
@@ -75,6 +82,8 @@ void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 	i = 0;
 	camera->position = ft_init_coordinates(line, row, &i, 0);
 	dir = ft_init_coordinates(line, row, &i, 1);
+	camera->direction = dir;
+	cam->world = mat4_lookat(cam->origin, vec3_add(cam->origin, cam->normal));
 	camera->rotation_matrix[2] = ft_new_fvec3(dir.x, dir.y, dir.z);
 	camera->rotation_matrix[0] = ft_cross_fvec3(ft_new_fvec3(0.577,0.577,0.577), camera->rotation_matrix[2]);
 	camera->rotation_matrix[1] = ft_cross_fvec3(camera->rotation_matrix[0], camera->rotation_matrix[2]);
