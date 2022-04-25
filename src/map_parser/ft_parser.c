@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:14:36 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:00:01 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	ft_parse_line(t_RT *rt, char *line, int32_t row)
 	{.id = "sp", .func = &ft_add_sphere},
 	{.id = "pl", .func = &ft_add_plane},
 	{.id = "cy", .func = &ft_add_cylinder},
-	{.id = "tr", .func = &ft_add_triangle},
 	};
 
 	if (ft_isempty(line))

@@ -42,7 +42,6 @@ typedef enum e_EntityType
 	SPHERE,
 	CYLINDER,
 	PLANE,
-	TRIANGLE,
 }	t_EntityType;
 
 /**
@@ -63,7 +62,6 @@ typedef struct s_Object
 	{
 		t_Sphere	as_sphere;
 		t_Cylinder	as_cylinder;
-		t_Triangle	as_triangle;
 		t_Plane		as_plane;
 	};
 }	t_Object;
@@ -140,7 +138,7 @@ typedef struct s_JmpTable
 //= Functions =//
 
 t_Camera	*ft_get_active_camera(t_RT *rt);
-void   		ft_update_camera(t_Camera *camera, t_FVec3 pos, t_FVec3 dir, float fov);
+void   		ft_update_camera(t_Camera *camera, t_FVec3 pos, t_FVec3 dir[3], float fov);
 void		ft_draw_world(t_RT *rt);
 t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal);
 bool		ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out);
@@ -153,7 +151,6 @@ t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray);
 bool	ft_intersect_sp(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 bool	ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
-bool	ft_intersect_tr(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 
 //= Map parser =//
 

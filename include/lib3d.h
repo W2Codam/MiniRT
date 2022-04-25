@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lib3d.h                                            :+:    :+:            */
+/*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 13:42:12 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/25 10:57:59 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,6 @@ typedef struct s_Cylinder
 	float	height;
 }	t_Cylinder;
 
-typedef struct s_Triangle
-{
-	struct
-	{
-		t_FVec3	v1;
-		t_FVec3	v2;
-		t_FVec3	v3;
-	};
-	t_FVec3	vertices[3];
-}	t_Triangle;
-
 // Angle
 typedef struct s_angle
 {
@@ -167,7 +156,6 @@ bool		ft_ray_in_right_dir(t_Ray *ray, t_Cylinder *cylinder);
 //= Intersections =//
 
 bool		ft_hit_sphere(t_Ray *ray, t_Sphere *sphere, t_Hit *out_hit);
-bool		ft_hit_triangle(t_Ray *ray, t_Triangle *triangle, t_Hit *out_hit);
 bool		ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit);
 bool		ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit);
 
@@ -192,6 +180,6 @@ float		ft_to_deg(float rad);
 
 //= Matrices =//
 
-t_FVec3		ft_rotate_vec(t_FVec3 vec, float angle, t_Axis axis);
+t_FVec3		ft_rotate_vec(t_FVec3 cam_mat[3], t_FVec3 vec, float angle, t_Axis axis);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   matrix.c                                           :+:    :+:            */
+/*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:21:17 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:16:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:33:11 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 //= Private =//
 
-t_FVec3	ft_mult_mat_vec(const float mat[3][3], t_FVec3 vec)
+static t_FVec3	ft_mult_mat_vec(t_FVec3 mat[3], t_FVec3 vec)
 {
-	const float	x = mat[0][0] * vec.x + mat[0][1] * vec.x + mat[0][2] * vec.x;
-	const float	y = mat[1][0] * vec.y + mat[1][1] * vec.y + mat[1][2] * vec.y;
-	const float	z = mat[2][0] * vec.z + mat[2][1] * vec.z + mat[2][2] * vec.z;
+	const float	x = mat[0].x * vec.x + mat[0].y * vec.x + mat[0].z * vec.x;
+	const float	y = mat[1].x * vec.y + mat[1].y * vec.y + mat[1].z * vec.y;
+	const float	z = mat[2].x * vec.z + mat[2].y * vec.z + mat[2].z * vec.z;
 
 	return (ft_new_fvec3(x, y, z));
 }
@@ -36,37 +36,34 @@ mat3x3 = {
 }
 */
 
-void	ft_mat3_mult(t_FVec3 src, t_mat4 mult, )
+static t_FVec3	ft_mult_row_mat(t_FVec3 row, const t_FVec3 mat[3])
 {
-	t_mat4		out;
-	int			i;
-	int			j;
+	t_FVec3		result;
 
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (j < 3)
-		{
-			out.data[i][j] \
-				= src.data[i][0] * mult.data[0][j]
-				+ src.data[i][1] * mult.data[1][j]
-				+ src.data[i][2] * mult.data[2][j];
-			j++;
-		}
-		i++;
-	}
-	return (out);
+	result.x = row.x * mat[0].x + \
+		row.y * mat[1].x + \
+		row.z * mat[2].x;
+	result.y = row.x * mat[0].y + \
+		row.y * mat[1].y + \
+		row.z * mat[2].y;
+	result.z = row.x * mat[0].z + \
+		row.y * mat[1].z + \
+		row.z * mat[2].z;
+	return (result);
 }
 
-void	ft_mul_mat_mat(t_FVec3 mat_a[3], t_FVec3 mat_b[3], t_FVec3 *mat_out[3])
+static t_FVec3	ft_mult_mat_mat(t_FVec3 mat_a[3], const t_FVec3 mat_b[3], t_FVec3 vec)
 {
-	
+	t_FVec3	result[3];
+
+	result[0] = ft_mult_row_mat(mat_a[0], mat_b);
+	result[1] = ft_mult_row_mat(mat_a[1], mat_b);
+	result[2] = ft_mult_row_mat(mat_a[2], mat_b);
+	return (ft_mult_mat_vec(result, vec));
 }
 
 t_FVec3	ft_rotate_vec(t_FVec3 cam_mat[3], t_FVec3 vec, float angle, t_Axis axis)
 {
-	t_FVec3			rslt_mat[3];
 	const float		theta = ft_to_rad(angle);
 	const t_FVec3	matx[3] = {
 		ft_new_fvec3(1, 0, 0),
@@ -85,11 +82,10 @@ t_FVec3	ft_rotate_vec(t_FVec3 cam_mat[3], t_FVec3 vec, float angle, t_Axis axis)
 	};
 
 	if (axis == X)
-		return (ft_mult_mat_vec(matx * worldmatrix, vec));
-		return (ft_mult_mat_vec(ft_mul_mat_mat(cam_mat, matx), vec));
+		return (ft_mult_mat_mat(cam_mat, matx, vec));
 	else if (axis == Y)
-		return (ft_mult_mat_vec(maty * worldmatrix, vec));
+		return (ft_mult_mat_mat(cam_mat, maty, vec));
 	else if (axis == Z)
-		return (ft_mult_mat_vec(matz * worldmatrix, vec));
+		return (ft_mult_mat_mat(cam_mat, matz, vec));
 	return (ft_new_fvec3(0.0f, 0.0f, 0.0f));
 }

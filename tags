@@ -1669,6 +1669,7 @@ RESET	Makefile	/^RESET	:= \\033[0m$/;"	m
 RESET	lib/MLX42/Makefile_Unix.mk	/^RESET	:= \\033[0m$/;"	m
 RESET	lib/libft/Makefile	/^RESET	= \\033[0m$/;"	m
 RESET	tester/Makefile	/^RESET	:= \\033[0m$/;"	m
+SAMPLE_COUNT	include/MiniRT.h	/^# define SAMPLE_COUNT	/;"	d
 SHADER_DIR	lib/MLX42/Makefile	/^SHADER_DIR	:= shaders$/;"	m
 SHDR	lib/MLX42/Makefile	/^SHDR	:= $(SHDR:$(SHADER_DIR)\/default.%=$(SRC_DIR)\/mlx_%_shader.c)$/;"	m
 SHDR	lib/MLX42/Makefile	/^SHDR	:= $(call rwildcard,$(SHADER_DIR),default.*)$/;"	m
@@ -1700,10 +1701,13 @@ WHITE	tester/Makefile	/^WHITE	:= \\033[37;1m$/;"	m
 WINSTFU	lib/MLX42/Makefile_WindowsNT.mk	/^WINSTFU	:= > NUL 2>&1 # In some cases we want windows to just stfu$/;"	m
 WIN_WIDTH	include/MiniRT.h	/^# define WIN_WIDTH	/;"	d
 WRITEBIT	lib/MLX42/lib/png/lodepng.c	/^#define WRITEBIT(/;"	d	file:
+X	include/lib3d.h	/^	X,$/;"	e	enum:e_Axis
+Y	include/lib3d.h	/^	Y,$/;"	e	enum:e_Axis
 YELLOW	Makefile	/^YELLOW	:= \\033[33;1m$/;"	m
 YELLOW	lib/MLX42/Makefile_Unix.mk	/^YELLOW	:= \\033[33;1m$/;"	m
 YELLOW	lib/libft/Makefile	/^YELLOW	= \\033[33;1m$/;"	m
 YELLOW	tester/Makefile	/^YELLOW	:= \\033[33;1m$/;"	m
+Z	include/lib3d.h	/^	Z$/;"	e	enum:e_Axis
 _GLAD_IS_SOME_NEW_VERSION	lib/MLX42/lib/glad/glad.c	/^#define _GLAD_IS_SOME_NEW_VERSION /;"	d	file:
 __gl_h_	lib/MLX42/include/glad/glad.h	/^#define __gl_h_$/;"	d
 __glad_h_	lib/MLX42/include/glad/glad.h	/^#define __glad_h_$/;"	d
@@ -1740,6 +1744,7 @@ allocsize	lib/MLX42/lib/png/lodepng.c	/^  size_t allocsize; \/*allocated size*\/
 allow_greyscale	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned allow_greyscale; \/*default 1. if 0, choose RGB or RGBA even if the image only has gray colors*\/$/;"	m	struct:LodePNGColorStats
 allow_palette	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned allow_palette; \/*default 1. if 0, disallow choosing palette colortype in auto_choose_color, and don't count numcolors*\/$/;"	m	struct:LodePNGColorStats
 alpha	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned alpha; \/*image is not opaque and alpha channel or alpha palette required*\/$/;"	m	struct:LodePNGColorStats
+ambient	include/MiniRT.h	/^	t_Light		ambient;$/;"	m	struct:s_World
 angle	include/lib3d.h	/^	float	angle;$/;"	m	struct:s_angle
 angle.c	src/lib3d/ray/angle.c	1;"	F
 as_cylinder	include/MiniRT.h	/^		t_Cylinder	as_cylinder;$/;"	m	union:s_Object::__anon5
@@ -1824,6 +1829,7 @@ custom_deflate	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned (*custom_deflate
 custom_inflate	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned (*custom_inflate)(unsigned char**, size_t*,$/;"	m	struct:LodePNGDecompressSettings
 custom_zlib	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned (*custom_zlib)(unsigned char**, size_t*,$/;"	m	struct:LodePNGCompressSettings
 custom_zlib	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned (*custom_zlib)(unsigned char**, size_t*,$/;"	m	struct:LodePNGDecompressSettings
+cy_side	include/lib3d.h	/^	bool			cy_side;$/;"	m	struct:s_Hit
 data	lib/MLX42/lib/png/lodepng.c	/^  const unsigned char* data;$/;"	m	struct:__anon8	file:
 data	lib/MLX42/lib/png/lodepng.c	/^  ucvector* data;$/;"	m	struct:__anon7	file:
 data	lib/MLX42/lib/png/lodepng.c	/^  unsigned char* data;$/;"	m	struct:ucvector	file:
@@ -1837,13 +1843,13 @@ deflateDynamic	lib/MLX42/lib/png/lodepng.c	/^static unsigned deflateDynamic(Lode
 deflateFixed	lib/MLX42/lib/png/lodepng.c	/^static unsigned deflateFixed(LodePNGBitWriter* writer, Hash* hash,$/;"	f	file:
 deflateNoCompression	lib/MLX42/lib/png/lodepng.c	/^static unsigned deflateNoCompression(ucvector* out, const unsigned char* data, size_t datasize) {$/;"	f	file:
 delta_time	lib/MLX42/include/MLX42/MLX42.h	/^	double		delta_time;$/;"	m	struct:mlx
-diameter	include/lib3d.h	/^	float	diameter;$/;"	m	struct:s_Cylinder
 dir	include/lib3d.h	/^	t_FVec3	dir;$/;"	m	struct:s_Cylinder
 dir	include/lib3d.h	/^	t_FVec3	dir;$/;"	m	struct:s_Plane
 dir	include/lib3d.h	/^	t_FVec3	dir;$/;"	m	struct:s_Ray
 distance	include/lib3d.h	/^	float			distance;$/;"	m	struct:s_Hit
 draw_queue	lib/MLX42/include/MLX42/MLX42_Int.h	/^typedef struct draw_queue$/;"	s
 draw_queue_t	lib/MLX42/include/MLX42/MLX42_Int.h	/^}	draw_queue_t;$/;"	t	typeref:struct:draw_queue
+e_Axis	include/lib3d.h	/^typedef enum e_Axis$/;"	g
 e_EntityType	include/MiniRT.h	/^typedef enum e_EntityType$/;"	g
 e_base	lib/libft/libft.h	/^typedef enum e_base$/;"	g
 enabled	lib/MLX42/include/MLX42/MLX42.h	/^	bool			enabled;$/;"	m	struct:mlx_image
@@ -1869,7 +1875,6 @@ font.h	lib/MLX42/src/font/font.h	1;"	F
 font_atlas	lib/MLX42/src/font/font.h	/^}	font_atlas = {$/;"	v	typeref:struct:s_font
 force_palette	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned force_palette;$/;"	m	struct:LodePNGEncoderSettings
 fov	include/MiniRT.h	/^	float	fov;$/;"	m	struct:s_Camera
-frag_shader	lib/MLX42/src/mlx_frag_shader.c	/^const char* frag_shader = "#version 330 core\\n"$/;"	v
 framebuffer_callback	lib/MLX42/src/mlx_init.c	/^static void framebuffer_callback(GLFWwindow *window, int width, int height)$/;"	f	file:
 free_exts	lib/MLX42/lib/glad/glad.c	/^static void free_exts(void) {$/;"	f	file:
 freelist	lib/MLX42/lib/png/lodepng.c	/^  BPMNode** freelist;$/;"	m	struct:BPMLists	file:
@@ -1886,6 +1891,7 @@ ft_add_plane	src/map_parser/ft_parse_objects.c	/^void	ft_add_plane(t_RT *rt, cha
 ft_add_sphere	src/map_parser/ft_parse_objects.c	/^void	ft_add_sphere(t_RT *rt, char *line, int32_t row)$/;"	f
 ft_add_triangle	src/map_parser/ft_parse_objects.c	/^void	ft_add_triangle(t_RT *rt, char *line, int32_t row)$/;"	f
 ft_allocate	lib/libft/src/ft_split.c	/^static bool	ft_allocate(char **out, uint32_t wcount, char const *s, char c)$/;"	f	file:
+ft_apply_lights	src/rendering/ft_lights.c	/^t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)$/;"	f
 ft_atof_atoi.c	src/map_parser/ft_atof_atoi.c	1;"	F
 ft_atoi	lib/libft/src/ft_atoi.c	/^int32_t	ft_atoi(const char *str)$/;"	f
 ft_atoi.c	lib/libft/src/ft_atoi.c	1;"	F
@@ -1895,8 +1901,12 @@ ft_bzero.c	lib/libft/src/ft_bzero.c	1;"	F
 ft_calloc	lib/libft/src/ft_calloc.c	/^void	*ft_calloc(size_t num, size_t size)$/;"	f
 ft_calloc.c	lib/libft/src/ft_calloc.c	1;"	F
 ft_camera.c	src/rendering/ft_camera.c	1;"	F
+ft_clamp	src/lib3d/math.c	/^float ft_clamp(float x, float min, float max) $/;"	f
 ft_cleanup	lib/libft/src/ft_split.c	/^static void	ft_cleanup(char **out)$/;"	f	file:
 ft_cross_fvec3	src/lib3d/vector/math/operations.c	/^t_FVec3	ft_cross_fvec3(t_FVec3 left, t_FVec3 right)$/;"	f
+ft_cy_side_normal	src/rendering/ft_normal.c	/^t_FVec3	ft_cy_side_normal(t_FVec3 hit_pos, t_Cylinder cylinder)$/;"	f
+ft_dir_to_mat	src/map_parser/ft_parse_lights_cameras.c	/^static void	ft_dir_to_mat(t_FVec3 normal, t_FVec3 arb, t_FVec3 *matrix_out[3])$/;"	f	file:
+ft_distance	src/lib3d/vector/math/generic_2.c	/^float	ft_distance(t_FVec3 p1, t_FVec3 p2)$/;"	f
 ft_div_fvec3	src/lib3d/vector/math/operations.c	/^t_FVec3	ft_div_fvec3(t_FVec3 left, t_FVec3 right)$/;"	f
 ft_div_fvec3f	src/lib3d/vector/math/operations_f.c	/^t_FVec3	ft_div_fvec3f(t_FVec3 left, float right)$/;"	f
 ft_dot_fvec3	src/lib3d/vector/math/generic.c	/^float	ft_dot_fvec3(t_FVec3 left, t_FVec3 right)$/;"	f
@@ -1904,17 +1914,22 @@ ft_draw_world	src/rendering/ft_rendering.c	/^void	ft_draw_world(t_RT *rt)$/;"	f
 ft_end	lib/libft/src/ft_strtrim.c	/^static size_t	ft_end(char const *s1, char const *set)$/;"	f	file:
 ft_equal_fvec3	src/lib3d/vector/math/generic.c	/^bool	ft_equal_fvec3(t_FVec3 left, t_FVec3 right)$/;"	f
 ft_exit_parser	src/map_parser/ft_parser.c	/^void	ft_exit_parser(char *error_line, int32_t row, size_t column, char *func)$/;"	f
-ft_fire_ray	src/rendering/ft_rendering.c	/^static t_Ray	ft_fire_ray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)$/;"	f	file:
-ft_get_active_camera	src/rendering/ft_camera.c	/^t_Camera	*ft_get_active_camera(t_RT *rt)$/;"	f
+ft_fire_ray	src/rendering/ft_rendering.c	/^static t_Ray	ft_fire_ray(t_RT *rt, uint32_t x, uint32_t y)$/;"	f	file:
+ft_from_color	src/lib3d/color/conversion.c	/^uint32_t	ft_from_color(t_FVec3 color)$/;"	f
+ft_from_rgba	src/lib3d/color/conversion.c	/^t_FVec3	ft_from_rgba(t_FVec3 color)$/;"	f
+ft_get_active_camera	src/rendering/ft_camera.c	/^t_Camera    *ft_get_active_camera(t_RT *rt)$/;"	f
 ft_get_angle_to	src/lib3d/ray/angle.c	/^t_angle	ft_get_angle_to(t_FVec3 dir, t_FVec3 desired_angle)$/;"	f
 ft_get_next_line	lib/libft/src/gnl/ft_get_next_line.c	/^char	*ft_get_next_line(int32_t fd)$/;"	f
 ft_get_next_line.c	lib/libft/src/gnl/ft_get_next_line.c	1;"	F
 ft_gets	lib/libft/src/gnl/ft_get_next_line.c	/^static char	*ft_gets(char *readstr, t_fd_data *remainder)$/;"	f	file:
 ft_hit_cylinder	src/lib3d/ray/intersection/ft_intersect_cylinder.c	/^bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)$/;"	f
+ft_hit_nothing	src/rendering/ft_rendering.c	/^static t_FVec3	ft_hit_nothing(t_Ray ray)$/;"	f	file:
+ft_hit_object	src/rendering/ft_world.c	/^static t_FVec3	ft_hit_object(t_Ray ray, t_Hit hit)$/;"	f	file:
 ft_hit_plane	src/lib3d/ray/intersection/ft_intersect_plane.c	/^bool	ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit)$/;"	f
+ft_hit_plane_2	src/lib3d/ray/intersection/ft_intersect_plane.c	/^float	ft_hit_plane_2(t_Ray *ray, t_FVec3 dir, t_FVec3 pos)$/;"	f
 ft_hit_sphere	src/lib3d/ray/intersection/ft_intersect_sphere.c	/^bool	ft_hit_sphere(t_Ray *ray, t_Sphere *sphere, t_Hit *out_hit)$/;"	f
 ft_hit_triangle	src/lib3d/ray/intersection/ft_intersect_triangle.c	/^bool	ft_hit_triangle(t_Ray *ray, t_Triangle *triangle, t_Hit *out_hit)$/;"	f
-ft_hittables	src/rendering/ft_rendering.c	/^static t_Hit	ft_hittables(t_RT *rt, t_Ray ray)$/;"	f	file:
+ft_hittables	src/rendering/ft_world.c	/^static t_Hit	ft_hittables(t_RT *rt, t_Ray ray)$/;"	f	file:
 ft_hook	src/main.c	/^static void	ft_hook(void *param)$/;"	f	file:
 ft_in_range	src/map_parser/ft_parse_utils.c	/^static bool	ft_in_range(t_FVec3 vec, float min, float max)$/;"	f	file:
 ft_init_color	src/map_parser/ft_parse_utils.c	/^t_FVec3	ft_init_color(char *line, int32_t row, size_t *i)$/;"	f
@@ -1956,6 +1971,7 @@ ft_itoa_base	lib/libft/src/ft_itoa_base.c	/^char	*ft_itoa_base(int32_t n, t_base
 ft_itoa_base.c	lib/libft/src/ft_itoa_base.c	1;"	F
 ft_len_fvec3	src/lib3d/vector/math/generic.c	/^float	ft_len_fvec3(t_FVec3 vec)$/;"	f
 ft_len_squared_fvec3	src/lib3d/vector/math/generic.c	/^float	ft_len_squared_fvec3(t_FVec3 vec)$/;"	f
+ft_lights.c	src/rendering/ft_lights.c	1;"	F
 ft_lstadd_back	lib/libft/src/ft_lstadd_back.c	/^void	ft_lstadd_back(t_list **lst, t_list *new)$/;"	f
 ft_lstadd_back.c	lib/libft/src/ft_lstadd_back.c	1;"	F
 ft_lstadd_front	lib/libft/src/ft_lstadd_front.c	/^void	ft_lstadd_front(t_list **lst, t_list *new)$/;"	f
@@ -1974,9 +1990,11 @@ ft_lstnew	lib/libft/src/ft_lstnew.c	/^t_list	*ft_lstnew(void *content)$/;"	f
 ft_lstnew.c	lib/libft/src/ft_lstnew.c	1;"	F
 ft_lstsize	lib/libft/src/ft_lstsize.c	/^int32_t	ft_lstsize(t_list *lst)$/;"	f
 ft_lstsize.c	lib/libft/src/ft_lstsize.c	1;"	F
-ft_make_llc	src/rendering/ft_camera.c	/^static t_FVec3	ft_make_llc(t_Camera *camera)$/;"	f	file:
+ft_make_camray	src/rendering/ft_rendering.c	/^static t_FVec3	ft_make_camray(t_RT *rt, t_Camera *camera, uint32_t x, uint32_t y)$/;"	f	file:
+ft_mat3_mult	src/lib3d/matrix/matrix.c	/^void	ft_mat3_mult(t_FVec3 src, t_mat4 mult, )$/;"	f
 ft_max	lib/libft/src/ft_max.c	/^int32_t	ft_max(int32_t valA, int32_t valB)$/;"	f
 ft_max.c	lib/libft/src/ft_max.c	1;"	F
+ft_max_float	src/rendering/ft_lights.c	/^static float ft_max_float(float a, float b)$/;"	f	file:
 ft_memchr	lib/libft/src/ft_memchr.c	/^void	*ft_memchr(const void *s, int32_t c, size_t n)$/;"	f
 ft_memchr.c	lib/libft/src/ft_memchr.c	1;"	F
 ft_memcmp	lib/libft/src/ft_memcmp.c	/^int32_t	ft_memcmp(const void *s1, const void *s2, size_t n)$/;"	f
@@ -1991,14 +2009,18 @@ ft_min	lib/libft/src/ft_min.c	/^int32_t	ft_min(int32_t valA, int32_t valB)$/;"	f
 ft_min.c	lib/libft/src/ft_min.c	1;"	F
 ft_mul_fvec3	src/lib3d/vector/math/operations.c	/^t_FVec3	ft_mul_fvec3(t_FVec3 left, t_FVec3 right)$/;"	f
 ft_mul_fvec3f	src/lib3d/vector/math/operations_f.c	/^t_FVec3	ft_mul_fvec3f(t_FVec3 left, float right)$/;"	f
+ft_mul_mat_mat	src/lib3d/matrix/matrix.c	/^void	ft_mul_mat_mat(t_FVec3 mat_a[3], t_FVec3 mat_b[3], t_FVec3 *mat_out[3])$/;"	f
+ft_muls_color	src/lib3d/color/operation.c	/^t_FVec3	ft_muls_color(t_FVec3 a, t_FVec3 b, float s)$/;"	f
+ft_mult_mat_vec	src/lib3d/matrix/matrix.c	/^t_FVec3	ft_mult_mat_vec(const float mat[3][3], t_FVec3 vec)$/;"	f
 ft_neg	lib/libft/src/ft_neg.c	/^int32_t	ft_neg(int32_t val)$/;"	f
 ft_neg.c	lib/libft/src/ft_neg.c	1;"	F
-ft_new_camera	src/rendering/ft_camera.c	/^void	ft_new_camera(t_Camera *camera, t_FVec3 pos, float fov)$/;"	f
 ft_new_fvec2	src/lib3d/vector/constructor.c	/^t_FVec2	ft_new_fvec2(float x, float y)$/;"	f
 ft_new_fvec3	src/lib3d/vector/constructor.c	/^t_FVec3	ft_new_fvec3(float x, float y, float z)$/;"	f
 ft_new_fvec4	src/lib3d/vector/constructor.c	/^t_FVec4	ft_new_fvec4(float x, float y, float z, float w)$/;"	f
 ft_new_ray	src/lib3d/ray/constructor.c	/^t_Ray	ft_new_ray(t_FVec3 origin, t_FVec3 direction)$/;"	f
 ft_normal.c	src/rendering/ft_normal.c	1;"	F
+ft_normal_cylinder	src/rendering/ft_normal.c	/^t_FVec3	ft_normal_cylinder(t_Ray ray, t_Hit hit)$/;"	f
+ft_normal_plane	src/rendering/ft_normal.c	/^t_FVec3 ft_normal_plane(t_Ray ray, t_Hit hit)$/;"	f
 ft_normal_sphere	src/rendering/ft_normal.c	/^t_FVec3	ft_normal_sphere(t_Ray ray, t_Hit hit)$/;"	f
 ft_normalize_fvec3	src/lib3d/vector/math/generic.c	/^void	ft_normalize_fvec3(t_FVec3 *vec)$/;"	f
 ft_normalize_fvec3_2	src/lib3d/vector/math/generic_2.c	/^t_FVec3	ft_normalize_fvec3_2(t_FVec3 vec)$/;"	f
@@ -2007,6 +2029,7 @@ ft_parse_line	src/map_parser/ft_parser.c	/^static void	ft_parse_line(t_RT *rt, c
 ft_parse_objects.c	src/map_parser/ft_parse_objects.c	1;"	F
 ft_parse_utils.c	src/map_parser/ft_parse_utils.c	1;"	F
 ft_parser.c	src/map_parser/ft_parser.c	1;"	F
+ft_plane_normal	src/rendering/ft_normal.c	/^t_FVec3	ft_plane_normal(t_FVec3 plane_dir, t_FVec3 ray_dir)$/;"	f
 ft_pow	lib/libft/src/ft_pow.c	/^int32_t	ft_pow(int32_t base, int32_t exp)$/;"	f
 ft_pow.c	lib/libft/src/ft_pow.c	1;"	F
 ft_putchar	lib/libft/src/ft_putchar.c	/^void	ft_putchar(char c)$/;"	f
@@ -2025,9 +2048,14 @@ ft_putstr	lib/libft/src/ft_putstr.c	/^void	ft_putstr(const char *s)$/;"	f
 ft_putstr.c	lib/libft/src/ft_putstr.c	1;"	F
 ft_putstr_fd	lib/libft/src/ft_putstr_fd.c	/^void	ft_putstr_fd(const char *s, int32_t fd)$/;"	f
 ft_putstr_fd.c	lib/libft/src/ft_putstr_fd.c	1;"	F
+ft_rad	src/rendering/ft_rendering.c	/^float	ft_rad(float angle)$/;"	f
+ft_randf	src/lib3d/float/randf.c	/^float ft_randf(void)$/;"	f
+ft_randf_r	src/lib3d/float/randf.c	/^float ft_randf_r(float min, float max)$/;"	f
 ft_ray_at	src/lib3d/ray/utils.c	/^t_FVec3	ft_ray_at(t_Ray *ray, float distance)$/;"	f
 ft_ray_color	src/rendering/ft_rendering.c	/^static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)$/;"	f	file:
 ft_ray_in_right_dir	src/lib3d/ray/utils.c	/^bool	ft_ray_in_right_dir(t_Ray *ray, t_Cylinder *cylinder)$/;"	f
+ft_ray_intersect_any	src/rendering/ft_world.c	/^t_Hit	ft_ray_intersect_any(t_RT *rt, t_Ray ray)$/;"	f
+ft_ray_to_world	src/rendering/ft_world.c	/^bool	ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out)$/;"	f
 ft_read_map	src/map_parser/ft_parser.c	/^bool	ft_read_map(t_RT *rt, char *file)$/;"	f
 ft_realloc	lib/libft/src/ft_realloc.c	/^void	*ft_realloc(void *ptr, size_t old, size_t new)$/;"	f
 ft_realloc.c	lib/libft/src/ft_realloc.c	1;"	F
@@ -2035,6 +2063,7 @@ ft_render	src/main.c	/^static void	*ft_render(void *param)$/;"	f	file:
 ft_rendering.c	src/rendering/ft_rendering.c	1;"	F
 ft_rotate	src/lib3d/math.c	/^t_FVec3	ft_rotate(t_FVec3 vec, t_FVec3 k, float angle)$/;"	f
 ft_rotate_ray	src/lib3d/ray/utils.c	/^t_Ray	ft_rotate_ray(t_Ray *ray, t_FVec3 center, t_FVec3 dir)$/;"	f
+ft_rotate_vec	src/lib3d/matrix/matrix.c	/^t_FVec3	ft_rotate_vec(t_FVec3 cam_mat[3], t_FVec3 vec, float angle, t_Axis axis)$/;"	f
 ft_signf	src/lib3d/math.c	/^float	ft_signf(float a)$/;"	f
 ft_split	lib/libft/src/ft_split.c	/^char	**ft_split(char const *s, char c)$/;"	f
 ft_split.c	lib/libft/src/ft_split.c	1;"	F
@@ -2081,14 +2110,18 @@ ft_sub_fvec3	src/lib3d/vector/math/operations.c	/^t_FVec3	ft_sub_fvec3(t_FVec3 l
 ft_sub_fvec3f	src/lib3d/vector/math/operations_f.c	/^t_FVec3	ft_sub_fvec3f(t_FVec3 left, float right)$/;"	f
 ft_substr	lib/libft/src/ft_substr.c	/^char	*ft_substr(char const *s, uint32_t start, size_t len)$/;"	f
 ft_substr.c	lib/libft/src/ft_substr.c	1;"	F
+ft_to_color	src/lib3d/color/conversion.c	/^t_FVec3	ft_to_color(t_FVec3 linear)$/;"	f
+ft_to_deg	src/lib3d/rad_deg.c	/^float	ft_to_deg(float rad)$/;"	f
+ft_to_rad	src/lib3d/rad_deg.c	/^float	ft_to_rad(float deg)$/;"	f
 ft_to_rgba	src/lib3d/color/conversion.c	/^uint32_t	ft_to_rgba(t_FVec3 linear)$/;"	f
 ft_tolower	lib/libft/src/ft_tolower.c	/^int32_t	ft_tolower(int32_t c)$/;"	f
 ft_tolower.c	lib/libft/src/ft_tolower.c	1;"	F
 ft_toupper	lib/libft/src/ft_toupper.c	/^int32_t	ft_toupper(int32_t c)$/;"	f
 ft_toupper.c	lib/libft/src/ft_toupper.c	1;"	F
 ft_try_read	lib/libft/src/gnl/ft_get_next_line.c	/^static char	*ft_try_read(int32_t fd, t_fd_data *remainder)$/;"	f	file:
-ft_update_camera	src/rendering/ft_camera.c	/^void	ft_update_camera(t_RT *rt)$/;"	f
+ft_update_camera	src/rendering/ft_camera.c	/^void   		ft_update_camera(t_Camera *camera, t_FVec3 pos, t_FVec3 dir, float fov)$/;"	f
 ft_wcount	lib/libft/src/ft_split.c	/^static uint32_t	ft_wcount(const char *str, char c)$/;"	f	file:
+ft_world.c	src/rendering/ft_world.c	1;"	F
 func	include/MiniRT.h	/^	void		(*func)(t_RT*, char*, int32_t);$/;"	m	struct:s_JmpTable
 func	lib/MLX42/include/MLX42/MLX42_Int.h	/^	mlx_closefunc	func;$/;"	m	struct:s_mlx_close
 func	lib/MLX42/include/MLX42/MLX42_Int.h	/^	mlx_keyfunc		func;$/;"	m	struct:mlx_key
@@ -3252,12 +3285,9 @@ height	lib/MLX42/include/MLX42/MLX42.h	/^	const uint32_t	height;$/;"	m	struct:ml
 height	lib/MLX42/include/MLX42/MLX42.h	/^	int32_t		height;$/;"	m	struct:mlx
 height	lib/MLX42/include/MLX42/MLX42.h	/^	uint32_t	height;$/;"	m	struct:mlx_texture
 height	lib/MLX42/src/font/font.h	/^	uint32_t	height;$/;"	m	struct:s_font
-hit_infinite_cylinder	src/lib3d/ray/intersection/ft_intersect_cylinder.c	/^static float	hit_infinite_cylinder(t_Ray *ray, t_Cylinder *cylinder)$/;"	f	file:
-hit_nothing	src/rendering/ft_rendering.c	/^static t_FVec3	hit_nothing(t_Ray ray)$/;"	f	file:
-hit_object	src/rendering/ft_rendering.c	/^static t_FVec3	hit_object(t_Ray ray, t_Hit hit)$/;"	f	file:
+hit_infinite_cylinder	src/lib3d/ray/intersection/ft_intersect_cylinder.c	/^static float	hit_infinite_cylinder(t_Ray ray, t_Cylinder *cylinder)$/;"	f	file:
 hit_top_or_bottom	src/lib3d/ray/intersection/ft_intersect_cylinder.c	/^static float	hit_top_or_bottom(t_Ray *ray, t_Cylinder *cylinder)$/;"	f	file:
 hooks	lib/MLX42/include/MLX42/MLX42_Int.h	/^	mlx_list_t*		hooks;$/;"	m	struct:mlx_ctx
-horizontal	include/MiniRT.h	/^	t_FVec3	horizontal;$/;"	m	struct:s_Camera
 hour	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned hour;    \/*0-23*\/$/;"	m	struct:LodePNGTime
 huffmanDecodeSymbol	lib/MLX42/lib/png/lodepng.c	/^static unsigned huffmanDecodeSymbol(LodePNGBitReader* reader, const HuffmanTree* codetree) {$/;"	f	file:
 iccp_defined	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned iccp_defined;      \/* Whether an iCCP chunk is present (0 = not present, 1 = present). *\/$/;"	m	struct:LodePNGInfo
@@ -3351,7 +3381,6 @@ libft.h	lib/libft/libft.h	1;"	F
 light_count	include/MiniRT.h	/^	uint16_t	light_count;$/;"	m	struct:s_World
 lights	include/MiniRT.h	/^	t_Light		lights[MAX_LIGHTS];$/;"	m	struct:s_World
 listsize	lib/MLX42/lib/png/lodepng.c	/^  unsigned listsize;$/;"	m	struct:BPMLists	file:
-llc	include/MiniRT.h	/^	t_FVec3	llc;$/;"	m	struct:s_Camera
 load_GL_VERSION_1_0	lib/MLX42/lib/glad/glad.c	/^static void load_GL_VERSION_1_0(GLADloadproc load) {$/;"	f	file:
 load_GL_VERSION_1_1	lib/MLX42/lib/glad/glad.c	/^static void load_GL_VERSION_1_1(GLADloadproc load) {$/;"	f	file:
 load_GL_VERSION_1_2	lib/MLX42/lib/glad/glad.c	/^static void load_GL_VERSION_1_2(GLADloadproc load) {$/;"	f	file:
@@ -3482,6 +3511,7 @@ major	lib/MLX42/include/glad/glad.h	/^    int major;$/;"	m	struct:gladGLversionS
 make_decimal	src/map_parser/ft_atof_atoi.c	/^static float	make_decimal(const char *str, int32_t row, size_t *i)$/;"	f	file:
 make_float	src/map_parser/ft_atof_atoi.c	/^static float	make_float(const char *str, int32_t row, size_t *i)$/;"	f	file:
 math.c	src/lib3d/math.c	1;"	F
+matrix.c	src/lib3d/matrix/matrix.c	1;"	F
 max_icc_size	lib/MLX42/include/lodepng/lodepng.h	/^  size_t max_icc_size;$/;"	m	struct:LodePNGDecoderSettings
 max_loaded_major	lib/MLX42/lib/glad/glad.c	/^static int max_loaded_major;$/;"	v	file:
 max_loaded_minor	lib/MLX42/lib/glad/glad.c	/^static int max_loaded_minor;$/;"	v	file:
@@ -3530,7 +3560,6 @@ mlx_flush_batch	lib/MLX42/src/mlx_images.c	/^void mlx_flush_batch(mlx_ctx_t* mlx
 mlx_fnv_hash	lib/MLX42/src/utils/mlx_utils.c	/^uint64_t mlx_fnv_hash(char* str, size_t len)$/;"	f
 mlx_focus	lib/MLX42/src/utils/mlx_utils.c	/^void mlx_focus(mlx_t* mlx)$/;"	f
 mlx_font.c	lib/MLX42/src/font/mlx_font.c	1;"	F
-mlx_frag_shader.c	lib/MLX42/src/mlx_frag_shader.c	1;"	F
 mlx_free_image	lib/MLX42/src/mlx_exit.c	/^static void mlx_free_image(void* content)$/;"	f	file:
 mlx_freen	lib/MLX42/src/utils/mlx_utils.c	/^bool mlx_freen(int32_t count, ...)$/;"	f
 mlx_get_monitor_size	lib/MLX42/src/mlx_monitor.c	/^void mlx_get_monitor_size(int32_t index, int32_t* width, int32_t* height)$/;"	f
@@ -3623,7 +3652,6 @@ mlx_texture_t	lib/MLX42/include/MLX42/MLX42.h	/^}	mlx_texture_t;$/;"	t	typeref:s
 mlx_texture_to_image	lib/MLX42/src/textures/mlx_texture.c	/^mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)$/;"	f
 mlx_update_matrix	lib/MLX42/src/mlx_window.c	/^static void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)$/;"	f	file:
 mlx_utils.c	lib/MLX42/src/utils/mlx_utils.c	1;"	F
-mlx_vert_shader.c	lib/MLX42/src/mlx_vert_shader.c	1;"	F
 mlx_window.c	lib/MLX42/src/mlx_window.c	1;"	F
 mlx_xpm42.c	lib/MLX42/src/textures/mlx_xpm42.c	1;"	F
 mode	lib/MLX42/include/MLX42/MLX42.h	/^	char			mode;$/;"	m	struct:xpm
@@ -3648,6 +3676,7 @@ object	include/lib3d.h	/^	struct s_Object	*object;$/;"	m	struct:s_Hit	typeref:st
 object_count	include/MiniRT.h	/^	uint16_t	object_count;$/;"	m	struct:s_World
 objects	include/MiniRT.h	/^	t_Object	objects[MAX_OBJECTS];$/;"	m	struct:s_World
 open_gl	lib/MLX42/lib/glad/glad.c	/^int open_gl(void) {$/;"	f	file:
+operation.c	src/lib3d/color/operation.c	1;"	F
 operations.c	src/lib3d/vector/math/operations.c	1;"	F
 operations_f.c	src/lib3d/vector/math/operations_f.c	1;"	F
 origin	include/lib3d.h	/^	t_FVec3	origin;$/;"	m	struct:s_Ray
@@ -3678,8 +3707,10 @@ preProcessScanlines	lib/MLX42/lib/png/lodepng.c	/^static unsigned preProcessScan
 predefined_filters	lib/MLX42/include/lodepng/lodepng.h	/^  const unsigned char* predefined_filters;$/;"	m	struct:LodePNGEncoderSettings
 prev	lib/MLX42/include/MLX42/MLX42_Int.h	/^	struct mlx_list*	prev;$/;"	m	struct:mlx_list	typeref:struct:mlx_list::mlx_list
 prev	lib/libft/libft.h	/^	struct s_list	*prev;$/;"	m	struct:s_list	typeref:struct:s_list::s_list
+rad_deg.c	src/lib3d/rad_deg.c	1;"	F
 radius	include/lib3d.h	/^	float	radius;$/;"	m	struct:s_Cylinder
 radius	include/lib3d.h	/^	float	radius;$/;"	m	struct:s_Sphere
+randf.c	src/lib3d/float/randf.c	1;"	F
 raw	include/lib3d.h	/^	float	raw[2];$/;"	m	union:u_FVec2
 raw	include/lib3d.h	/^	float	raw[3];$/;"	m	union:u_FVec3
 raw	include/lib3d.h	/^	float	raw[4];$/;"	m	union:u_FVec4
@@ -3709,7 +3740,7 @@ result	tester/vec_utils_test.c	/^t_VFec3	result;$/;"	v
 reverseBits	lib/MLX42/lib/png/lodepng.c	/^static unsigned reverseBits(unsigned bits, unsigned num) {$/;"	f	file:
 rgba16ToPixel	lib/MLX42/lib/png/lodepng.c	/^static void rgba16ToPixel(unsigned char* out, size_t i,$/;"	f	file:
 rgba8ToPixel	lib/MLX42/lib/png/lodepng.c	/^static unsigned rgba8ToPixel(unsigned char* out, size_t i,$/;"	f	file:
-rotation	include/MiniRT.h	/^	t_FVec3	rotation;$/;"	m	struct:s_Camera
+rotation_matrix	include/MiniRT.h	/^	t_FVec3	rotation_matrix[3];$/;"	m	struct:s_Camera
 rt	tester/parser_test.c	/^t_rt	rt;$/;"	v
 rt	tester/vec_utils_test.c	/^t_RT	rt;$/;"	v
 rwildcard	lib/MLX42/Makefile	/^rwildcard = $(subst \\,\/,$(sort $(foreach d,$(wildcard $1\/*),$(call rwildcard,$d,$2) $(wildcard $1\/$2))))$/;"	m
@@ -3736,7 +3767,6 @@ second	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned second;  \/*0-60 (to all
 setBitOfReversedStream	lib/MLX42/lib/png/lodepng.c	/^static void setBitOfReversedStream(size_t* bitpointer, unsigned char* bitstream, unsigned char bit) {$/;"	f	file:
 set_correct_angle	src/lib3d/ray/angle.c	/^void	set_correct_angle(t_angle *new_angle)$/;"	f
 shaderprogram	lib/MLX42/include/MLX42/MLX42_Int.h	/^	GLuint			shaderprogram;$/;"	m	struct:mlx_ctx
-sharpness	include/MiniRT.h	/^	int32_t	sharpness;$/;"	m	struct:s_Camera
 size	lib/MLX42/lib/png/lodepng.c	/^  size_t size; \/*size in number of unsigned longs*\/$/;"	m	struct:uivector	file:
 size	lib/MLX42/lib/png/lodepng.c	/^  size_t size; \/*size of data in bytes*\/$/;"	m	struct:__anon8	file:
 size	lib/MLX42/lib/png/lodepng.c	/^  size_t size; \/*used size*\/$/;"	m	struct:ucvector	file:
@@ -3745,6 +3775,7 @@ srgb_defined	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned srgb_defined; \/* 
 srgb_intent	lib/MLX42/include/lodepng/lodepng.h	/^  unsigned srgb_intent;  \/* Rendering intent: 0=perceptual, 1=rel. colorimetric, 2=saturation, 3=abs. colorimetric *\/$/;"	m	struct:LodePNGInfo
 string_cleanup	lib/MLX42/lib/png/lodepng.c	/^static void string_cleanup(char** out) {$/;"	f	file:
 sys	lib/MLX42/tools/xpm3_conv.py	/^import sys$/;"	i
+t_Axis	include/lib3d.h	/^}	t_Axis;$/;"	t	typeref:enum:e_Axis
 t_Camera	include/MiniRT.h	/^}	t_Camera;$/;"	t	typeref:struct:s_Camera
 t_Cylinder	include/lib3d.h	/^}	t_Cylinder;$/;"	t	typeref:struct:s_Cylinder
 t_EntityType	include/MiniRT.h	/^}	t_EntityType;$/;"	t	typeref:enum:e_EntityType
@@ -3817,10 +3848,8 @@ val	lib/MLX42/lib/png/lodepng.c	/^  int* val; \/*circular pos to hash value*\/$/
 vao	lib/MLX42/include/MLX42/MLX42_Int.h	/^	GLuint			vao;$/;"	m	struct:mlx_ctx
 vbo	lib/MLX42/include/MLX42/MLX42_Int.h	/^	GLuint			vbo;$/;"	m	struct:mlx_ctx
 vec_utils_test.c	tester/vec_utils_test.c	1;"	F
-vert_shader	lib/MLX42/src/mlx_vert_shader.c	/^const char* vert_shader = "#version 330 core\\n"$/;"	v
 vertex	lib/MLX42/include/MLX42/MLX42_Int.h	/^typedef struct vertex$/;"	s
 vertex_t	lib/MLX42/include/MLX42/MLX42_Int.h	/^}	vertex_t;$/;"	t	typeref:struct:vertex
-vertical	include/MiniRT.h	/^	t_FVec3	vertical;$/;"	m	struct:s_Camera
 vertices	include/lib3d.h	/^	t_FVec3	vertices[3];$/;"	m	struct:s_Triangle
 w	include/lib3d.h	/^		float	w;$/;"	m	struct:u_FVec4::__anon3
 weight	lib/MLX42/lib/png/lodepng.c	/^  int weight; \/*the sum of all weights in this chain*\/$/;"	m	struct:BPMNode	file:

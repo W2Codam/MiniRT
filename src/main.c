@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 15:50:47 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:03:16 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	ft_hook(void *param)
 		rt->update = true;
 	}
 	t_Camera* cam = ft_get_active_camera(rt);
-	ft_update_camera(cam, cam->position, cam->rotation, 90);
+	ft_update_camera(cam, cam->position, cam->rotation_matrix, 90);
 }
 
 /**

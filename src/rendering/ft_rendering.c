@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rendering.c                                     :+:    :+:            */
+/*   ft_rendering.c                                     :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:07:27 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/25 13:35:34 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ static t_Ray	ft_fire_ray(t_RT *rt, uint32_t x, uint32_t y)
 	t_Camera *const	camera = ft_get_active_camera(rt);
 
 	dir = ft_make_camray(rt, camera, x, y);
-	dir = ft_rotate_vec(dir, 0, X);
-	dir = ft_rotate_vec(dir, 0, Y);
-	dir = ft_rotate_vec(dir, 0, Z);
+	//printf("ray.xyz: %f, %f, %f\n", dir.x, dir.y, dir.z);
+	dir = ft_rotate_vec(camera->rotation_matrix, dir, 0, X);
+	dir = ft_rotate_vec(camera->rotation_matrix, dir, 0, Y);
+	dir = ft_rotate_vec(camera->rotation_matrix, dir, 0, Z);
+	//printf("new_ray.xyz: %f, %f, %f\n", dir.x, dir.y, dir.z);
 	return (ft_new_ray(camera->position, dir));
 }
 
