@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:03:16 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/26 10:40:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 	(void)input;
 	if (!ft_read_map(rt, input))
 		return (false);
-	rt->mlx = mlx_init(image_width, image_height, "👾 MegaRT 👾", false);
+	rt->mlx = mlx_init(image_width, image_height, "👾 WWRT 👾", false);
 	if (mlx_errno)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	rt->canvas = mlx_new_image(rt->mlx, image_width, image_height);

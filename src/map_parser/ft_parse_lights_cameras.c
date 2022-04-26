@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 19:14:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 10:46:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_add_ambient(t_RT *rt, char *line, int32_t row)
 		ft_exit_parser("Missing immediate newline", row, i, "init_ambient");
 	rt->has_ambient = true;
 }
-/*
-void	ft_lookat(t_FVec3 out[3] ,t_FVec3 origin, t_FVec3 look_at)
+
+void	ft_lookat(t_FVec3 out[3], t_FVec3 origin, t_FVec3 look_at)
 {
 	t_FVec3		check;
 	t_FVec3		up_tmp;
@@ -56,22 +56,23 @@ void	ft_lookat(t_FVec3 out[3] ,t_FVec3 origin, t_FVec3 look_at)
 	t_FVec3		right;
 	t_FVec3		up;
 
-	check = vec3_unit(look_at);
+	check = ft_normalize_fvec3_2(look_at);
 	if (check.x == 0.0 && fabs(check.y) == 1.0 && check.z == 0.0)
 	{
-		forward = vec3_unit(vec3_mult_s(vec3_sub(origin, look_at), -1));
-		right = vec3_id(ID_X);
+		forward = ft_normalize_fvec3_2(ft_mul_fvec3f(ft_sub_fvec3(origin, look_at), -1));
+		right = ft_new_fvec3(1, 0, 0);
 	}
 	else
 	{
-		up_tmp = vec3_id(ID_Y);
-		forward = vec3_unit(vec3_mult_s(vec3_sub(origin, look_at), -1));
-		right = vec3_cross(up_tmp, forward);
+		up_tmp = ft_new_fvec3(0, 1, 0);
+		forward = ft_normalize_fvec3_2(ft_mul_fvec3f(ft_sub_fvec3(origin, look_at), -1));
+		right = ft_cross_fvec3(up_tmp, forward);
 	}
-	up = vec3_cross(forward, right);
-	return (mat4(origin, forward, right, up));
+	up = ft_cross_fvec3(forward, right);
+	out[0] = right;
+	out[1] = up;
+	out[2] = forward;
 }
-*/
 
 void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 {
@@ -83,11 +84,7 @@ void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 	camera->position = ft_init_coordinates(line, row, &i, 0);
 	dir = ft_init_coordinates(line, row, &i, 1);
 	camera->direction = dir;
-	cam->world = mat4_lookat(cam->origin, vec3_add(cam->origin, cam->normal));
-	camera->rotation_matrix[2] = ft_new_fvec3(dir.x, dir.y, dir.z);
-	camera->rotation_matrix[0] = ft_cross_fvec3(ft_new_fvec3(0.577,0.577,0.577), camera->rotation_matrix[2]);
-	camera->rotation_matrix[1] = ft_cross_fvec3(camera->rotation_matrix[0], camera->rotation_matrix[2]);
-	//ft_dir_to_mat(dir, ft_new_fvec3(0.577,0.577,0.577), &camera->rotation_matrix);
+	ft_lookat(camera->rotation_matrix, camera->position, ft_add_fvec3(camera->position, camera->direction));
 	camera->fov = ft_init_number(line, row, &i, 0);
 	if (camera->fov > 180 || camera->fov < 0)
 		ft_exit_parser("Surpassed range", row, i, "init_camera");
