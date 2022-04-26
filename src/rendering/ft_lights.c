@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 15:10:46 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 13:52:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:20:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 	{
 		light = &rt->world.lights[i];
 		ray_light = ft_new_ray(hit_pos, ft_sub_fvec3(light->position, hit_pos));
-
 		if (ft_ray_intersect_any(rt, ray_light).distance <= 0)
 			color = ft_add_fvec3(color, \
 			ft_calc_light(light, ray_light, hit_pos, normal));

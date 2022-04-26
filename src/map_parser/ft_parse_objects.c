@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:19:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:20:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_add_plane(t_RT *rt, char *line, int32_t row)
 	i = 0;
 	plane->type = PLANE;
 	plane->intersects = ft_intersect_pl;
-	plane->as_plane.center= ft_init_coordinates(line, row, &i, 0);
+	plane->as_plane.center = ft_init_coordinates(line, row, &i, 0);
 	plane->as_plane.dir = ft_init_coordinates(line, row, &i, 1);
 	plane->color = ft_init_color(line, row, &i);
 	if (line[i] != '\n')
