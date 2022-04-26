@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 12:47:17 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:47:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 11:25:09 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_angle	ft_get_angle_to(t_FVec3 dir, t_FVec3 desired_angle)
 	{
 		new_angle.angle = M_PI;
 		if (desired_angle.y == 0 && desired_angle.z == 0)
-			new_angle.k = ft_normalize_fvec3_2(ft_cross_fvec3( \
+			new_angle.k = ft_normalize_fvec3_2(ft_cross_fvec3(\
 						dir, ft_new_fvec3(0, 1, 0)));
 		else
-			new_angle.k = ft_normalize_fvec3_2(ft_cross_fvec3( \
+			new_angle.k = ft_normalize_fvec3_2(ft_cross_fvec3(\
 						dir, ft_new_fvec3(1, 0, 0)));
 	}
 	else

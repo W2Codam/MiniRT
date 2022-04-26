@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rendering.c                                     :+:    :+:            */
+/*   ft_rendering.c                                     :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 13:00:31 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 13:28:21 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_FVec3	ft_mat3_mult_dir(t_FVec3 matrix[3], t_FVec3 dir)
 	dir.z * matrix[2].raw[1];
 	new.z = dir.x * matrix[0].raw[2] + dir.y * matrix[1].raw[2] + \
 	dir.z * matrix[2].raw[2];
-
 	return (new);
 }
 

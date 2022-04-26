@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_parse_objects.c                                 :+:      :+:    :+:   */
+/*   ft_parse_objects.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 10:58:52 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:19:14 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,22 @@ void	ft_add_cylinder(t_RT *rt, char *line, int32_t row)
 		ft_exit_parser("Missing immediate newline", row, i, "init_cylinder");
 	rt->world.object_count++;
 }
+
+/*
+void	ft_add_triangle(t_RT *rt, char *line, int32_t row)
+{
+	size_t			i;
+	t_Object *const	triangle = &rt->world.objects[rt->world.object_count];
+
+	i = 0;
+	triangle->type = TRIANGLE;
+	triangle->intersects = ft_intersect_tr;
+	triangle->as_triangle.vertices[0] = ft_init_coordinates(line, row, &i, 0);
+	triangle->as_triangle.vertices[1] = ft_init_coordinates(line, row, &i, 0);
+	triangle->as_triangle.vertices[2] = ft_init_coordinates(line, row, &i, 0);
+	triangle->color = ft_init_color(line, row, &i);
+	if (line[i] != '\n')
+		ft_exit_parser("Missing immediate newline", row, i, "init_triangle");
+	rt->world.object_count++;
+}
+*/

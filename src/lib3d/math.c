@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   math.c                                             :+:    :+:            */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 12:32:56 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/14 13:03:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 11:14:40 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ float	ft_signf(float a)
 	return (1.0);
 }
 
-float ft_clamp(float x, float min, float max) 
+float	ft_clamp(float x, float min, float max)
 {
-    if (x < min) 
+	if (x < min)
 		return (min);
-    if (x > max) 
+	if (x > max)
 		return (max);
-    return (x);
+	return (x);
 }
