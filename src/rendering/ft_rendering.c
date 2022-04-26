@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:20:35 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 10:43:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 13:00:31 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static t_FVec3	ft_hit_nothing(t_Ray ray)
 	return (ft_new_fvec3(0.1f, 0.1f, 0.1f));
 }
 
-// Kd * DOT(N, L) * Od * Ld
 static t_FVec3	ft_ray_color(t_RT *rt, t_Ray ray)
 {
 	t_Hit		hit;
@@ -39,24 +38,28 @@ t_FVec3	ft_mat3_mult_dir(t_FVec3 matrix[3], t_FVec3 dir)
 {
 	t_FVec3	new;
 
-	new.x = dir.x * matrix[0].raw[0] + dir.y * matrix[1].raw[0] + dir.z * matrix[2].raw[0];
-	new.y = dir.x * matrix[0].raw[1] + dir.y * matrix[1].raw[1] + dir.z * matrix[2].raw[1];
-	new.z = dir.x * matrix[0].raw[2] + dir.y * matrix[1].raw[2] + dir.z * matrix[2].raw[2];
+	new.x = dir.x * matrix[0].raw[0] + dir.y * matrix[1].raw[0] + \
+	dir.z * matrix[2].raw[0];
+	new.y = dir.x * matrix[0].raw[1] + dir.y * matrix[1].raw[1] + \
+	dir.z * matrix[2].raw[1];
+	new.z = dir.x * matrix[0].raw[2] + dir.y * matrix[1].raw[2] + \
+	dir.z * matrix[2].raw[2];
 
 	return (new);
 }
 
-
 static t_Ray	ft_fire_ray(t_RT *rt, uint32_t x, uint32_t y)
 {
 	t_FVec3			ws;
-	const float		ratio = (float)rt->canvas->width / (float)rt->canvas->height;
+	const float		ratio = \
+	(float)rt->canvas->width / (float)rt->canvas->height;
 	t_Camera *const	camera = ft_get_active_camera(rt);
 
-	ws.x = (2 * ((x + 0.5) / rt->canvas->width) - 1) * ratio;
-	ws.y = (1 - 2 * ((y + 0.5) / rt->canvas->width)) * ratio;
+	ws.x = (2 * ((x + 0.5) / rt->canvas->width) - 1) * camera->fov * ratio;
+	ws.y = (1 - 2 * ((y + 0.5) / rt->canvas->height)) * camera->fov;
 	ws.z = 1;
-	return (ft_new_ray(camera->position, ft_normalize_fvec3_2(ft_mat3_mult_dir(camera->rotation_matrix, ws))));
+	return (ft_new_ray(camera->position, \
+	ft_normalize_fvec3_2(ft_mat3_mult_dir(camera->rotation_matrix, ws))));
 }
 
 //= Public =//

@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 10:46:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 12:46:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 	camera->direction = dir;
 	ft_lookat(camera->rotation_matrix, camera->position, ft_add_fvec3(camera->position, camera->direction));
 	camera->fov = ft_init_number(line, row, &i, 0);
+	camera->fov = tanf((camera->fov * 0.5) * (M_PI / 180));
 	if (camera->fov > 180 || camera->fov < 0)
 		ft_exit_parser("Surpassed range", row, i, "init_camera");
 	if (line[i] != '\n')
