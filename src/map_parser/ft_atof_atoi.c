@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atof_atoi.c                                     :+:    :+:            */
+/*   ft_atof_atoi.c                                     :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 14:38:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:15:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 11:31:43 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static float	make_float(const char *str, int32_t row, size_t *i)
 		nbr = (nbr * 10) + (str[(*i)] - '0');
 		(*i)++;
 	}
-	//printf("nbr: %f\nfltmax: %f, fltmin: %f\n\n", nbr, FLT_MAX, -FLT_MAX);
 	if (nbr > FLT_MAX || nbr < -FLT_MAX)
 		ft_exit_parser("Input number range fucked", row, *i, "make_float");
 	if (str[*i] == '.')

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_cylinder.c                            :+:    :+:            */
+/*   ft_intersect_cylinder.c                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:02:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 11:30:42 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,17 @@ static float	hit_infinite_cylinder(t_Ray ray, t_Cylinder *cylinder)
 	return (-1.0f);
 }
 
-bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
+static bool	hit_cylinder_help(t_Ray ray, t_Cylinder *cylinder, t_Hit *out_hit)
 {
-	t_Ray	rotated_ray;
-	t_FVec3	p_at_t;
 	float	t_top_bottom;
 	float	t;
+	t_FVec3	p_at_t;
 
-	out_hit->distance = -1;
-	out_hit->cy_side = false;
-	rotated_ray = ft_rotate_ray(ray, cylinder->center, cylinder->dir);
-	if (!ft_ray_in_right_dir(&rotated_ray, cylinder) || \
-	inside_cylinder(rotated_ray.origin, cylinder))
-		return (false);
-	t_top_bottom = hit_top_or_bottom(&rotated_ray, cylinder);
-	t = hit_infinite_cylinder(rotated_ray, cylinder);
+	t_top_bottom = hit_top_or_bottom(&ray, cylinder);
+	t = hit_infinite_cylinder(ray, cylinder);
 	if (t < 0 && t_top_bottom < 0)
 		return (false);
-	p_at_t = ft_ray_at(&rotated_ray, t);
+	p_at_t = ft_ray_at(&ray, t);
 	if (fabsf(p_at_t.y) < cylinder->height / 2
 		&& (t_top_bottom < 0 || t < t_top_bottom))
 	{
@@ -91,4 +84,17 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 		return (true);
 	}
 	return (false);
+}
+
+bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
+{
+	t_Ray	rotated_ray;
+
+	out_hit->distance = -1;
+	out_hit->cy_side = false;
+	rotated_ray = ft_rotate_ray(ray, cylinder->center, cylinder->dir);
+	if (!ft_ray_in_right_dir(&rotated_ray, cylinder) || \
+	inside_cylinder(rotated_ray.origin, cylinder))
+		return (false);
+	return (hit_cylinder_help(rotated_ray, cylinder, out_hit));
 }

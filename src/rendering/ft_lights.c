@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 15:10:46 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/21 12:58:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 11:37:34 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ static float ft_max_float(float a, float b)
 	return (a * (a >= b) + b * (b > a));
 }
 
-//= Public =//
-
-// Utterly fucked bullshit, but it works.
 t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 {
 	uint16_t		i;
@@ -29,7 +26,8 @@ t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 	t_Ray			ray_light;
 	t_FVec3			output_color;
 	const t_FVec3	hit_pos = ft_ray_at(&cur_ray, hit->distance);
-	const t_FVec3	ambient_col = ft_mul_fvec3f(ft_from_rgba(rt->world.ambient.color), rt->world.ambient.intensity);
+	const t_FVec3	ambient_col = ft_mul_fvec3f(ft_from_rgba\
+			(rt->world.ambient.color), rt->world.ambient.intensity);
 
 	t_FVec3	new;
 	new.x = hit_pos.x + normal->x * 0.0001;

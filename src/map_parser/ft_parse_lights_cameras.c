@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_parse_lights_cameras.c                          :+:    :+:            */
+/*   ft_parse_lights_cameras.c                          :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:15:42 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 10:46:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 11:33:17 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	ft_lookat(t_FVec3 out[3], t_FVec3 origin, t_FVec3 look_at)
 	check = ft_normalize_fvec3_2(look_at);
 	if (check.x == 0.0 && fabs(check.y) == 1.0 && check.z == 0.0)
 	{
-		forward = ft_normalize_fvec3_2(ft_mul_fvec3f(ft_sub_fvec3(origin, look_at), -1));
+		forward = ft_normalize_fvec3_2(ft_mul_fvec3f(\
+					ft_sub_fvec3(origin, look_at), -1));
 		right = ft_new_fvec3(1, 0, 0);
 	}
 	else
 	{
 		up_tmp = ft_new_fvec3(0, 1, 0);
-		forward = ft_normalize_fvec3_2(ft_mul_fvec3f(ft_sub_fvec3(origin, look_at), -1));
+		forward = ft_normalize_fvec3_2(ft_mul_fvec3f(\
+					ft_sub_fvec3(origin, look_at), -1));
 		right = ft_cross_fvec3(up_tmp, forward);
 	}
 	up = ft_cross_fvec3(forward, right);
@@ -84,7 +86,8 @@ void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 	camera->position = ft_init_coordinates(line, row, &i, 0);
 	dir = ft_init_coordinates(line, row, &i, 1);
 	camera->direction = dir;
-	ft_lookat(camera->rotation_matrix, camera->position, ft_add_fvec3(camera->position, camera->direction));
+	ft_lookat(camera->rotation_matrix, camera->position,
+		ft_add_fvec3(camera->position, camera->direction));
 	camera->fov = ft_init_number(line, row, &i, 0);
 	if (camera->fov > 180 || camera->fov < 0)
 		ft_exit_parser("Surpassed range", row, i, "init_camera");
