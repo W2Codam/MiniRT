@@ -6,12 +6,13 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 12:56:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:17:44 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MiniRT.h"
 
+/*
 static void	*ft_render(void *param)
 {
 	t_RT *const	rt = param;
@@ -28,6 +29,12 @@ static void	*ft_render(void *param)
 	}
 	return (NULL);
 }
+
+	//if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
+	//	return (false);
+	//pthread_detach(rt->render_thread);
+
+*/
 
 /**
  * Initializes the game state.
@@ -53,12 +60,11 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 	if (mlx_image_to_window(rt->mlx, rt->canvas, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	mlx_put_string(rt->mlx, "WWRT - Worlds Worst RayTracer", 5, 5);
-	if (pthread_create(&rt->render_thread, NULL, &ft_render, rt) != 0)
-		return (false);
-	pthread_detach(rt->render_thread);
+	ft_draw_world(rt);
 	return (true);
 }
 
+/*
 static void	ft_hook(void *param)
 {
 	t_RT *const	rt = param;
@@ -108,6 +114,26 @@ static void	ft_hook(void *param)
 	t_Camera* cam = ft_get_active_camera(rt);
 	ft_update_camera(cam, cam->position, cam->rotation_matrix, cam->fov);
 }
+mlx_loop_hook(rt.mlx, &ft_hook, &rt);
+*/
+
+void	ft_on_key(mlx_key_data_t keydata, void *param)
+{
+	t_RT *const	rt = param;
+
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
+	{
+		mlx_delete_image(rt->mlx, rt->canvas);
+		mlx_close_window(rt->mlx);
+	}
+}
+
+void	ft_on_close(void *param)
+{
+	t_RT *const	rt = param;
+
+	mlx_delete_image(rt->mlx, rt->canvas);
+}
 
 /**
  * Application entry point.
@@ -129,9 +155,10 @@ int32_t	main(int32_t argc, char *argv[])
 	rt.update = true;
 	if (!ft_init_rt(&rt, argv[1]))
 		return (EXIT_FAILURE);
-	mlx_loop_hook(rt.mlx, &ft_hook, &rt);
+	mlx_key_hook(rt.mlx, ft_on_key, &rt);
+	mlx_close_hook(rt.mlx, ft_on_close, &rt);
 	mlx_loop(rt.mlx);
+	ft_putendl("Bye Bye!");
 	mlx_terminate(rt.mlx);
-	rt.mlx = NULL;
 	return (EXIT_SUCCESS);
 }
