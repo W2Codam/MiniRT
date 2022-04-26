@@ -89,6 +89,7 @@ void	ft_add_camera(t_RT *rt, char *line, int32_t row)
 	ft_lookat(camera->rotation_matrix, camera->position,
 		ft_add_fvec3(camera->position, camera->direction));
 	camera->fov = ft_init_number(line, row, &i, 0);
+	camera->fov = tanf((camera->fov * 0.5) * (M_PI / 180));
 	if (camera->fov > 180 || camera->fov < 0)
 		ft_exit_parser("Surpassed range", row, i, "init_camera");
 	if (line[i] != '\n')

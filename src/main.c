@@ -6,7 +6,11 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2022/04/26 11:12:15 by dvan-der         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/26 12:56:35 by lde-la-h      ########   odam.nl         */
+>>>>>>> 55ea5132676d1a9d01da7dabb7c831774405301e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +101,16 @@ static void	ft_hook(void *param)
 	}
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_PAGE_UP))
 	{
-		ft_get_active_camera(rt)->fov += 0.5f;
+		ft_get_active_camera(rt)->fov += 0.1f;
 		rt->update = true;
 	}
 	if (mlx_is_key_down(rt->mlx, MLX_KEY_PAGE_DOWN))
 	{
-		ft_get_active_camera(rt)->fov -= 0.5f;
+		ft_get_active_camera(rt)->fov -= 0.1f;
 		rt->update = true;
 	}
 	t_Camera* cam = ft_get_active_camera(rt);
-	ft_update_camera(cam, cam->position, cam->rotation_matrix, ft_get_active_camera(rt)->fov);
+	ft_update_camera(cam, cam->position, cam->rotation_matrix, cam->fov);
 }
 
 /**
