@@ -121,6 +121,7 @@ typedef struct s_RT
 {
 	mlx_t		*mlx;
 	mlx_image_t	*canvas;
+	mlx_image_t	*meme;
 
 	t_World		world;
 	uint16_t	camera_index;

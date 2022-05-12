@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:18:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/12 11:37:18 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
 	if (mlx_image_to_window(rt->mlx, rt->canvas, 0, 0) == -1)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);
-	mlx_put_string(rt->mlx, "WWRT - Worlds Worst RayTracer", 5, 5);
+	rt->meme = mlx_put_string(rt->mlx, "WWRT - Worlds Worst RayTracer", 5, 5);
 	ft_draw_world(rt);
 	return (true);
 }
@@ -159,6 +159,7 @@ int32_t	main(int32_t argc, char *argv[])
 	mlx_close_hook(rt.mlx, ft_on_close, &rt);
 	mlx_loop(rt.mlx);
 	ft_putendl("Bye Bye!");
+	mlx_delete_image(rt.mlx, rt.meme);
 	mlx_terminate(rt.mlx);
 	return (EXIT_SUCCESS);
 }
