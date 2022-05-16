@@ -67,7 +67,7 @@ typedef struct s_Object
 }	t_Object;
 
 /**
- * A Camera is a lens that can shoots rays to trace the pixels
+ * A camera is a lense that can shoot rays to trace the pixels
  * at a specific location and rotation.
  */
 typedef struct s_Camera

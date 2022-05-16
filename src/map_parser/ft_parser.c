@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:00:01 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:04:28 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,14 @@ bool	ft_read_map(t_RT *rt, char *file)
 {
 	char			*line;
 	int32_t			row;
-	const int32_t	rt_file = open(file, O_RDONLY);
+	int32_t			rt_file;
 
+	if (ft_strncmp(&file[ft_strlen(file) - 3], ".rt", 3))
+	{
+		ft_putstr_fd("Error\nIncorrect filename\n", 2);
+		return (false);
+	}
+	rt_file = open(file, O_RDONLY);
 	if (rt_file == -1)
 		return (perror("MiniRT"), false);
 	row = 0;

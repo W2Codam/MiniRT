@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/25 10:57:59 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:06:20 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ float		ft_to_deg(float rad);
 
 //= Matrices =//
 
-t_FVec3		ft_rotate_vec(t_FVec3 cam_mat[3], t_FVec3 vec, float angle, t_Axis axis);
+t_FVec3		ft_rotate_vec(t_FVec3 cam_mat[3], t_FVec3 vec, \
+		float angle, t_Axis axis);
 
 #endif
