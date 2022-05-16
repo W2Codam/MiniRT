@@ -1,10 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:    :+:            */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */ /*   Created: 2022/04/11 17:45:39 by lde-la-h      #+#    #+#                 */ /*   Updated: 2022/04/19 13:18:52 by lde-la-h      ########   odam.nl         */
+/*                                                   +#+                      */
+/*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/05/12 11:37:18 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +46,9 @@ typedef enum e_EntityType
 	PLANE,
 }	t_EntityType;
 
+// Intersection func
+typedef bool	(*t_intersection)(struct s_Object*, t_Ray*, t_Hit *hit);
+
 /**
  * An object is something that can be rendered onto the screen.
  * 
@@ -56,7 +61,7 @@ typedef struct s_Object
 {
 	t_EntityType	type;
 	t_FVec3			color;
-	bool			(*intersects)(struct s_Object*, t_Ray*, t_Hit*);
+	t_intersection	intersects;
 
 	union
 	{
@@ -131,39 +136,44 @@ typedef struct s_RT
 	bool		has_ambient;
 }	t_RT;
 
+// Jumptable func
+typedef void	(*t_func)(t_RT*, char*, int32_t);
+
 typedef struct s_JmpTable
 {
-	const char *id;
-	void		(*func)(t_RT*, char*, int32_t);
-} 	t_JmpTable;
+	const char	*id;
+	t_func		func;
+}	t_JmpTable;
 
 //= Functions =//
 
 t_Camera	*ft_get_active_camera(t_RT *rt);
-void   		ft_update_camera(t_Camera *camera, t_FVec3 pos, t_FVec3 dir[3], float fov);
+void		ft_update_camera(t_Camera *camera, t_FVec3 pos, \
+				t_FVec3 dir[3], float fov);
 void		ft_draw_world(t_RT *rt);
-t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal);
-bool		ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out);
+t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, \
+				t_Hit *hit, t_FVec3 *normal);
+bool		ft_ray_to_world(t_RT *rt, t_Ray ray, \
+				t_FVec3 *normal, t_Hit *hit_out);
 t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray);
 
 //= Collision Functions =//
 
 // Wrapper functions to match intersection prototype.
 
-bool	ft_intersect_sp(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
-bool	ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
-bool	ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+bool		ft_intersect_sp(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+bool		ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+bool		ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 
 //= Map parser =//
 
-bool	ft_read_map(t_RT *rt, char *file);
+bool		ft_read_map(t_RT *rt, char *file);
 
-t_FVec3	ft_cy_side_normal(t_FVec3 hit_pos, t_Cylinder cylinder);
-t_FVec3	ft_plane_normal(t_FVec3 plane_dir, t_FVec3 ray_dir);
-t_FVec3	ft_normal_cylinder(t_Ray ray, t_Hit hit);
-t_FVec3	ft_normal_sphere(t_Ray ray, t_Hit hit);
-t_FVec3 ft_normal_plane(t_Ray ray, t_Hit hit);
-float	ft_hit_plane_2(t_Ray *ray, t_FVec3 dir, t_FVec3 pos);
+t_FVec3		ft_cy_side_normal(t_FVec3 hit_pos, t_Cylinder cylinder);
+t_FVec3		ft_plane_normal(t_FVec3 plane_dir, t_FVec3 ray_dir);
+t_FVec3		ft_normal_cylinder(t_Ray ray, t_Hit hit);
+t_FVec3		ft_normal_sphere(t_Ray ray, t_Hit hit);
+t_FVec3		ft_normal_plane(t_Ray ray, t_Hit hit);
+float		ft_hit_plane_2(t_Ray *ray, t_FVec3 dir, t_FVec3 pos);
 
 #endif
-
