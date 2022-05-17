@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_normal.c                                        :+:      :+:    :+:   */
+/*   ft_normal.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 11:09:22 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 12:49:34 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:09:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ t_FVec3	ft_plane_normal(t_FVec3 plane_dir, t_FVec3 ray_dir)
 	if (side > 0.)
 		return ((ft_sub_fvec3(ft_new_fvec3(0, 0, 0),
 					ft_normalize_fvec3_2(plane_dir))));
-	else
-		return (ft_normalize_fvec3_2(plane_dir));
+	return (ft_normalize_fvec3_2(plane_dir));
 }
 
 t_FVec3	ft_normal_cylinder(t_Ray ray, t_Hit hit)

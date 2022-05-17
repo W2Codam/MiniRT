@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 15:10:46 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:20:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/17 13:35:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static float	ft_max_float(float a, float b)
 static t_FVec3	ft_calc_light(t_Light *light, t_Ray ray, t_FVec3 hit, \
 t_FVec3 *normal)
 {
+	(void)hit;
 	const t_FVec3	light_color = ft_from_rgba(light->color);
-	const float		shade = ft_max_float(ft_dot_fvec3(*normal, ray.dir), 0.0f) \
-	/ ft_distance(hit, light->position);
+	const float		shade = ft_max_float(ft_dot_fvec3(*normal, ray.dir), 0.0f);
 
 	return (ft_mul_fvec3f(ft_mul_fvec3f(light_color, shade), light->intensity));
 }
@@ -66,11 +66,15 @@ t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 	while (i < rt->world.light_count)
 	{
 		light = &rt->world.lights[i];
-		ray_light = ft_new_ray(hit_pos, ft_sub_fvec3(light->position, hit_pos));
-		if (ft_ray_intersect_any(rt, ray_light).distance <= 0)
+		t_FVec3 delta = ft_sub_fvec3(light->position, hit_pos);
+		ray_light = ft_new_ray(hit_pos, ft_normalize_fvec3_2(delta));
+
+		float dist = ft_ray_intersect_any(rt, ray_light).distance;
+		if (dist <= 0 || dist > ft_len_fvec3(delta))
 			color = ft_add_fvec3(color, \
 			ft_calc_light(light, ray_light, hit_pos, normal));
 		i++;
 	}
-	return (ft_mul_fvec3(ft_from_rgba(hit->object->color), color));
+	t_FVec3 col = ft_mul_fvec3(ft_from_rgba(hit->object->color), color);
+	return (col);
 }

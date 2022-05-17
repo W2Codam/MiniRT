@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_plane.c                               :+:      :+:    :+:   */
+/*   ft_intersect_plane.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/17 09:49:50 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:17:31 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ bool	ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit)
 	const float		b = ft_dot_fvec3(ray->dir, plane->dir);
 	float			distance;
 
-	if (fabs(b) < 0)
+	if (fabs(b) < 0.0001)
 		return (false);
 	distance = a / b;
-	if (distance <= 0)
+	if (distance <= 0.0001)
 		return (false);
 	out_hit->distance = distance;
 	return (true);
