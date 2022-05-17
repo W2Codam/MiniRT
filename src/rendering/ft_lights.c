@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 15:10:46 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/17 13:35:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/17 13:46:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ static float	ft_max_float(float a, float b)
 	return (a * (a >= b) + b * (b > a));
 }
 
-static t_FVec3	ft_calc_light(t_Light *light, t_Ray ray, t_FVec3 hit, \
-t_FVec3 *normal)
+static t_FVec3	ft_calc_light(t_Light *light, t_Ray ray, t_FVec3 *normal)
 {
-	(void)hit;
 	const t_FVec3	light_color = ft_from_rgba(light->color);
 	const float		shade = ft_max_float(ft_dot_fvec3(*normal, ray.dir), 0.0f);
 
@@ -38,6 +36,17 @@ static t_FVec3	ft_correct_hit(t_FVec3 hit, t_FVec3 *normal)
 	hit.z + normal->z * 0.0001);
 
 	return (new);
+}
+
+static bool	ft_shit(t_RT *rt, t_Ray *ray_light, t_Light *light, \
+const t_FVec3 hit_pos)
+{
+	float			dist;
+	const t_FVec3	delta = ft_sub_fvec3(light->position, hit_pos);
+
+	*ray_light = ft_new_ray(hit_pos, ft_normalize_fvec3_2(delta));
+	dist = ft_ray_intersect_any(rt, *ray_light).distance;
+	return (dist <= 0 || dist > ft_len_fvec3(delta));
 }
 
 //= Public =//
@@ -66,15 +75,10 @@ t_FVec3	ft_apply_lights(t_RT *rt, t_Ray cur_ray, t_Hit *hit, t_FVec3 *normal)
 	while (i < rt->world.light_count)
 	{
 		light = &rt->world.lights[i];
-		t_FVec3 delta = ft_sub_fvec3(light->position, hit_pos);
-		ray_light = ft_new_ray(hit_pos, ft_normalize_fvec3_2(delta));
-
-		float dist = ft_ray_intersect_any(rt, ray_light).distance;
-		if (dist <= 0 || dist > ft_len_fvec3(delta))
+		if (ft_shit(rt, &ray_light, light, hit_pos))
 			color = ft_add_fvec3(color, \
-			ft_calc_light(light, ray_light, hit_pos, normal));
+			ft_calc_light(light, ray_light, normal));
 		i++;
 	}
-	t_FVec3 col = ft_mul_fvec3(ft_from_rgba(hit->object->color), color);
-	return (col);
+	return (ft_mul_fvec3(ft_from_rgba(hit->object->color), color));
 }
