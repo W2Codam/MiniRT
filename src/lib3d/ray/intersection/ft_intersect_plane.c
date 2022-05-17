@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 16:42:25 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:49:50 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ bool	ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit)
 	const float		b = ft_dot_fvec3(ray->dir, plane->dir);
 	float			distance;
 
-	if (fabs(b) < FLT_MIN)
+	if (fabs(b) < 0)
 		return (false);
 	distance = a / b;
-	if (distance <= FLT_MIN)
+	if (distance <= 0)
 		return (false);
 	out_hit->distance = distance;
 	return (true);
