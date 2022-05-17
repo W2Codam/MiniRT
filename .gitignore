@@ -52,7 +52,6 @@ Mkfile.old
 dkms.conf
 MegaRT
 MiniRT
-*.rt
 .vscode
 .cache
 tags
