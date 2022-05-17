@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 19:21:29 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/19 14:01:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/17 09:10:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ uint32_t	ft_from_color(t_FVec3 color)
 // 0 - 255 to linear
 t_FVec3	ft_from_rgba(t_FVec3 color)
 {
-	const int32_t	r = roundf(color.x / 255.999f);
-	const int32_t	g = roundf(color.y / 255.999f);
-	const int32_t	b = roundf(color.z / 255.999f);
+	const float	r = (color.x / 255.999f);
+	const float	g = (color.y / 255.999f);
+	const float	b = (color.z / 255.999f);
 
 	return (ft_new_fvec3(r, g, b));
 }
