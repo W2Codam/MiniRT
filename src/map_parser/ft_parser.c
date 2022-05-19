@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:04:28 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:44:44 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit_parser(char *error_line, int32_t row, size_t column, char *func)
 {
-	printf("Error: %s in %s\nRow: %i, collumn; %zu\n", error_line, func, row, \
+	printf("Error\n%s in %s\nRow: %i, collumn; %zu\n", error_line, func, row, \
 	column);
 	ft_putendl_fd("--------------------------------------------------------", \
 	STDERR_FILENO);
@@ -46,6 +46,8 @@ static void	ft_parse_line(t_RT *rt, char *line, int32_t row)
 			return ;
 		}
 	}
+	if (line[0] != '\n')
+		ft_exit_parser("Unrecognized symbols", row, 0, "file");
 }
 
 bool	ft_read_map(t_RT *rt, char *file)
