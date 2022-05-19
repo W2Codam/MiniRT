@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:44:44 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:03:01 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ bool	ft_read_map(t_RT *rt, char *file)
 		ft_parse_line(rt, line, ++row);
 		free(line);
 	}
-	return (true);
+	return (rt->world.camera_count != 0);
 }

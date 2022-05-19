@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:50:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/19 18:05:00 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ static bool	ft_init_rt(t_RT *rt, char *input)
 
 	(void)input;
 	if (!ft_read_map(rt, input))
+	{
+		ft_putstr_fd("Error: no camera found\n", 2);
 		return (false);
+	}
 	rt->mlx = mlx_init(image_width, image_height, "👾 WWRT 👾", false);
 	if (mlx_errno)
 		return (ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO), false);

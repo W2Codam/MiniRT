@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 14:38:31 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 11:31:43 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:31:27 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static float	make_float(const char *str, int32_t row, size_t *i)
 		(*i)++;
 	}
 	if (nbr > FLT_MAX || nbr < -FLT_MAX)
-		ft_exit_parser("Input number range fucked", row, *i, "make_float");
+		ft_exit_parser("Incorrect input number range", row, *i, "make_float");
 	if (str[*i] == '.')
 	{
 		(*i)++;
@@ -80,6 +80,8 @@ int32_t	minirt_atoi(const char *str, int32_t row, size_t *i)
 		p_n = -1;
 		(*i)++;
 	}
+	if (!ft_isdigit(str[*i]))
+		ft_exit_parser("Incorrect format", row, *i, "minirt_atoi");
 	while (ft_isdigit(str[*i]))
 	{
 		nbr = (nbr * 10) + (str[*i] - '0');

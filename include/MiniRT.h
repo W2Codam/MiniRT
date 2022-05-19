@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/12 11:37:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/19 17:50:12 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_Object
  */
 typedef struct s_Camera
 {
+	bool	ready;
 	float	fov;
 	t_FVec3	position;
 	t_FVec3	direction;
