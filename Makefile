@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/05/12 11:25:33 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/05/17 20:27:15 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJS	:= ${SRCS:.c=.o}
 LIBMLX	:=	lib/MLX42
 LIBFT	:=	lib/libft
 HEADERS := -I ./include -I $(LIBFT) -I $(LIBMLX)/include/
-ARCHIVE := -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
+ARCHIVE := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
 ifdef DEBUG
 	CFLAGS	+=	-g3
