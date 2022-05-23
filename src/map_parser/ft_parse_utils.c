@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:16 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 18:25:41 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/23 11:49:48 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ float	ft_init_number(char *line, int32_t row, size_t *i, int32_t atof)
 
 	while (ft_isspace(line[*i]))
 		(*i)++;
-	if (!ft_isdigit(line[*i]))
-		ft_exit_parser("Incorrect format", row, *i, "ft_init_number");
 	if (atof)
 		nbr = minirt_atof(line, row, i);
 	else
@@ -47,8 +45,6 @@ t_FVec3	ft_init_coordinates(char *line, int32_t row, size_t *i, int32_t check)
 
 	while (ft_isspace(line[*i]))
 		(*i)++;
-	if (!ft_isdigit(line[*i]))
-		ft_exit_parser("Incorrect format", row, *i, "ft_init_number");
 	x = minirt_atof(line, row, i);
 	if (line[(*i)++] != ',')
 		ft_exit_parser("Incorrect format", row, *i, "init_coordinates");
@@ -72,7 +68,7 @@ t_FVec3	ft_init_color(char *line, int32_t row, size_t *i)
 	while (ft_isspace(line[*i]))
 		(*i)++;
 	if (!ft_isdigit(line[*i]))
-		ft_exit_parser("Incorrect format", row, *i, "ft_init_number");
+		ft_exit_parser("Incorrect format", row, *i, "init_color");
 	r = minirt_atoi(line, row, i);
 	if (line[(*i)++] != ',')
 		ft_exit_parser("Incorrect format", row, *i, "init_color");
