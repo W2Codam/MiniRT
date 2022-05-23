@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 11:09:22 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/17 13:09:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/23 15:01:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,17 @@ t_FVec3	ft_normal_cylinder(t_Ray ray, t_Hit hit)
 
 t_FVec3	ft_normal_sphere(t_Ray ray, t_Hit hit)
 {
+	t_FVec3		normal;
 	t_FVec3		point_at_t;
 	t_Sphere	sphere;
 
 	sphere = hit.object->as_sphere;
 	point_at_t = ft_ray_at(&ray, hit.distance);
-	return (ft_normalize_fvec3_2(ft_sub_fvec3(point_at_t, sphere.center)));
+	normal = ft_normalize_fvec3_2(ft_sub_fvec3(point_at_t, sphere.center));
+
+	if (hit.is_inside)
+		return (ft_mul_fvec3f(normal, -1));
+	return (normal);
 }
 
 t_FVec3	ft_normal_plane(t_Ray ray, t_Hit hit)
