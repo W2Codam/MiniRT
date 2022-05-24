@@ -156,7 +156,7 @@ t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, \
 				t_Hit *hit, t_FVec3 *normal);
 bool		ft_ray_to_world(t_RT *rt, t_Ray ray, \
 				t_FVec3 *normal, t_Hit *hit_out);
-t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray);
+t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray, float len);
 
 //= Collision Functions =//
 

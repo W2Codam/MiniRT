@@ -75,7 +75,7 @@ bool	ft_ray_to_world(t_RT *rt, t_Ray ray, t_FVec3 *normal, t_Hit *hit_out)
 	return (false);
 }
 
-t_Hit	ft_ray_intersect_any(t_RT *rt, t_Ray ray)
+t_Hit	ft_ray_intersect_any(t_RT *rt, t_Ray ray, float len)
 {
 	uint16_t	i;
 	t_Hit		hit;
@@ -85,7 +85,10 @@ t_Hit	ft_ray_intersect_any(t_RT *rt, t_Ray ray)
 	while (i < rt->world.object_count)
 	{
 		if (rt->world.objects[i].intersects(&rt->world.objects[i], &ray, &hit))
-			break ;
+		{
+			if (hit.distance < len)
+				break ;
+		}
 		i++;
 	}
 	return (hit);

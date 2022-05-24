@@ -45,8 +45,10 @@ const t_FVec3 hit_pos)
 	const t_FVec3	delta = ft_sub_fvec3(light->position, hit_pos);
 
 	*ray_light = ft_new_ray(hit_pos, ft_normalize_fvec3_2(delta));
-	dist = ft_ray_intersect_any(rt, *ray_light).distance;
-	return (dist <= 0 || dist > ft_len_fvec3(delta));
+	dist = ft_ray_intersect_any(rt, *ray_light, ft_len_fvec3(delta)).distance;
+	if (dist <= 0 || dist > ft_len_fvec3(delta))
+		return (true);
+	return (false);
 }
 
 //= Public =//
