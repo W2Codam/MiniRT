@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 13:17:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:21:58 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/24 10:23:29 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_add_plane(t_RT *rt, char *line, int32_t row)
 	plane->type = PLANE;
 	plane->intersects = ft_intersect_pl;
 	plane->as_plane.center = ft_init_coordinates(line, row, &i, 0);
-	plane->as_plane.dir = ft_init_coordinates(line, row, &i, 1);
+	plane->as_plane.dir = ft_normalize_fvec3_2(ft_init_coordinates(line, row, &i, 1));
 	plane->color = ft_init_color(line, row, &i);
 	if (line[i] != '\n')
 		ft_exit_parser("Missing immediate newline", row, i, "init_plane");
@@ -55,7 +55,7 @@ void	ft_add_cylinder(t_RT *rt, char *line, int32_t row)
 	cylinder->type = CYLINDER;
 	cylinder->intersects = ft_intersect_cl;
 	cylinder->as_cylinder.center = ft_init_coordinates(line, row, &i, 0);
-	cylinder->as_cylinder.dir = ft_init_coordinates(line, row, &i, 0);
+	cylinder->as_cylinder.dir = ft_normalize_fvec3_2(ft_init_coordinates(line, row, &i, 0));
 	cylinder->as_cylinder.radius = ft_init_number(line, row, &i, 1) / 2;
 	cylinder->as_cylinder.height = ft_init_number(line, row, &i, 1);
 	cylinder->color = ft_init_color(line, row, &i);
