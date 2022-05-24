@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MiniRT.h                                           :+:      :+:    :+:   */
+/*   MiniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:50:12 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:48:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef enum e_EntityType
 }	t_EntityType;
 
 // Intersection func
-typedef bool	(*t_intersection)(struct s_Object*, t_Ray*, t_Hit *hit);
+typedef bool	(*t_intersection)(struct s_Object*, t_Ray*, \
+					t_Hit *hit, bool check);
 
 /**
  * An object is something that can be rendered onto the screen.
@@ -162,9 +163,12 @@ t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray, float len);
 
 // Wrapper functions to match intersection prototype.
 
-bool		ft_intersect_sp(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
-bool		ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
-bool		ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+bool		ft_intersect_sp(t_Object *obj, t_Ray *ray, \
+				t_Hit *out_hit, bool check);
+bool		ft_intersect_cl(t_Object *obj, t_Ray *ray, \
+				t_Hit *out_hit, bool check);
+bool		ft_intersect_pl(t_Object *obj, t_Ray *ray, \
+				t_Hit *out_hit, bool check);
 
 //= Map parser =//
 

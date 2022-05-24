@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_world.c                                         :+:      :+:    :+:   */
+/*   ft_world.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/14 11:17:21 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 13:27:58 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:52:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_hit(t_Object *obj, t_Ray ray, t_Hit *cl_hit, bool *first_hit)
 {
 	t_Hit		new_hit;
 
-	if (obj->intersects(obj, &ray, &new_hit))
+	if (obj->intersects(obj, &ray, &new_hit, 0))
 	{
 		if (new_hit.distance > 0.0f)
 		{
@@ -84,7 +84,8 @@ t_Hit	ft_ray_intersect_any(t_RT *rt, t_Ray ray, float len)
 	hit.distance = -1.0f;
 	while (i < rt->world.object_count)
 	{
-		if (rt->world.objects[i].intersects(&rt->world.objects[i], &ray, &hit))
+		if (rt->world.objects[i].intersects \
+		(&rt->world.objects[i], &ray, &hit, 1))
 		{
 			if (hit.distance < len)
 				break ;

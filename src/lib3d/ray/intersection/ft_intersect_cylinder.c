@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_cylinder.c                            :+:      :+:    :+:   */
+/*   ft_intersect_cylinder.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/24 11:12:37 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:58:47 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,24 @@ static bool	hit_cylinder_help(t_Ray ray, t_Cylinder *cylinder, t_Hit *out_hit)
 	return (false);
 }
 
-bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
+bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, \
+	t_Hit *out_hit, bool check)
 {
 	t_Ray	rotated_ray;
 
 	out_hit->distance = -1;
 	out_hit->cy_side = false;
 	rotated_ray = ft_rotate_ray(ray, cylinder->center, cylinder->dir);
-	if (!ft_ray_in_right_dir(&rotated_ray, cylinder) || \
-			inside_cylinder(rotated_ray.origin, cylinder))
+	if (!ft_ray_in_right_dir(&rotated_ray, cylinder))
 		return (false);
+	if (inside_cylinder(rotated_ray.origin, cylinder))
+	{
+		if (check)
+		{
+			out_hit->distance = 1;
+			return (true);
+		}
+		return (false);
+	}
 	return (hit_cylinder_help(rotated_ray, cylinder, out_hit));
 }

@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:45:18 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/23 14:02:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/24 16:48:11 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ bool		ft_ray_in_right_dir(t_Ray *ray, t_Cylinder *cylinder);
 //= Intersections =//
 
 bool		ft_hit_sphere(t_Ray *ray, t_Sphere *sphere, t_Hit *out_hit);
-bool		ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit);
+bool		ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, \
+				t_Hit *out_hit, bool check);
 bool		ft_hit_plane(t_Ray *ray, t_Plane *plane, t_Hit *out_hit);
 
 //= Color =//
