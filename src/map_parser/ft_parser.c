@@ -1,64 +1,80 @@
-#include "MiniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*                                                     +:+                    */
+/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/12 13:17:18 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/05/24 11:31:01 by dvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	exit_parser(char *error_line, int row, size_t collumn, char *func)
+#include "Parser.h"
+
+void	ft_exit_parser(char *error_line, int32_t row, size_t column, char *func)
 {
-	printf("Error: %s in %s\nRow: %i, collumn; %zu\n", error_line, func, row, collumn);
-	printf("----------------------------------------------------------\n");
-	printf("Required format:\n......");
-	exit (1);
+	printf("Error\n%s in %s\nRow: %i, collumn; %zu\n", error_line, func, row, \
+	column);
+	ft_putendl_fd("--------------------------------------------------------", \
+	STDERR_FILENO);
+	exit (EXIT_FAILURE);
 }
 
-// TODO: Use jump table
-static void	init_line(t_rt *rt, char *line, int	row)
+static void	ft_parse_line(t_RT *rt, char *line, int32_t row)
 {
-	int	i;
+	size_t					id_len;
+	int32_t					i;
+	static const t_JmpTable	table[] = {
+	{.id = "A", .func = &ft_add_ambient},
+	{.id = "C", .func = &ft_add_camera},
+	{.id = "L", .func = &ft_add_light},
+	{.id = "sp", .func = &ft_add_sphere},
+	{.id = "pl", .func = &ft_add_plane},
+	{.id = "cy", .func = &ft_add_cylinder},
+	};
 
-	i = 0;
-	while (ft_isspace(line[i]))
-		i++;
-	if (line[i] == '\n')
+	if (ft_isempty(line))
 		return ;
-	else if (line[0] == 'A' && ft_isspace(line[1]))
-		init_ambient(rt, &line[1], row);
-	else if (line[0] == 'C' && ft_isspace(line[1]))
-		init_camera(rt, &line[1], row);
-	else if (line[0] == 'L' && ft_isspace(line[1]))
-		init_light(rt, &line[1], row);
-	else if (line[0] == 's' && line[1] == 'p' && ft_isspace(line[2]))
-		init_sphere(rt, &line[2], row);
-	else if (line[0] == 'p' && line[1] == 'l' && ft_isspace(line[2]))
-		init_plane(rt, &line[2], row);
-	else if (line[0] == 'c' && line[1] == 'y' && ft_isspace(line[2]))
-		init_cylinder(rt, &line[2], row);
-	else if (line[0] == 't' && line[1] == 'r' && ft_isspace(line[2]))
-		init_triangle(rt, &line[2], row);
-	else
-		exit_parser("Incorrect format", row, i, "init_line");
-	return ;
+	i = -1;
+	while (++i < (int32_t)(sizeof(table) / sizeof(t_JmpTable)))
+	{
+		id_len = ft_strlen(table[i].id);
+		if (ft_strncmp(table[i].id, line, id_len) == 0)
+		{
+			table[i].func(rt, line + id_len, row);
+			return ;
+		}
+	}
+	if (line[0] != '\n')
+		ft_exit_parser("Unrecognized symbols", row, 0, "file");
 }
 
-int	init_entities(t_rt *rt, char *input)
+bool	ft_read_map(t_RT *rt, char *file)
 {
-	int		rt_file;
-	char	*line;
-	int		row;
+	char			*line;
+	int32_t			row;
+	int32_t			rt_file;
 
-	rt_file = open(input, O_RDONLY);
-	if (rt_file < 0 | rt_file > 1024)
-		return (EXIT_FAILURE);
-	rt->ambient.active = false;
-	rt->cameras_size = 0;
-	rt->lights_size = 0;
-	rt->objects_size = 0;
+	if (ft_strncmp(&file[ft_strlen(file) - 3], ".rt", 3))
+	{
+		ft_putstr_fd("Error\nIncorrect filename\n", 2);
+		return (false);
+	}
+	rt_file = open(file, O_RDONLY);
+	if (rt_file == -1)
+		return (perror("MiniRT"), false);
 	row = 0;
+	ft_bzero(&rt->world, sizeof(t_World));
 	while (true)
 	{
 		line = ft_get_next_line(rt_file);
 		if (!line)
 			break ;
-		row++;
-		init_line(rt, line, row);
+		ft_parse_line(rt, line, ++row);
+		free(line);
+		if (rt->world.object_count == MAX_OBJECTS)
+			return (false);
 	}
-	return (EXIT_SUCCESS);
+	return (rt->world.camera_count != 0);
 }
-

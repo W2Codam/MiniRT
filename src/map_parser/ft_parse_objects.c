@@ -1,94 +1,70 @@
-#include "MiniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_parse_objects.c                                 :+:      :+:    :+:   */
+/*                                                     +:+                    */
+/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/12 13:17:20 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/05/24 11:18:45 by dvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// TODO: Use error codes to detect runtime errors instead of exit directly.
+#include "Parser.h"
 
-void	init_sphere(t_rt *rt, char *line, int row)
+void	ft_add_sphere(t_RT *rt, char *line, int32_t row)
 {
 	size_t			i;
-	t_SphereModel	sphere;
+	t_Object *const	sphere = &rt->world.objects[rt->world.object_count];
 
 	i = 0;
-	rt->objects[rt->objects_size].type = SPHERE;
-	rt->objects[rt->objects_size].intersect = intersect_sphere;
-	sphere = rt->objects[rt->objects_size].entity_sphere;
-	sphere.base.transform.pos = init_coordinates(line, row, &i, 0);
-	sphere.diameter = init_number(line, row, &i, 1);
-	if (sphere.diameter <= 0)
-		exit_parser("Must be positive value", row, i, "init_sphere");
-	sphere.base.color = init_color(line, row, &i);
-	//rt->objects[objects_size].material;
-	//rt->objects[objects_size].texture;
+	sphere->type = SPHERE;
+	sphere->intersects = ft_intersect_sp;
+	sphere->as_sphere.center = ft_init_coordinates(line, row, &i, 0);
+	sphere->as_sphere.radius = ft_init_number(line, row, &i, 1) / 2;
+	sphere->color = ft_init_color(line, row, &i);
+	if (sphere->as_sphere.radius <= 0)
+		ft_exit_parser("Must be positive value", row, i, "init_sphere");
 	if (line[i] != '\n')
-		exit_parser("Missing immediate newline", row, i, "init_sphere");
-	rt->objects[rt->objects_size].entity_sphere = sphere;
-	(rt->objects_size)++;
-	return ;
+		ft_exit_parser("Missing immediate newline", row, i, "init_sphere");
+	rt->world.object_count++;
 }
 
-void	init_plane(t_rt *rt, char *line, int row)
+void	ft_add_plane(t_RT *rt, char *line, int32_t row)
 {
 	size_t			i;
-	t_PlaneModel	plane;
+	t_Object *const	plane = &rt->world.objects[rt->world.object_count];
 
 	i = 0;
-	rt->objects[rt->objects_size].type = PLANE;
-	rt->objects[rt->objects_size].intersect = intersect_plane;
-	plane = rt->objects[rt->objects_size].entity_plane;
-	plane.base.transform.pos = init_coordinates(line, row, &i, 0);
-	plane.base.transform.rot = init_coordinates(line, row, &i, 1);
-	plane.base.color = init_color(line, row, &i);
-	//rt->objects[objects_size].material;
-	//rt->objects[objects_size].texture;
+	plane->type = PLANE;
+	plane->intersects = ft_intersect_pl;
+	plane->as_plane.center = ft_init_coordinates(line, row, &i, 0);
+	plane->as_plane.dir = \
+		ft_normalize_fvec3_2(ft_init_coordinates(line, row, &i, 1));
+	plane->color = ft_init_color(line, row, &i);
 	if (line[i] != '\n')
-		exit_parser("Missing immediate newline", row, i, "init_plane");
-	rt->objects[rt->objects_size].entity_plane = plane;
-	(rt->objects_size)++;
-	return ;
+		ft_exit_parser("Missing immediate newline", row, i, "init_plane");
+	rt->world.object_count++;
 }
 
-void	init_cylinder(t_rt *rt, char *line, int row)
+void	ft_add_cylinder(t_RT *rt, char *line, int32_t row)
 {
 	size_t			i;
-	t_CylinderModel	cylinder;
+	t_Object *const	cylinder = &rt->world.objects[rt->world.object_count];
 
 	i = 0;
-	rt->objects[rt->objects_size].type = SPHERE;
-	rt->objects[rt->objects_size].intersect = intersect_cylinder;
-	cylinder = rt->objects[rt->objects_size].entity_cylinder;
-	cylinder.base.transform.pos = init_coordinates(line, row, &i, 0);
-	cylinder.base.transform.rot = init_coordinates(line, row, &i, 1);
-	cylinder.height = init_number(line, row, &i, 1);
-	cylinder.diameter = init_number(line, row, &i, 1);
-	if (cylinder.height <= 0 || cylinder.diameter <= 0)
-		exit_parser("Must be positive value", row, i, "init_cylinder");
-	cylinder.base.color = init_color(line, row, &i);
-	//rt->objects[objects_size].material;
-	//rt->objects[objects_size].texture;
+	cylinder->type = CYLINDER;
+	cylinder->intersects = ft_intersect_cl;
+	cylinder->as_cylinder.center = ft_init_coordinates(line, row, &i, 0);
+	cylinder->as_cylinder.dir = \
+		ft_normalize_fvec3_2(ft_init_coordinates(line, row, &i, 0));
+	cylinder->as_cylinder.radius = ft_init_number(line, row, &i, 1) / 2;
+	cylinder->as_cylinder.height = ft_init_number(line, row, &i, 1);
+	cylinder->color = ft_init_color(line, row, &i);
+	if (cylinder->as_cylinder.height <= 0 || \
+		cylinder->as_cylinder.radius <= 0)
+		ft_exit_parser("Must be positive value", row, i, "init_cylinder");
 	if (line[i] != '\n')
-		exit_parser("Missing immediate newline", row, i, "init_cylinder");
-	rt->objects[rt->objects_size].entity_cylinder = cylinder;
-	(rt->objects_size)++;
-	return ;
-}
-
-void	init_triangle(t_rt *rt, char *line, int row)
-{
-	size_t			i;
-	t_TriangleModel	triangle;
-	
-	i = 0;
-	rt->objects[rt->objects_size].type = TRIANGLE;
-	rt->objects[rt->objects_size].intersect = intersect_triangle;
-	triangle = rt->objects[rt->objects_size].entity_triangle;
-	triangle.vertices[0] = init_coordinates(line, row, &i, 0);
-	triangle.vertices[1] = init_coordinates(line, row, &i, 0);
-	triangle.vertices[2] = init_coordinates(line, row, &i, 0);
-	triangle.color = init_color(line, row, &i);
-	//rt->objects[objects_size].material;
-	//rt->objects[objects_size].texture;
-	if (line[i] != '\n')
-		exit_parser("Missing immediate newline", row, i, "init_triangle");
-	rt->objects[rt->objects_size].entity_triangle = triangle;
-	(rt->objects_size)++;
-	return ;
+		ft_exit_parser("Missing immediate newline", row, i, "init_cylinder");
+	rt->world.object_count++;
 }

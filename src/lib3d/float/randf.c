@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   randf.c                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/04 14:03:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:40:00 by dvan-der         ###   ########.fr       */
+/*   Created: 2022/04/14 12:56:38 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/26 11:16:09 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib3d.h"
 
-bool	ft_isspace(int32_t c)
+//= Public =//
+
+float	ft_randf_r(float min, float max)
 {
-	return (c == '\t' || c == '\v' \
-			|| c == '\f' || c == '\r' || c == ' ');
+	const float	div = RAND_MAX / (max - min);
+
+	return (min + (rand() / div));
+}
+
+float	ft_randf(void)
+{
+	return (ft_randf_r(0.0f, 1.0f));
 }

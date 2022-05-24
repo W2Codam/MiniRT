@@ -1,17 +1,29 @@
-#include "MiniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_parse_utils.c                                   :+:      :+:    :+:   */
+/*                                                     +:+                    */
+/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/12 13:17:16 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/05/24 10:22:33 by dvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	check_range(t_FVec3 vec, float min, float max)
+#include "Parser.h"
+
+static bool	ft_in_range(t_FVec3 vec, float min, float max)
 {
 	if (vec.x > max || vec.x < min)
-		return (EXIT_FAILURE);
+		return (false);
 	else if (vec.y > max || vec.y < min)
-		return (EXIT_FAILURE);
+		return (false);
 	else if (vec.z > max || vec.z < min)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (false);
+	return (true);
 }
 
-float	init_number(char *line, int row, size_t *i, int atof)
+float	ft_init_number(char *line, int32_t row, size_t *i, int32_t atof)
 {
 	float	nbr;
 
@@ -24,7 +36,7 @@ float	init_number(char *line, int row, size_t *i, int atof)
 	return (nbr);
 }
 
-t_FVec3	init_coordinates(char *line, int row, size_t *i, int check)
+t_FVec3	ft_init_coordinates(char *line, int32_t row, size_t *i, int32_t check)
 {
 	float	x;
 	float	y;
@@ -35,35 +47,37 @@ t_FVec3	init_coordinates(char *line, int row, size_t *i, int check)
 		(*i)++;
 	x = minirt_atof(line, row, i);
 	if (line[(*i)++] != ',')
-		exit_parser("Incorrect format", row, *i, "init_coordinates");
+		ft_exit_parser("Incorrect format", row, *i, "init_coordinates");
 	y = minirt_atof(line, row, i);
 	if (line[(*i)++] != ',')
-		exit_parser("Incorrect format", row, *i, "init_coordinates");
+		ft_exit_parser("Incorrect format", row, *i, "init_coordinates");
 	z = minirt_atof(line, row, i);
-	xyz = new_fvec3(x, y, z);
-	if (check && check_range(xyz, -1, 1))
-		exit_parser("Surpassed range", row, *i, "init_coordinates");
+	xyz = ft_new_fvec3(x, y, z);
+	if (check && !ft_in_range(xyz, -1, 1))
+		ft_exit_parser("Surpassed range", row, *i, "init_coordinates");
 	return (xyz);
 }
 
-t_FVec3	init_color(char *line, int row, size_t *i)
+t_FVec3	ft_init_color(char *line, int32_t row, size_t *i)
 {
-	int		r;
-	int		g;
-	int		b;
-	t_FVec3	color;
+	int32_t		r;
+	int32_t		g;
+	int32_t		b;
+	t_FVec3		color;
 
 	while (ft_isspace(line[*i]))
 		(*i)++;
+	if (!ft_isdigit(line[*i]))
+		ft_exit_parser("Incorrect format", row, *i, "init_color");
 	r = minirt_atoi(line, row, i);
 	if (line[(*i)++] != ',')
-		exit_parser("Incorrect format", row, *i, "init_color");
+		ft_exit_parser("Incorrect format", row, *i, "init_color");
 	g = minirt_atoi(line, row, i);
 	if (line[(*i)++] != ',')
-		exit_parser("Incorrect format", row, *i, "init_color");
+		ft_exit_parser("Incorrect format", row, *i, "init_color");
 	b = minirt_atoi(line, row, i);
-	color = new_fvec3(r, g, b);
-	if (check_range(color, 0, 255))
-		exit_parser("Surpassed range", row, *i, "init_color");
+	color = ft_new_fvec3(r, g, b);
+	if (!ft_in_range(color, 0, 255))
+		ft_exit_parser("Surpassed range", row, *i, "init_color");
 	return (color);
 }

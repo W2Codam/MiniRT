@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split.c                                         :+:    :+:            */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 14:53:36 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 14:20:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/19 13:41:39 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static uint32_t	ft_wcount(const char *str, char c)
 {
 	uint32_t	w;
-	size_t	i;
+	size_t		i;
 
 	i = 0;
 	w = 0;
@@ -64,7 +64,7 @@ static bool	ft_allocate(char **out, uint32_t wcount, char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	char	**out;
+	char		**out;
 	uint32_t	wcount;
 
 	wcount = ft_wcount(s, c);

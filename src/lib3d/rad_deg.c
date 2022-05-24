@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   rad_deg.c                                          :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/04 14:03:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:40:00 by dvan-der         ###   ########.fr       */
+/*   Created: 2022/04/21 13:30:39 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/21 13:45:44 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib3d.h"
 
-bool	ft_isspace(int32_t c)
+float	ft_to_rad(float deg)
 {
-	return (c == '\t' || c == '\v' \
-			|| c == '\f' || c == '\r' || c == ' ');
+	return (deg * (M_PI / 180));
+}
+
+float	ft_to_deg(float rad)
+{
+	return (rad * (180 / M_PI));
 }

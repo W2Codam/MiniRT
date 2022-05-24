@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   constructor.c                                      :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/04 14:03:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:40:00 by dvan-der         ###   ########.fr       */
+/*   Created: 2022/04/11 21:17:50 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/11 21:19:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib3d.h"
 
-bool	ft_isspace(int32_t c)
+t_Ray	ft_new_ray(t_FVec3 origin, t_FVec3 direction)
 {
-	return (c == '\t' || c == '\v' \
-			|| c == '\f' || c == '\r' || c == ' ');
+	return ((t_Ray){origin, direction});
 }

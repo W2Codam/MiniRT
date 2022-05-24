@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   operation.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/04 14:03:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:40:00 by dvan-der         ###   ########.fr       */
+/*   Created: 2022/04/18 17:04:13 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/04/18 17:06:06 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib3d.h"
 
-bool	ft_isspace(int32_t c)
+t_FVec3	ft_muls_color(t_FVec3 a, t_FVec3 b, float s)
 {
-	return (c == '\t' || c == '\v' \
-			|| c == '\f' || c == '\r' || c == ' ');
+	a.x *= (b.x * s / 255);
+	a.y *= (b.y * s / 255);
+	a.z *= (b.z * s / 255);
+	return (a);
 }

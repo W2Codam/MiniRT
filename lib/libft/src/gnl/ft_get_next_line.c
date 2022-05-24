@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/28 15:27:53 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/28 14:20:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/19 13:43:18 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ static char	*ft_try_read(int32_t fd, t_fd_data *remainder)
 {
 	size_t	b_read;
 	char	*readstr;
-	char	BUFF[BUFF_SIZE + 1];
+	char	buff[BUFF_SIZE + 1];
 
 	b_read = 1;
 	readstr = NULL;
 	while (b_read > 0)
 	{
-		b_read = read(fd, BUFF, BUFF_SIZE);
+		b_read = read(fd, buff, BUFF_SIZE);
 		remainder->read = b_read < BUFF_SIZE;
 		if (!b_read)
 			break ;
-		BUFF[b_read] = '\0';
-		readstr = ft_strapp(readstr, BUFF);
+		buff[b_read] = '\0';
+		readstr = ft_strapp(readstr, buff);
 		if (ft_strchr(readstr, '\n'))
 			return (ft_attach(readstr, remainder));
 	}
@@ -76,15 +76,15 @@ static char	*ft_try_read(int32_t fd, t_fd_data *remainder)
 
 char	*ft_get_next_line(int32_t fd)
 {
-	static t_fd_data	FD[FD_MAX];
+	static t_fd_data	fd2[FD_MAX];
 
 	if (read(fd, NULL, 0) == -1)
 		return (NULL);
 	if (fd >= 0 && fd <= FD_MAX && BUFF_SIZE > 0)
 	{
-		if (FD[fd].data && (ft_strchr(FD[fd].data, '\n') || FD[fd].read))
-			return (ft_gets(FD[fd].data, &FD[fd]));
-		return (ft_try_read(fd, &FD[fd]));
+		if (fd2[fd].data && (ft_strchr(fd2[fd].data, '\n') || fd2[fd].read))
+			return (ft_gets(fd2[fd].data, &fd2[fd]));
+		return (ft_try_read(fd, &fd2[fd]));
 	}
 	return (NULL);
 }

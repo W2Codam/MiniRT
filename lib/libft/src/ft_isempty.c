@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_isempty.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/04 14:03:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:40:00 by dvan-der         ###   ########.fr       */
+/*   Created: 2022/04/12 13:55:34 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/04/12 13:57:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_isspace(int32_t c)
+bool	ft_isempty(const char *str)
 {
-	return (c == '\t' || c == '\v' \
-			|| c == '\f' || c == '\r' || c == ' ');
+	size_t			i;
+	const size_t	len = ft_strlen(str);
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	return (i == len);
 }

@@ -5,250 +5,176 @@
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/28 11:06:20 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/11 14:00:22 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/04/11 17:44:13 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/05/19 17:50:12 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-  __  __                      ____  _____ 
- |  \/  |  ___   __ _   __ _ |  _ \|_   _|
- | |\/| | / _ \ / _` | / _` || |_) | | |  
- | |  | ||  __/| (_| || (_| ||  _ <  | |  
- |_|  |_| \___| \__, | \__,_||_| \_\ |_|  
-                |___/                     
-
-Balls to the walls cross-platform, multi-threaded stud Raytracer on the CPU!
-Written by W2.Wizard (lde-la-h) & Daan Van Der Plas (dvan-der) @ 2022
-
-Coordinate System: UE5
-*/
-
 #ifndef MINIRT_H
 # define MINIRT_H
-# include <stdio.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <memory.h>
-# include <limits.h>
-# include <unistd.h>
-# include <pthread.h>
-# include <assert.h>
-# include <errno.h>
-# include <fcntl.h>
 # include "lib3d.h"
 # include "libft.h"
 # include "MLX42/MLX42.h"
-# define MAX_OBJS		100
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <assert.h>
+# include <float.h>
+# include <errno.h>
+# include <math.h>
+# define MAX_OBJECTS	100
+# define MAX_LIGHTS		100
 # define MAX_CAMERAS	10
-# define MAX_DEPTH		1
 # define WIN_WIDTH		800
+# define SAMPLE_COUNT	10
 
-//= Types =//
+/*
+typedef float t_vec4 __attribute__ ((vector_size (16)));
+
+t_vec4 one = (t_vec4){0,1,1,1};
+
+one = one * 1.f; 
+*/
 
 // Types of entities that exist.
 typedef enum e_EntityType
 {
-	CAMERA,
 	SPHERE,
 	CYLINDER,
 	PLANE,
-	TRIANGLE,
 }	t_EntityType;
 
-// Types of entities that exist.
-typedef enum e_MaterialType
-{
-	DIFFUSE,
-	METAL,
-	TRANSLUCENT,
-}	t_MaterialType;
+// Intersection func
+typedef bool	(*t_intersection)(struct s_Object*, t_Ray*, t_Hit *hit);
 
 /**
- * A transform that encompasses both rotation and
- * scale.
- * 
- * X: Forward
- * Y: Right
- * Z: Up
- */
-typedef struct s_Transform
-{
-	t_FVec3	pos;
-	t_FVec3	rot;
-}	t_Transform;
-
-/**
- * Base entity object, which is anything that exists in 3D space.
- * 
- * @param type The specific type of entity.
- * @param transform 3D transform in world space of the entity.
- * @param color Optional color param.
- */
-typedef struct s_Entity
-{
-	t_Transform	transform;
-	t_FVec3		color;
-}	t_Entity;
-
-/**
- * Camera object stores, position, orientation and fov, is NOT an entity!
- * 
- * @param pos The position in 3D world space.
- * @param rot The rotation in 3D world space.
- * @param fov The field of view [0 - 180].
- */
-typedef struct s_Camera
-{
-	t_Transform	transform;
-	t_FVec2		viewport;
-	t_FVec3		top_left;
-	t_FVec3		horizontal;
-	t_FVec3		vertical;
-	float		fov;
-}	t_Camera;
-
-/**
- * Ambient light.
- * 
- * @param intensity Scalar value defining intensity of light.
- * @param color Light color.
- */
-typedef struct	s_Ambient
-{
-	float	intensity;
-	t_FVec3	color;
-	bool	active;
-}	t_Ambient;
-
-/**
- * A light source.
- * 
- * @param transform The angle of the light source.
- * @param intensity Scalar value defining intensity of light.
- * @param color Light color.
- */
-typedef struct s_Light
-{
-	t_Transform	transform;
-	float		intensity;
-	t_FVec3		color;
-}	t_Light;
-
-typedef struct s_SphereModel
-{
-	t_Entity	base;
-	float		diameter;
-}	t_SphereModel;
-
-typedef struct s_PlaneModel
-{
-	t_Entity	base;
-}	t_PlaneModel;
-
-typedef struct s_TriangleModel
-{
-	t_FVec3		vertices[3];
-	t_FVec3		color;
-}	t_TriangleModel;
-
-typedef struct s_CylinderModel
-{
-	t_Entity	base;
-	float		height;
-	float		diameter;
-}	t_CylinderModel;
-
-/**
- * Instance class of an entity, that is, something that needs to be
- * rendered.
+ * An object is something that can be rendered onto the screen.
  * 
  * @param type The type of entity.
- * @param material The type of material.
- * @param texture The texture to draw onto the object.
- * @param union The different available types of entities.
+ * @param intersects Does the given ray intersect with the object.
+ * @param color The base color of the object.
+ * @param as Interprid the object as any of the following entities.
  */
-
-typedef struct s_Hit
-{
-	float	t;
-	t_FVec3	point_at_t;
-	bool	front_face;
-	t_FVec3	normal;
-}	t_Hit;
-
-typedef struct s_EntityObject
+typedef struct s_Object
 {
 	t_EntityType	type;
-	t_MaterialType	material;
-	mlx_texture_t	*texture;
-	
-	bool (*intersect)(struct s_EntityObject *object, t_Ray *ray, t_Hit *hit);
+	t_FVec3			color;
+	t_intersection	intersects;
 
 	union
 	{
-		t_SphereModel	entity_sphere;
-		t_PlaneModel	entity_plane;
-		t_CylinderModel	entity_cylinder;
-		t_TriangleModel	entity_triangle;
+		t_Sphere	as_sphere;
+		t_Cylinder	as_cylinder;
+		t_Plane		as_plane;
 	};
-}	t_EntityObject;
+}	t_Object;
 
 /**
- * Struct that contains the application state. Including the current level.
- * 
- * @param mlx MLX42 instance handle.
- * @param render_thread The thread that does the pixel updating.
+ * A camera is a lense that can shoot rays to trace the pixels
+ * at a specific location and rotation.
  */
-typedef struct s_rt
+typedef struct s_Camera
 {
-	mlx_t			*mlx;
-	mlx_image_t		*window_img;
-	pthread_t		render_thread;
-	pthread_mutex_t	lock;
+	bool	ready;
+	float	fov;
+	t_FVec3	position;
+	t_FVec3	direction;
+	t_FVec3	rotation_matrix[3];
+}	t_Camera;
 
-	t_Ambient		ambient;
+/**
+ * A light source to brighten up a scene with a specific light color.
+ * 
+ * @param is_ambient Is this an ambient light.
+ * @param intensity The light intensity / how bright.
+ * @param color The light color.
+ * @param The light position. If Ambient does not matter.
+ */
+typedef struct s_Light
+{
+	bool	is_ambient;
+	float	intensity;
+	t_FVec3	color;
+	t_FVec3	position;
+}	t_Light;
 
-	int32_t			active_camera;
-	t_Camera		cameras[MAX_CAMERAS];
-	size_t			cameras_size;
+/**
+ * A world consist of various objects, lights and cameras.
+ * Together they form the output image.
+ */
+typedef struct s_World
+{
+	t_Light		ambient;
 
-	t_Light			lights[MAX_OBJS];
-	size_t			lights_size;
+	t_Object	objects[MAX_OBJECTS];
+	uint16_t	object_count;
 
-	t_EntityObject	objects[MAX_OBJS];
-	size_t			objects_size;
+	t_Camera	cameras[MAX_CAMERAS];
+	uint16_t	camera_count;
 
-	bool			update;
-}	t_rt;
+	t_Light		lights[MAX_LIGHTS];
+	uint16_t	light_count;
+
+}	t_World;
+
+/**
+ * MiniRT Instance. This holds the world, camera and render thread
+ * data all that an mini rt instance needs to function.
+ */
+typedef struct s_RT
+{
+	mlx_t		*mlx;
+	mlx_image_t	*canvas;
+	mlx_image_t	*meme;
+
+	t_World		world;
+	uint16_t	camera_index;
+
+	pthread_t	render_thread;
+	bool		update;
+	bool		has_ambient;
+}	t_RT;
+
+// Jumptable func
+typedef void	(*t_func)(t_RT*, char*, int32_t);
+
+typedef struct s_JmpTable
+{
+	const char	*id;
+	t_func		func;
+}	t_JmpTable;
 
 //= Functions =//
 
-t_Camera	*ft_get_active_camera(t_rt *rt);
-void		ft_draw(t_rt *rt);
-void		ft_new_camera(t_Camera *Camera, float FOV, t_FVec3 pos);
+t_Camera	*ft_get_active_camera(t_RT *rt);
+void		ft_update_camera(t_Camera *camera, t_FVec3 pos, \
+				t_FVec3 dir[3], float fov);
+void		ft_draw_world(t_RT *rt);
+t_FVec3		ft_apply_lights(t_RT *rt, t_Ray cur_ray, \
+				t_Hit *hit, t_FVec3 *normal);
+bool		ft_ray_to_world(t_RT *rt, t_Ray ray, \
+				t_FVec3 *normal, t_Hit *hit_out);
+t_Hit		ft_ray_intersect_any(t_RT *rt, t_Ray ray, float len);
 
-int			init_entities(t_rt *rt, char *input);
-void		init_camera(t_rt *rt, char *line, int row);
-void		init_ambient(t_rt *rt, char *line, int row);
-void		init_light(t_rt *rt, char *line, int row);
-void		init_sphere(t_rt *rt, char *line, int row);
-void		init_plane(t_rt *rt, char *line, int row);
-void		init_cylinder(t_rt *rt, char *line, int row);
-void		init_triangle(t_rt *rt, char *line, int row);
-int			check_range(t_FVec3 vec, float min, float max);
-float		init_number(char *line, int row, size_t *i, int atof);
-t_FVec3		init_coordinates(char *line, int row, size_t *i, int check);
-t_FVec3		init_color(char *line, int row, size_t *i);
-void		exit_parser(char *error_line, int row, size_t collumn, char *func);
-float		minirt_atof(const char *str, int row, size_t *i);
-int			minirt_atoi(const char *str, int row, size_t *i);
+//= Collision Functions =//
 
-//= Intersect =//
+// Wrapper functions to match intersection prototype.
 
-bool	intersect_sphere(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
-bool	intersect_plane(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
-bool	intersect_cylinder(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
-bool	intersect_triangle(t_EntityObject *object, t_Ray *ray, t_Hit *hit);
+bool		ft_intersect_sp(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+bool		ft_intersect_cl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
+bool		ft_intersect_pl(t_Object *obj, t_Ray *ray, t_Hit *out_hit);
 
-#endif // MINIRT_H
+//= Map parser =//
+
+bool		ft_read_map(t_RT *rt, char *file);
+
+t_FVec3		ft_cy_side_normal(t_FVec3 hit_pos, t_Cylinder cylinder);
+t_FVec3		ft_plane_normal(t_FVec3 plane_dir, t_FVec3 ray_dir);
+t_FVec3		ft_normal_cylinder(t_Ray ray, t_Hit hit);
+t_FVec3		ft_normal_sphere(t_Ray ray, t_Hit hit);
+t_FVec3		ft_normal_plane(t_Ray ray, t_Hit hit);
+float		ft_hit_plane_2(t_Ray *ray, t_FVec3 dir, t_FVec3 pos);
+
+#endif
