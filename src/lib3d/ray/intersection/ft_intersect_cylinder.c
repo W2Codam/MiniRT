@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/04/26 11:30:42 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/05/24 11:12:37 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ bool	ft_hit_cylinder(t_Ray *ray, t_Cylinder *cylinder, t_Hit *out_hit)
 	out_hit->cy_side = false;
 	rotated_ray = ft_rotate_ray(ray, cylinder->center, cylinder->dir);
 	if (!ft_ray_in_right_dir(&rotated_ray, cylinder) || \
-	inside_cylinder(rotated_ray.origin, cylinder))
+			inside_cylinder(rotated_ray.origin, cylinder))
 		return (false);
 	return (hit_cylinder_help(rotated_ray, cylinder, out_hit));
 }

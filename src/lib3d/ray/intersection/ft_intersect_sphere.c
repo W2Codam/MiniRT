@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intersect_sphere.c                              :+:    :+:            */
+/*   ft_intersect_sphere.c                              :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 17:56:15 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/05/23 15:02:23 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/24 11:20:20 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 // https://www.youtube.com/watch?v=HFPlKQGChpE
 bool	ft_hit_sphere(t_Ray *ray, t_Sphere *sphere, t_Hit *out_hit)
 {
-	const float		t = ft_dot_fvec3(ft_sub_fvec3(sphere->center, ray->origin), ray->dir);
+	const float		t = \
+		ft_dot_fvec3(ft_sub_fvec3(sphere->center, ray->origin), ray->dir);
 	const t_FVec3	p = ft_ray_at(ray, t);
 	const float		y = ft_len_fvec3(ft_sub_fvec3(sphere->center, p));
 	const float		x = sqrt((sphere->radius * sphere->radius) - (y * y));
